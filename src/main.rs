@@ -4,17 +4,11 @@ use std::io::{Write, Read, BufReader, BufWriter};
 
 use std::fs::{OpenOptions};
 use std::io::{self, Seek, SeekFrom,  Cursor};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
-struct ArHeader {
-    name: String,
-    timestamp: String,
-    owner_id: String,
-    group_id: String,
-    mode: String,
-    size: usize,
-
-}
+use clap::{Command};
+use std::fs::{self, DirEntry};
+use std::os::unix::fs::MetadataExt;
 
 
 fn main() {
@@ -22,6 +16,9 @@ fn main() {
         .version("0.1.0")
         .author("J Dumont")
         .about("Implements an ar command in Rust")
+        .arg(Arg::new("path")
+            .default_value(".")
+            .help("The path to list"))    
         .arg(Arg::new("A")
              .short('A')
              .takes_value(false)
@@ -194,8 +191,86 @@ fn main() {
     
     } else if matches.is_present("1") {
     
-
     } 
+    let is_r = matches.is_present("r");
+    let path = matches.value_of("path").unwrap();
+    let is_all = matches.is_present("a");
+    let is_long = matches.is_present("l");
+    let is_recursive = matches.is_present("r");
+
+    list_directory(path, is_all, is_long, is_recursive);
 
     // Add further logic here for other commands
+}
+
+fn get_entries(path: &str, all: bool, long: bool, recursive: bool) -> Vec<DirEntry>  {
+    let mut entries :Vec<DirEntry>=Vec::new(); 
+    add_entries(&mut entries, path, all, long, recursive);
+    return entries;
+}
+fn add_entries(entries_vec: &mut Vec<DirEntry>,path: &str, all: bool, long: bool, recursive: bool) {
+    if let Ok(entries) = fs::read_dir(path) {
+        let collected: Vec<_> = entries.filter_map(Result::ok).collect();
+        for entry in collected {        
+                if should_display(&entry, all) {
+                    let p=entry.path();
+                    let name = entry.file_name();
+                    entries_vec.push(entry);
+                    if recursive && p.is_dir() {
+                        // Avoiding infinite loop by not re-listing '.' or '..'
+                        if name != "." && name != ".." {
+                            add_entries(entries_vec, p.to_str().unwrap(), all, long, recursive);
+                        }
+                    }
+                }
+        }
+    } else {
+        eprintln!("Failed to read directory: {}", path);
+    }
+    
+
+}
+fn list_directory(path: &str, all: bool, long: bool, recursive: bool) {
+    let mut entries :Vec<DirEntry>=get_entries(path, all, long, recursive); 
+ 
+     // Sort entries alphabetically and case-insensitively
+     entries.sort_by_key(|entry| entry.file_name().to_string_lossy().to_lowercase());
+
+
+     for entry in entries {
+        display_entry(&entry,long);
+    }
+    print!("\n");
+
+}
+
+fn should_display(entry: &DirEntry, all: bool) -> bool {
+    all || !entry.file_name().to_str().map_or(false, |s| s.starts_with('.'))
+}
+
+fn display_entry(entry: &DirEntry, long: bool) {
+    let file_name2=entry.file_name();
+    let file_name = file_name2.to_string_lossy();  // Convert OsStr to String and keep it alive
+    let display_name = if file_name.starts_with('.') {
+        // Optionally strip the dot for display purposes if you want to handle hidden files specially
+        &file_name[1..]
+    } else {
+        &file_name[..]
+    };
+
+
+    if long {
+        if let Ok(metadata) = entry.metadata() {
+            let size = metadata.len();
+            let modified_time = metadata.modified().unwrap();
+            let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
+            println!("{:<10} {:<20} {}", size, format!("{:?}", modified_time), entry.path().display());
+        } else {
+            println!("Could not read metadata for {}", entry.path().display());
+        }
+    } else {
+    
+      //  println!("{}", file_name);
+      print!("{}\t", file_name);
+    }
 }
