@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap = "3.1.18"
+atty = "0.2.14"
+term_size = "0.3.2"

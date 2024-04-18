@@ -10,7 +10,11 @@ use clap::{Command};
 use std::fs::{self, DirEntry};
 use std::os::unix::fs::MetadataExt;
 
+extern crate atty;
+extern crate term_size;
+use term_size::dimensions;
 
+use atty::Stream;
 fn main() {
     let matches = App::new("Rust ar")
         .version("0.1.0")
@@ -87,11 +91,11 @@ fn main() {
              .short('n')
              .takes_value(false)
              .help("Turn on the -l (ell) option, but when writing the file's owner or group, write the file's numeric UID or GID rather than the user or group name, respectively. Disable the -C, -m, and -x options."))
-             .arg(Arg::new("o")
+        .arg(Arg::new("o")
              .short('o')
              .takes_value(false)
              .help("Turn on the -l (ell) option, but disable writing the file's group name or number. Disable the -C, -m, and -x options."))
-             .arg(Arg::new("p")
+        .arg(Arg::new("p")
              .short('p')
              .takes_value(false)
              .help("Write a <slash> ( '/' ) after each filename if that file is a directory."))
@@ -196,34 +200,51 @@ fn main() {
     let path = matches.value_of("path").unwrap();
     let is_all = matches.is_present("a");
     let is_long = matches.is_present("l");
-    let is_recursive = matches.is_present("r");
+    let is_recursive = matches.is_present("R");
 
     list_directory(path, is_all, is_long, is_recursive);
 
     // Add further logic here for other commands
 }
 
-fn get_entries(path: &str, all: bool, long: bool, recursive: bool) -> Vec<DirEntry>  {
-    let mut entries :Vec<DirEntry>=Vec::new(); 
+struct DirWithList {
+    name:String,
+    entries:Vec<DirEntry>
+}
+fn get_entries(path: &str, all: bool, long: bool, recursive: bool) -> Vec<DirWithList>  {
+    let mut entries :Vec<DirWithList>=Vec::new(); 
+
     add_entries(&mut entries, path, all, long, recursive);
     return entries;
 }
-fn add_entries(entries_vec: &mut Vec<DirEntry>,path: &str, all: bool, long: bool, recursive: bool) {
+fn add_entries(entries_vec: &mut Vec<DirWithList>,path: &str, all: bool, long: bool, recursive: bool) {
+    let mut entr_vec:Vec<DirEntry>=Vec::new();
     if let Ok(entries) = fs::read_dir(path) {
         let collected: Vec<_> = entries.filter_map(Result::ok).collect();
         for entry in collected {        
                 if should_display(&entry, all) {
                     let p=entry.path();
                     let name = entry.file_name();
-                    entries_vec.push(entry);
+                    let pstr=p.to_str().unwrap();
+                    entr_vec.push(entry);
                     if recursive && p.is_dir() {
                         // Avoiding infinite loop by not re-listing '.' or '..'
                         if name != "." && name != ".." {
-                            add_entries(entries_vec, p.to_str().unwrap(), all, long, recursive);
+                            let mut dirs :Vec<DirWithList>=Vec::new(); 
+                            add_entries(&mut dirs, pstr, all, long, recursive);
+                            for dir in dirs{
+                                entries_vec.push(dir);
+                            }
                         }
                     }
                 }
         }
+        let d :DirWithList=DirWithList{
+            name:path.to_string(),
+            entries:entr_vec,
+        };
+     
+        entries_vec.push(d);
     } else {
         eprintln!("Failed to read directory: {}", path);
     }
@@ -231,16 +252,48 @@ fn add_entries(entries_vec: &mut Vec<DirEntry>,path: &str, all: bool, long: bool
 
 }
 fn list_directory(path: &str, all: bool, long: bool, recursive: bool) {
-    let mut entries :Vec<DirEntry>=get_entries(path, all, long, recursive); 
+    let mut dirs :Vec<DirWithList>=get_entries(path, all, long, recursive); 
  
-     // Sort entries alphabetically and case-insensitively
-     entries.sort_by_key(|entry| entry.file_name().to_string_lossy().to_lowercase());
-
-
-     for entry in entries {
-        display_entry(&entry,long);
+    // Sort entries alphabetically and case-insensitively within each directory list
+    for dir in &mut dirs {
+        dir.entries.sort_by_key(|entry| entry.file_name().to_string_lossy().to_lowercase());
     }
-    print!("\n");
+
+      // Sort entries alphabetically and case-insensitively within each directory list
+    dirs.sort_by_key(|dir| dir.name.to_lowercase());
+    
+
+
+    if !recursive {
+        // Access the only element immutably
+        let de = &dirs[0];
+        display_entries(&de.entries, long, recursive);
+     //   for entry in &de.entries {
+       //     display_entry(entry, long,recursive);
+        //}
+   
+   //     print!("\n");
+   //if atty::is(Stream::Stdout) {
+    //print!("\n");
+   // }
+   
+    } else {
+        // Access all elements immutably
+        for dir in dirs {
+            if dir.name!="." {
+                println!("\n{}:", dir.name);
+            }
+            display_entries(&dir.entries, long, recursive);
+            
+            //for entry in &dir.entries {
+              //  display_entry(entry, long,recursive);
+            //}
+//            if atty::is(Stream::Stdout) {
+  //              print!("\n");
+    //        }
+        }
+    }
+
 
 }
 
@@ -248,7 +301,43 @@ fn should_display(entry: &DirEntry, all: bool) -> bool {
     all || !entry.file_name().to_str().map_or(false, |s| s.starts_with('.'))
 }
 
-fn display_entry(entry: &DirEntry, long: bool) {
+fn display_entries(entries: &[DirEntry], long: bool,recursive:bool) {
+    if atty::is(Stream::Stdout) {
+        if let Some((width, _)) = dimensions() {
+            let mut max_len = 0;
+            for entry in entries {
+                let len = entry.file_name().to_string_lossy().len();
+                if len > max_len {
+                    max_len = len;
+                }
+            }
+            let columns = width / (max_len + 8); // +8 for padding and tab space
+            let mut col = 0;
+            for entry in entries {
+                print!("{:<width$}\t", entry.file_name().to_string_lossy(), width = max_len);
+                col += 1;
+                if col >= columns {
+                    println!();
+                    col = 0;
+                }
+            }
+            if col > 0 {
+                println!();
+            }
+        } else {
+            // Fallback if terminal dimensions can't be fetched
+            for entry in entries {
+                println!("{}", entry.file_name().to_string_lossy());
+            }
+        }
+    } else {
+        // Non-TTY output
+        for entry in entries {
+            println!("{}", entry.file_name().to_string_lossy());
+        }
+    }
+}
+fn display_entry(entry: &DirEntry, long: bool,recursive:bool) {
     let file_name2=entry.file_name();
     let file_name = file_name2.to_string_lossy();  // Convert OsStr to String and keep it alive
     let display_name = if file_name.starts_with('.') {
@@ -270,7 +359,23 @@ fn display_entry(entry: &DirEntry, long: bool) {
         }
     } else {
     
+        if recursive {
+            if atty::is(Stream::Stdout) {
+                print!("{}\t\t", file_name);
+                }else{
+                    print!("{}\n", file_name);
+                    
+               }
+    
+        }else{
+            if atty::is(Stream::Stdout) {
+            print!("{}\t", file_name);
+            }else{
+                print!("{}\n", file_name);
+                
+         }
+
+        }
       //  println!("{}", file_name);
-      print!("{}\t", file_name);
     }
 }
