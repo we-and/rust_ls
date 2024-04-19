@@ -10,7 +10,12 @@ use std::path::Path;
 use chrono::{DateTime, Local};
 use std::path::PathBuf;
 use std::time::Duration;
+extern crate xattr;
+use std::io;
 
+use std::fs::File;
+
+use xattr::{FileExt, XAttrs};
 use users::{get_user_by_uid, get_group_by_gid};
 extern crate atty;
 extern crate term_size;
@@ -22,11 +27,12 @@ struct DirEntryData {
     name: String,
     path: String,
     is_dir: bool,
-    is_symlink: bool,
+    is_symlink: Option<bool>,
 
     size: u64,
     modified_time: Duration,
     modified_time_str: Option<String>,
+    symlink_target_name: Option<String>,
 
     permissions: Option<String>,
     nlinks: Option<u64>,
@@ -34,6 +40,7 @@ struct DirEntryData {
     gid: Option<u32>,
     user_name:Option<String>,
     blocks:Option<u64>,
+    has_extended_attributes:Option<bool>,
     group_name:Option<String>,
     file_type: Option<String>,
 }
@@ -233,6 +240,7 @@ fn format_mode(mode: u32) -> String {
     let other = mode_permissions(mode & 7);
     format!("{}{}{}", user, group, other)
 }
+
 fn mode_permissions(perm: u32) -> String {
     let mut perms = String::new();
     perms.push(if perm & 4 != 0 { 'r' } else { '-' });
@@ -240,25 +248,26 @@ fn mode_permissions(perm: u32) -> String {
     perms.push(if perm & 1 != 0 { 'x' } else { '-' });
     perms
 }
-fn mode_permissions2(perm: u32) -> String {
-    let mut perms = String::from("-");
-    if perm & 4 != 0 {
-        perms.push('r');
-    } else {
-        perms.push('-');
+
+
+fn has_extended_attributes<P: AsRef<Path>>(path: P) -> bool {
+    match xattr::list(path.as_ref()) {
+        Ok(mut attrs) => attrs.next().is_some(),
+        Err(_) => false,
     }
-    if perm & 2 != 0 {
-        perms.push('w');
-    } else {
-        perms.push('-');
-    }
-    if perm & 1 != 0 {
-        perms.push('x');
-    } else {
-        perms.push('-');
-    }
-    perms
 }
+fn find_symlink_target(path: &Path) -> io::Result<Option<PathBuf>> {
+    // Check if the path is a symlink
+    let metadata = fs::symlink_metadata(path)?;
+    if metadata.file_type().is_symlink() {
+        // Read the symlink target
+        fs::read_link(path).map(Some)
+    } else {
+        // Path is not a symlink
+        Ok(None)
+    }
+}
+
 fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntryData {
     let path = PathBuf::from(path);
 
@@ -278,16 +287,25 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
         fs::metadata(&path) // Follow symbolic links
     };
 
-    if let Ok(metadata) = metadata {
-        let file_type = metadata.file_type();
-        let is_symlink = file_type.is_symlink();
+    let mut symlink_target_name="".to_string(); 
+    let is_symlink=is_symlink(&path);
 
+    if is_symlink {
+        match find_symlink_target(&path) {
+            Ok(Some(target)) => { symlink_target_name= target.display().to_string();  },
+            Ok(None) => println!("Not a symlink"),
+            Err(e) => println!("Error: {}", e),
+        }
+    }
+
+    if let Ok(metadata) = metadata {
         let size = metadata.len();
         let modified_time = metadata.modified().unwrap();
         let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
 
         if command_settings.do_not_follow_symbolic_links {
             if is_symlink {
+                println!("SYM {}",is_symlink );
                 name = format!("{}@", name)
             } else if is_dir {
                 name = format!("{}/", name)
@@ -296,6 +314,13 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             } else if is_fifo {
                 name = format!("{}|", name)
             }
+        }
+        if command_settings.is_long{
+          
+
+            if is_symlink {
+                      name = format!("{} -> {}", name,symlink_target_name)
+            } 
         }
 
         let file_type = if metadata.file_type().is_dir() {
@@ -321,21 +346,24 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
         let modified = DateTime::<Local>::from(metadata.modified().unwrap());
         let formatted_time = modified.format("%b %d %H:%M").to_string();
 
+        let has_extended_attributes=has_extended_attributes(&path);
         let blocks=metadata.blocks();
         return DirEntryData {
             file_type: Some(file_type.to_string()),
             name: name,
+            has_extended_attributes:Some(has_extended_attributes),
             uid: Some(uid),
             blocks:Some(blocks),
             modified_time_str:Some(formatted_time),
             gid: Some(gid),
             user_name:user_name,
+            symlink_target_name:Some(symlink_target_name),
             group_name:group_name,
             nlinks: Some(nlinks),
             permissions: Some(permissions),
             path: path.display().to_string(),
             is_dir: is_dir,
-            is_symlink: is_symlink,
+            is_symlink: Some(is_symlink),
             modified_time,
             size: size,
         };
@@ -345,8 +373,10 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             permissions: None,
             nlinks: None,
             gid: None,
+            symlink_target_name:None,
             user_name:None,
             group_name:None,
+            has_extended_attributes:None,
             blocks:None,
             file_type: None,
             uid: None,
@@ -354,7 +384,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             name: name,
             path: path.display().to_string(),
             is_dir: is_dir,
-            is_symlink: false,
+            is_symlink: None,
             modified_time: Duration::new(0, 0),
             size: 0,
         };
@@ -363,7 +393,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
 fn get_direntrydata(entry: DirEntry, command_settings: &CommandSettings) -> DirEntryData {
     let mut name = entry.file_name().to_str().unwrap().to_string();
     let path = entry.path().display().to_string();
-    
+    return get_data_by_path(path, command_settings);/* 
     let is_dir = is_directory(&entry.path());
     let is_exe = is_executable(&entry.path());
     let is_fifo = is_fifo(entry.path());
@@ -416,13 +446,15 @@ fn get_direntrydata(entry: DirEntry, command_settings: &CommandSettings) -> DirE
         let group_name = get_group_by_gid(gid).map(|g| g.name().to_string_lossy().into_owned());
 
         let blocks=metadata.blocks();
-
+        let has_extended_attributes=has_extended_attributes(&path);
+    
         return DirEntryData {
             file_type: Some(file_type.to_string()),
             name: name,
             modified_time_str:Some(formatted_time),
             uid: Some(uid),
             gid: Some(gid),
+            has_extended_attributes:Some(has_extended_attributes),
             nlinks: Some(nlinks),
             user_name:user_name,
             blocks:Some(blocks),
@@ -443,6 +475,7 @@ fn get_direntrydata(entry: DirEntry, command_settings: &CommandSettings) -> DirE
             modified_time_str:None,
             file_type: None,
             uid: None,
+            has_extended_attributes:None,
             blocks:None,
             name: name,   user_name:None,
             group_name:None,
@@ -452,7 +485,7 @@ fn get_direntrydata(entry: DirEntry, command_settings: &CommandSettings) -> DirE
             modified_time: Duration::new(0, 0),
             size: 0,
         };
-    }
+    }*/
 }
 fn is_fifo<P: AsRef<Path>>(path: P) -> bool {
     match fs::metadata(path) {
@@ -462,6 +495,10 @@ fn is_fifo<P: AsRef<Path>>(path: P) -> bool {
             false
         }
     }
+}
+fn is_symlink(path: &Path) -> bool {
+    let metadata = fs::symlink_metadata(path).unwrap();
+    return metadata.file_type().is_symlink();
 }
 fn is_executable<P: AsRef<Path>>(path: &P) -> bool {
     let metadata = match fs::metadata(path) {
@@ -552,6 +589,12 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
             .map_or(false, |s| s.starts_with('.'));
         // println!("Check {} {}",name,show);
         return show;
+
+
+
+
+
+
     }
     return !entry
         .file_name()
@@ -565,17 +608,40 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
         for e in entries {
             let b = e.blocks.unwrap();
             total = total + b;
+        
         }
         println!("total {}",total);
+        let max_user_length = entries.iter().map(|e| e.user_name.as_ref().unwrap().len()).max().unwrap_or(0);
+        let max_group_length = entries.iter().map(|e| e.group_name.as_ref().unwrap().len()).max().unwrap_or(0);
+
+        
+
         for e in entries {
+
+            //EXTRA_ATTRIBUTES
+            let mut extr_attr=" ";
+            let has_attr=e.has_extended_attributes.unwrap();
+            if(has_attr){
+                extr_attr="@";
+            }
+
+            let mut name=e.name.to_string();
+/*             //SYMLINK
+            if e.is_symlink.unwrap(){
+                name = "S".to_string();
+//                name = format!("{} -> {}",name,e.symlink_target_name.as_ref()   .unwrap().to_string())
+            }
+*/
+
             println!(
-                "{}{} {:<3} {:<5} {:<5} {:>8} {} {}",
-                e.file_type.as_ref().unwrap(), e.permissions.as_ref().unwrap(), e.nlinks.unwrap(), e.user_name.as_ref().unwrap(),e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), e.name
+                "{}{}{} {} {:width$}  {:width2$}{:>7} {} {}",
+                e.file_type.as_ref().unwrap(),        e.permissions.as_ref().unwrap(),extr_attr , e.nlinks.unwrap(), e.user_name.as_ref().unwrap(),e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), name, width = max_user_length,
+                width2 = max_group_length
             );
             //            println!("{:<10} {:<20} {}", entry.size, format!("{:?}", entry.modified_time), entry.path);
            
         }
-    }
+    }else{
     if atty::is(Stream::Stdout) {
         if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
@@ -609,4 +675,5 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
             println!("{}", entry.name);
         }
     }
+}
 }
