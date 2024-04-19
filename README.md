@@ -27,7 +27,7 @@ An implementation of the unix command ls using Rust.
 | ls -p   | TODO  |
 | ls -q   | TODO  |
 | ls -r   | TODO  |
-| ls -s   | TODO  |
+| ls -s   | 90% unknown sort order  |
 | ls -t   | TODO  |
 | ls -u   | TODO  |
 | ls -x   | TODO  |
