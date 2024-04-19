@@ -57,28 +57,29 @@ struct DirEntryData {
 }
 
 struct CommandSettings {
-    is_sorted_by_status_change_time: bool,
-    is_S: bool,
+    is_C_multicolumn_sorted_down: bool,
+    is_c_use_time_of_last_modification: bool,
+    is_S_sort_by_filesize: bool,
     is_all: bool,
     is_d: bool,
     is_f: bool,
-    is_k: bool,
-    is_i: bool,
-    is_m: bool,
-    is_n: bool,
-    is_p: bool,
-    is_q: bool,
-    is_r: bool,
-    is_s: bool,
-    is_t: bool,
-    is_u: bool,
-    is_o:bool,
-    is_x:bool,
-    is_1:bool,
-    is_g: bool,
-    is_all_excluding_dot: bool,
-    is_long: bool,
-    is_recursive: bool,
+    is_k_set_blocksize: bool,
+    is_i_show_inode: bool,
+    is_m_stream_output: bool,
+    is_n_numeric_gid_uid: bool,
+    is_p_add_slash: bool,
+    is_q_force_nonprintable_as_questionmarks: bool,
+    is_r_reverse_sort_order: bool,
+    is_s_show_system_blocks: bool,
+    is_t_sort_by_time_modified: bool,
+    is_u_use_time_of_last_access: bool,
+    is_o_hide_group:bool,
+    is_x_multicolumn_sorted_across:bool,
+    is_1_single_line_output:bool,
+    is_g_hide_user: bool,
+    is_A_all_including_current_parent: bool,
+    is_l_long: bool,
+    is_R_recursive: bool,
     do_not_follow_symbolic_links: bool,
 }
 struct NamedDirEntriesVec {
@@ -192,15 +193,15 @@ fn run() {
              .short('r')
              .takes_value(false)
              .help("Reverse the order of the sort to get reverse collating sequence oldest first, or smallest file size first depending on the other options given."))
-             .arg(Arg::new("s")
+        .arg(Arg::new("s")
              .short('s')
              .takes_value(false)
              .help("Indicate the total number of file system blocks consumed by each file displayed. If the -k option is also specified, the block size shall be 1024 bytes; otherwise, the block size is implementation-defined."))
-             .arg(Arg::new("t")
+        .arg(Arg::new("t")
              .short('t')
              .takes_value(false)
              .help("Sort with the primary key being time modified (most recently modified first) and the secondary key being filename in the collating sequence. For a symbolic link, the time used as the sort key is that of the symbolic link itself, unless ls is evaluating its file information to be that of the file referenced by the link (see the -H and -L options)."))
-             .arg(Arg::new("u")
+        .arg(Arg::new("u")
              .short('u')
              .takes_value(false)
              .help("Use time of last access (see XBD <sys/stat.h>) instead of last modification of the file for sorting (-t) or writing (-l).
@@ -220,7 +221,7 @@ fn run() {
     //FLAGS
     let path = matches.value_of("path").unwrap();
     let is_all = matches.is_present("a");
-    let is_all_excluding_dot = matches.is_present("A");
+    let is_A_all_sorted = matches.is_present("A");
     let is_long = matches.is_present("l");
     let is_recursive = matches.is_present("R");
     let do_not_follow_symbolic_links = matches.is_present("F");
@@ -239,34 +240,36 @@ fn run() {
     let is_s = matches.is_present("s");
     let is_t = matches.is_present("t");
     let is_u = matches.is_present("u");
-    let is_x = matches.is_present("x");
-    let is_1 = matches.is_present("1");
+    let is_x_multicolumn_sorted_across = matches.is_present("x");
+    let is_1_one_entry_per_line = matches.is_present("1");
     let is_sorting = matches.is_present("S");
-    let is_c = matches.is_present("c");
+    let is_C_multicolumn_sorted_down = matches.is_present("c");
+    let is_c_use_time_of_last_modification = matches.is_present("c");
 
     //COMMAND_SETTINGS
     let mut command_settings = CommandSettings {
-        is_all_excluding_dot: is_all_excluding_dot,
-        is_long: is_long,
-        is_sorted_by_status_change_time: is_c,
-        is_recursive: is_recursive,
-        is_S: is_sorting,
+        is_A_all_including_current_parent: is_A_all_sorted,
+        is_l_long: is_long,
+        is_C_multicolumn_sorted_down:is_C_multicolumn_sorted_down,
+        is_c_use_time_of_last_modification:is_c_use_time_of_last_modification,
+        is_R_recursive: is_recursive,
+        is_S_sort_by_filesize: is_sorting,
         is_d: is_d,
-        is_s: is_s,
+        is_s_show_system_blocks: is_s,
         is_f: is_f,
-        is_n: is_n,
-        is_k: is_k,
-        is_m: is_m,
-        is_o:is_o,
-        is_p:is_p,
-        is_1:is_1,
-        is_q:is_q,
-        is_r:is_r,
-        is_u:is_u,
-        is_x:is_x,
-        is_t:is_t,
-        is_i: is_i,
-        is_g: is_g,
+        is_n_numeric_gid_uid: is_n,
+        is_k_set_blocksize: is_k,
+        is_m_stream_output: is_m,
+        is_o_hide_group:is_o,
+        is_p_add_slash:is_p,
+        is_1_single_line_output:is_1_one_entry_per_line,
+        is_q_force_nonprintable_as_questionmarks:is_q,
+        is_r_reverse_sort_order:is_r,
+        is_u_use_time_of_last_access:is_u,
+        is_x_multicolumn_sorted_across,
+        is_t_sort_by_time_modified:is_t,
+        is_i_show_inode: is_i,
+        is_g_hide_user: is_g,
         is_all: is_all,
         do_not_follow_symbolic_links: do_not_follow_symbolic_links,
     };
@@ -277,16 +280,20 @@ fn run() {
 fn override_settings(command_settings: &mut CommandSettings) {
     if command_settings.is_f {
         (command_settings).is_all = true;
-        (command_settings).is_recursive = false;
-        (command_settings).is_S = false;
+        (command_settings).is_R_recursive = false;
+        (command_settings).is_S_sort_by_filesize = false;
         //    (command_settings).is_t=false;
         //  (command_settings).is_g=false;
         // (command_settings).is_l=false;
         //(command_settings).is_n=false;
     }
-
-    if command_settings.is_m {
-        command_settings.is_long = false;
+    if command_settings.is_o_hide_group{
+        command_settings.is_C_multicolumn_sorted_down=false;
+        command_settings.is_x_multicolumn_sorted_across=false;
+        command_settings.is_m_stream_output=false;
+    }
+    if command_settings.is_m_stream_output {
+        command_settings.is_l_long = false;
     }
 }
 fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
@@ -444,7 +451,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
                 name = format!("{}|", name)
             }
         }
-        if command_settings.is_long {
+        if command_settings.is_l_long {
             if is_symlink {
                 name = format!("{} -> {}", name, symlink_target_name)
             }
@@ -589,7 +596,7 @@ fn add_entries(
 
                 let data = get_direntrydata(entry, command_settings);
                 direntries_data_vec.push(data);
-                if command_settings.is_recursive && p.is_dir() {
+                if command_settings.is_R_recursive && p.is_dir() {
                     // Avoiding infinite loop by not re-listing '.' or '..'
                     if name != "." && name != ".." {
                         let mut dirs: Vec<NamedDirEntriesVec> = Vec::new();
@@ -617,7 +624,7 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
 
     sort_entries(&mut dirs, command_settings);
 
-    if !command_settings.is_recursive {
+    if !command_settings.is_R_recursive {
         // Access the only element immutably
         let de = &dirs[0];
         display_entries(&de.entries, command_settings);
@@ -634,7 +641,7 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
 fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
     if commandsettings.is_f {
         //no sorting, use system order
-    } else if commandsettings.is_sorted_by_status_change_time {
+    } else if commandsettings.is_C_multicolumn_sorted_down {
         // Sort entries alphabetically and case-insensitively within each directory list
         dirs.sort_by_key(|dir| dir.name.to_lowercase());
 
@@ -645,7 +652,7 @@ fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSet
             dir.entries.sort_unstable_by_key(|entry| entry.created_time);
             dir.entries.reverse();
         }
-    } else if !commandsettings.is_S {
+    } else if !commandsettings.is_S_sort_by_filesize {
         //sort by name
 
         // Sort entries alphabetically and case-insensitively within each directory list
@@ -681,7 +688,7 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
         //  let show=true;
         // println!("Check {} {}",name,show);
         return true;
-    } else if commandsettings.is_all_excluding_dot {
+    } else if commandsettings.is_A_all_including_current_parent {
         let show = !entry
             .file_name()
             .to_str()
@@ -738,76 +745,43 @@ fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSetti
 
         let mut name = e.name.to_string();
 
-        if commandsettings.is_g {
-            //hide user
-            if commandsettings.is_n {
-                //show group id instead of name
-                println!(
-                    "{}{}{} {}   {:width2$}{:>7} {} {}",
-                    e.file_type.as_ref().unwrap(),
-                    e.permissions.as_ref().unwrap(),
-                    extr_attr,
-                    e.nlinks.unwrap(),
-                    e.gid.as_ref().unwrap(),
-                    e.size,
-                    e.modified_time_str.as_ref().unwrap(),
-                    name,
-                    width2 = max_group_length
-                );
-            } else {
-                //show group name
-                println!(
-                    "{}{}{} {}   {:width2$}{:>7} {} {}",
-                    e.file_type.as_ref().unwrap(),
-                    e.permissions.as_ref().unwrap(),
-                    extr_attr,
-                    e.nlinks.unwrap(),
-                    e.group_name.as_ref().unwrap(),
-                    e.size,
-                    e.modified_time_str.as_ref().unwrap(),
-                    name,
-                    width2 = max_group_length
-                );
-            }
-        } else {
-            if commandsettings.is_n {
-                println!(
-                    "{}{}{} {} {:width$}  {:width2$}{:>7} {} {}",
-                    e.file_type.as_ref().unwrap(),
-                    e.permissions.as_ref().unwrap(),
-                    extr_attr,
-                    e.nlinks.unwrap(),
-                    e.uid.as_ref().unwrap(),
-                    e.gid.as_ref().unwrap(),
-                    e.size,
-                    e.modified_time_str.as_ref().unwrap(),
-                    name,
-                    width = max_user_length,
-                    width2 = max_group_length
-                );
-            } else {
-                println!(
-                    "{}{}{} {} {:width$}  {:width2$}{:>7} {} {}",
-                    e.file_type.as_ref().unwrap(),
-                    e.permissions.as_ref().unwrap(),
-                    extr_attr,
-                    e.nlinks.unwrap(),
-                    e.user_name.as_ref().unwrap(),
-                    e.group_name.as_ref().unwrap(),
-                    e.size,
-                    e.modified_time_str.as_ref().unwrap(),
-                    name,
-                    width = max_user_length,
-                    width2 = max_group_length
-                );
+        let header=format!(
+            "{}{}{} {}",
+            e.file_type.as_ref().unwrap(),
+            e.permissions.as_ref().unwrap(),
+            extr_attr,
+            e.nlinks.unwrap(),
+        );
+        let footer=format!("{:>7} {} {}", e.size,
+        e.modified_time_str.as_ref().unwrap(),
+        name);
+        let mut row=header.to_string();
+ 
+        if commandsettings.is_g_hide_user {
+        }else{
+            if commandsettings.is_n_numeric_gid_uid {
+                row = format!("{} {:width2$}",row,e.uid.as_ref().unwrap(),      width2 = max_userid_length);
+            }else{
+                row = format!("{} {:width2$}",row,e.user_name.as_ref().unwrap(),      width2 = max_user_length);
             }
         }
+        if commandsettings.is_o_hide_group {
+            
+        }else{
+            if commandsettings.is_n_numeric_gid_uid {
+                row = format!("{}  {:width2$}",row,e.gid.as_ref().unwrap(),      width2 = max_groupid_length);
+            }else{
+                row = format!("{}  {:width2$}",row,e.group_name.as_ref().unwrap(),      width2 = max_group_length);
+            }
+        }
+        row = format!("{} {}",row,footer);
+        println!("{}",row);        
     }
 }
 
 fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if atty::is(Stream::Stdout) {
-        if commandsettings.is_m {
+        if commandsettings.is_m_stream_output {
             let mut file_names = Vec::new();
             for entry in entries {
                 file_names.push(entry.name.as_ref());
@@ -820,11 +794,11 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
             let mut max_len = 0;
             for entry in entries {
                 let mut field = "".to_string();
-                if commandsettings.is_i {
+                if commandsettings.is_i_show_inode {
                     //field = format!("{:<8} {}", entry.inode.unwrap(), entry.name);
                     field=entry.inode_and_name.as_ref().unwrap().to_string();// = field;
-                } else if commandsettings.is_s {
-                    if commandsettings.is_k {
+                } else if commandsettings.is_s_show_system_blocks {
+                    if commandsettings.is_k_set_blocksize {
                         field = format!("{:<8} {}", entry.size_in_blocks.unwrap(), entry.name);
                     } else {
                         field = format!("{:<8} {}", entry.blocks.unwrap(), entry.name);
@@ -845,15 +819,15 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
                 for col in 0..columns {
                     if let Some(entry) = entries.get(col * rows + row) {
                         // Calculate correct index for column-first ordering
-                        if commandsettings.is_i {
+                        if commandsettings.is_i_show_inode {
                             print!(
                                 "{:<width$}",
                                 entry.inode_and_name.as_ref().unwrap().to_string(),
                                 
                                 width = max_len+6
                             );
-                        } else if commandsettings.is_s {
-                            if commandsettings.is_k {
+                        } else if commandsettings.is_s_show_system_blocks {
+                            if commandsettings.is_k_set_blocksize {
                                 print!(
                                     "{:<8} {:<width$}",
                                     entry.size_in_blocks.unwrap(),
@@ -882,7 +856,7 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
             }
         }
     } else {
-        if commandsettings.is_m {
+        if commandsettings.is_m_stream_output {
             let width = 80;
             let mut file_names = Vec::new();
             for entry in entries {
@@ -892,7 +866,7 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
             let wrapped_output = fill(&output, Options::new(width));
 
             println!("{}", wrapped_output);
-        } else if commandsettings.is_i {
+        } else if commandsettings.is_i_show_inode {
             for entry in entries {
                 println!("{:<8} {}", entry.inode.unwrap(), entry.name);
             }
@@ -907,7 +881,7 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
 
 fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     //LONG
-    if commandsettings.is_long || commandsettings.is_g {
+    if commandsettings.is_l_long || commandsettings.is_g_hide_user {
         display_entries_long(entries, commandsettings);
     } else {
         display_entries_normal(entries, commandsettings);

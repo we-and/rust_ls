@@ -45,6 +45,14 @@ fn test_rust_ls_vs_ls_n() {
     assert_eq!(ls_output, rust_ls_output, "Outputs of ls -n and rust_ls -n do not match");
 }
 
+#[test]
+fn test_rust_ls_vs_ls_n() {
+    let args = ["-n"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -n and rust_ls -n do not match");
+}
+
 
 #[test]
 fn test_rust_ls_vs_ls_S() {
