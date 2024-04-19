@@ -559,7 +559,7 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
 }
 fn sort_entries(dirs : &mut Vec<NamedDirEntriesVec>,commandsettings: &CommandSettings ){
     if commandsettings.is_f{
-    //no sorting
+    //no sorting, use system order
     }else     if commandsettings.is_sorted_by_status_change_time{
 
   // Sort entries alphabetically and case-insensitively within each directory list
@@ -577,12 +577,14 @@ fn sort_entries(dirs : &mut Vec<NamedDirEntriesVec>,commandsettings: &CommandSet
 
 
    }else       if !commandsettings.is_sorted_by_size{  //sort by name
-        // Sort entries alphabetically and case-insensitively within each directory list
-        dirs.sort_by_key(|dir| dir.name.to_lowercase());
+
+
+    // Sort entries alphabetically and case-insensitively within each directory list
+        dirs.sort_by_key(|dir| dir.name.to_string());
 
         // Sort entries alphabetically and case-insensitively within each directory list
         for dir in  dirs {
-            dir.entries.sort_by_key(|entry| entry.name.to_lowercase());
+            dir.entries.sort_by_key(|entry| entry.name.to_string());
         }
     
     }else{ //sort by size
