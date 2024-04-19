@@ -127,7 +127,7 @@ pub fn get_command_settings_from_matches(matches : &ArgMatches) -> CommandSettin
     let is_a = matches.is_present("a");
     let is_A = matches.is_present("A");
     let is_l = matches.is_present("l");
-    let is_r = matches.is_present("R");
+    let is_R = matches.is_present("R");
     let is_F = matches.is_present("F");
     let is_d = matches.is_present("d");
     let is_f = matches.is_present("f");
@@ -156,7 +156,7 @@ pub fn get_command_settings_from_matches(matches : &ArgMatches) -> CommandSettin
         is_l_long: is_l,
         is_C_multicolumn_sorted_down:is_C,
         is_c_use_time_of_last_modification:is_c,
-        is_R_recursive: is_r,
+        is_R_recursive: is_R,
         is_S_sort_by_filesize: is_S,
         is_d: is_d,
         is_s_show_system_blocks: is_s,

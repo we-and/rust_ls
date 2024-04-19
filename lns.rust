@@ -1,0 +1,13 @@
+total 152
+32 Cargo.lock
+ 8 Cargo.toml
+ 8 README.md
+ 0 lns.rust
+ 8 lns.unix
+ 0 outputs
+48 rust.out
+ 0 rust.out.symlink
+ 0 src
+ 0 target
+ 0 tests
+48 unix.out

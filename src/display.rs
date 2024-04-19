@@ -4,15 +4,18 @@ use term_size::dimensions;
 
 use atty::{is, Stream};
 
+pub fn print_total_blocks(entries: &[DirEntryData], ){
+    let mut total: u64 = 0;
+    for e in entries {
+        let b = e.blocks.unwrap();
+        total = total + b;
+    }
+    println!("total {}", total);
+}
 pub fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     //print total if not d
-    if !commandsettings.is_d {
-        let mut total: u64 = 0;
-        for e in entries {
-            let b = e.blocks.unwrap();
-            total = total + b;
-        }
-        println!("total {}", total);
+    if !commandsettings.is_d { 
+        print_total_blocks(entries);
     }
 
     let max_user_length = entries
@@ -171,6 +174,18 @@ pub fn display_entries_normal(entries: &[DirEntryData], commandsettings: &Comman
             display_entries_stream(entries, commandsettings);
         } else if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
+
+            if commandsettings.is_s_show_system_blocks { 
+                print_total_blocks(entries);
+            }
+
+            
+            let max_blocks_length = entries
+            .iter()
+            .map(|e| format!("{}", e.blocks.as_ref().unwrap()).len())
+            .max()
+            .unwrap_or(0);
+
             for entry in entries {
                 let mut field = "".to_string();
                 if commandsettings.is_i_show_inode {
@@ -180,7 +195,7 @@ pub fn display_entries_normal(entries: &[DirEntryData], commandsettings: &Comman
                     if commandsettings.is_k_set_blocksize {
                         field = format!("{:<8} {}", entry.size_in_blocks.unwrap(), entry.name);
                     } else {
-                        field = format!("{:<8} {}", entry.blocks.unwrap(), entry.name);
+                        field = format!("{:width$} {}", entry.blocks.unwrap(), entry.name,width=max_blocks_length);
                     }
                 } else {
                     field = format!("{}", entry.name);
@@ -215,10 +230,11 @@ pub fn display_entries_normal(entries: &[DirEntryData], commandsettings: &Comman
                                 );
                             } else {
                                 print!(
-                                    "{:<8} {:<width$}",
+                                    "{:width2$} {:<width$}",
                                     entry.blocks.unwrap(),
                                     entry.name,
-                                    width = max_len
+                                    width2=max_blocks_length,
+                                    width = max_len+max_blocks_length
                                 );
                             }
                         } else {
@@ -240,6 +256,20 @@ pub fn display_entries_normal(entries: &[DirEntryData], commandsettings: &Comman
         } else if commandsettings.is_i_show_inode {
             for entry in entries {
                 println!("{:<8} {}", entry.inode.unwrap(), entry.name);
+            }
+        }else if commandsettings.is_s_show_system_blocks{
+            
+            let max_blocks_length = entries
+            .iter()
+            .map(|e| format!("{}", e.blocks.as_ref().unwrap()).len())
+            .max()
+            .unwrap_or(0);
+
+            
+            print_total_blocks(entries);
+
+            for entry in entries {
+                println!("{:width$} {}", entry.blocks.unwrap(), entry.name,width=max_blocks_length);
             }
         } else {
             

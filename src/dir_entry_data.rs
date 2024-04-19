@@ -17,6 +17,7 @@ pub struct DirEntryData {
     pub   uid: Option<u32>,
     pub   gid: Option<u32>,
     pub   inode_and_name:Option<String>,
+    pub   blocks_and_name:Option<String>,
     pub   inode: Option<u64>,
     pub    user_name: Option<String>,
     pub    blocks: Option<u64>,

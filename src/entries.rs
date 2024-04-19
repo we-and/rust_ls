@@ -165,6 +165,7 @@ fn get_direntrydata_by_path(path: String, command_settings: &CommandSettings) ->
             inode=get_symlink_inode(&path).unwrap();            
         }
         let inode_and_name=format!("{:<8} {}", inode, name.clone().to_string());
+        let blocks_and_name=format!("{:<8} {}", blocks, name.clone().to_string());
 
         if command_settings.is_p_add_slash{
             if is_dir{
@@ -176,6 +177,7 @@ fn get_direntrydata_by_path(path: String, command_settings: &CommandSettings) ->
             file_type: Some(file_type.to_string()),
             name: name,
             inode_and_name:Some(inode_and_name ),
+            blocks_and_name:Some(blocks_and_name ),
             modified_time : Some(metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH)),
             created_time: Some(metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             has_extended_attributes: Some(has_extended_attributes),
@@ -209,6 +211,7 @@ fn get_direntrydata_by_path(path: String, command_settings: &CommandSettings) ->
             user_name: None,
             modified_time:None,
             inode_and_name:None,
+            blocks_and_name:None,
             group_name: None,
             has_extended_attributes: None,
             blocks: None,
@@ -231,7 +234,11 @@ fn add_entries(
     command_settings: &CommandSettings,
 ) {
     let mut direntries_data_vec: Vec<DirEntryData> = Vec::new();
+           
+
     if let Ok(entries) = fs::read_dir(path) {
+
+    
         let collected: Vec<_> = entries.filter_map(Result::ok).collect();
         for entry in collected {
             if should_display(&entry, command_settings) {
