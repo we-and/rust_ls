@@ -18,16 +18,16 @@ An implementation of the unix command ls using Rust.
 | ls -d   | 100%  |
 | ls -f   | TODO  |
 | ls -g   | TODO  |
-| ls -i   | 90% unknown sort order  |
+| ls -i   | 100%  |
 | ls -k   | TODO  |
 | ls -l   | TODO  |
-| ls -m   | TODO  |
+| ls -m   | 100%  |
 | ls -n   | TODO  |
 | ls -o   | TODO  |
 | ls -p   | TODO  |
 | ls -q   | TODO  |
 | ls -r   | TODO  |
-| ls -s   | 90% unknown sort order  |
+| ls -s   | 100%  |
 | ls -t   | TODO  |
 | ls -u   | TODO  |
 | ls -x   | TODO  |
