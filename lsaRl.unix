@@ -1,0 +1,1554 @@
+total 200
+drwxr-xr-x  12 jd  staff    384 Apr 19 08:26 .
+drwxr-xr-x   5 jd  staff    160 Apr 18 18:42 ..
+drwxr-xr-x  13 jd  staff    416 Apr 18 22:54 .git
+-rw-r--r--   1 jd  staff      8 Apr 18 18:42 .gitignore
+-rw-r--r--   1 jd  staff   4154 Apr 18 22:51 Cargo.lock
+-rw-r--r--   1 jd  staff    227 Apr 18 22:51 Cargo.toml
+-rw-r--r--   1 jd  staff  32797 Apr 19 08:26 lsaR.unix
+-rw-r--r--   1 jd  staff      0 Apr 19 08:26 lsaRl.unix
+-rw-r--r--   1 jd  staff  22248 Apr 18 22:54 rust.out
+drwxr-xr-x   3 jd  staff     96 Apr 18 18:42 src
+drwxr-xr-x@  5 jd  staff    160 Apr 18 18:42 target
+-rw-r--r--   1 jd  staff  22248 Apr 18 22:54 unix.out
+
+./.git:
+total 48
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 .
+drwxr-xr-x  12 jd  staff  384 Apr 19 08:26 ..
+-rw-r--r--   1 jd  staff   38 Apr 18 22:54 COMMIT_EDITMSG
+-rw-r--r--   1 jd  staff   95 Apr 19 07:59 FETCH_HEAD
+-rw-r--r--   1 jd  staff   23 Apr 18 18:42 HEAD
+-rw-r--r--   1 jd  staff  342 Apr 18 18:58 config
+-rw-r--r--   1 jd  staff   73 Apr 18 18:42 description
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:42 hooks
+-rw-r--r--   1 jd  staff  557 Apr 18 22:54 index
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:42 info
+drwxr-xr-x   4 jd  staff  128 Apr 18 18:58 logs
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 objects
+drwxr-xr-x   5 jd  staff  160 Apr 18 18:58 refs
+
+./.git/hooks:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:42 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 ..
+-rwxr-xr-x   1 jd  staff  177 Apr 18 18:42 README.sample
+
+./.git/info:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:42 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 ..
+-rw-r--r--   1 jd  staff  113 Apr 18 18:42 exclude
+
+./.git/logs:
+total 8
+drwxr-xr-x   4 jd  staff  128 Apr 18 18:58 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 ..
+-rw-r--r--   1 jd  staff  477 Apr 18 22:54 HEAD
+drwxr-xr-x   4 jd  staff  128 Apr 18 18:58 refs
+
+./.git/logs/refs:
+total 0
+drwxr-xr-x  4 jd  staff  128 Apr 18 18:58 .
+drwxr-xr-x  4 jd  staff  128 Apr 18 18:58 ..
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 heads
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 remotes
+
+./.git/logs/refs/heads:
+total 8
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  4 jd  staff  128 Apr 18 18:58 ..
+-rw-r--r--  1 jd  staff  477 Apr 18 22:54 master
+
+./.git/logs/refs/remotes:
+total 0
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  4 jd  staff  128 Apr 18 18:58 ..
+drwxr-xr-x  4 jd  staff  128 Apr 18 18:58 origin
+
+./.git/logs/refs/remotes/origin:
+total 16
+drwxr-xr-x  4 jd  staff   128 Apr 18 18:58 .
+drwxr-xr-x  3 jd  staff    96 Apr 18 18:58 ..
+-rw-r--r--  1 jd  staff  1264 Apr 19 07:59 HEAD
+-rw-r--r--  1 jd  staff   417 Apr 18 22:54 master
+
+./.git/objects:
+total 0
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 ..
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 11
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 21
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 23
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 3a
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 4d
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 4f
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 54
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 57
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 60
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:54 65
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 6c
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 85
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 a7
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 de
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 ea
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 f3
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 f8
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 info
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 pack
+
+./.git/objects/11:
+total 16
+drwxr-xr-x   3 jd  staff    96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  5510 Apr 18 22:54 3459f66735cf60631f532d172752dac41b39f8
+
+./.git/objects/21:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  164 Apr 18 18:58 2c9c3c8847e01669a27dc1ebe147df1ad474d9
+
+./.git/objects/23:
+total 16
+drwxr-xr-x   3 jd  staff    96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  4691 Apr 18 22:54 0d039b842e30a606261028edcad966aadf76ff
+
+./.git/objects/3a:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  148 Apr 18 21:22 0afac4a2df077abffe0c2acd0300187dd7cc7d
+
+./.git/objects/4d:
+total 8
+drwxr-xr-x   3 jd  staff    96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  1278 Apr 18 18:58 837f48c2dedf42da97f6585c4de8e1c2c0990d
+
+./.git/objects/4f:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  120 Apr 18 18:58 9169d874a7add579db7dacc84214c5e7e5b8ea
+
+./.git/objects/54:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  148 Apr 18 18:58 6757fc3f78950fb383ef56eb750fa498cf8c71
+
+./.git/objects/57:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  188 Apr 18 22:54 49bf0bed523fdac8c6b48a0b68da512f6af6b4
+
+./.git/objects/60:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff   52 Apr 18 18:58 151b76d20b7c25b194e8918478ff9b0da17c51
+
+./.git/objects/65:
+total 16
+drwxr-xr-x   4 jd  staff   128 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff    52 Apr 18 22:54 38d119105ff1377890a002ccce4853f49b779e
+-r--r--r--   1 jd  staff  2825 Apr 18 18:58 419eadf27b0842daac47e6a5975e0ac02e6ff0
+
+./.git/objects/6c:
+total 8
+drwxr-xr-x   3 jd  staff    96 Apr 18 21:22 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  3879 Apr 18 21:22 23244dbcde034965efad4bdb870fba780b2a00
+
+./.git/objects/85:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  177 Apr 18 22:54 072bd813ec551563288c8c7700e2a82d83eab6
+
+./.git/objects/a7:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff   51 Apr 18 21:22 25b96ff7efcfc059e3285793a1f4487b8c696d
+
+./.git/objects/de:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 21:22 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  167 Apr 18 21:22 398a47902d3253b3312b06dea875a461a48651
+
+./.git/objects/ea:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff   23 Apr 18 18:58 8c4bf7f35f6f77f75d92ad8ce8349f6e81ddba
+
+./.git/objects/f3:
+total 8
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  188 Apr 18 22:54 dc4c1079f21a63a9acc13d8d1c547476155ca7
+
+./.git/objects/f8:
+total 8
+drwxr-xr-x   3 jd  staff    96 Apr 18 22:54 .
+drwxr-xr-x  21 jd  staff   672 Apr 19 07:59 ..
+-r--r--r--   1 jd  staff  1348 Apr 18 22:54 a96479cdb6dbd4f97f137e9a4b940d932b7de9
+
+./.git/objects/info:
+total 0
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+
+./.git/objects/pack:
+total 0
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 .
+drwxr-xr-x  21 jd  staff  672 Apr 19 07:59 ..
+
+./.git/refs:
+total 0
+drwxr-xr-x   5 jd  staff  160 Apr 18 18:58 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:54 ..
+drwxr-xr-x   3 jd  staff   96 Apr 18 22:54 heads
+drwxr-xr-x   3 jd  staff   96 Apr 18 18:58 remotes
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 tags
+
+./.git/refs/heads:
+total 8
+drwxr-xr-x  3 jd  staff   96 Apr 18 22:54 .
+drwxr-xr-x  5 jd  staff  160 Apr 18 18:58 ..
+-rw-r--r--  1 jd  staff   41 Apr 18 22:54 master
+
+./.git/refs/remotes:
+total 0
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 .
+drwxr-xr-x  5 jd  staff  160 Apr 18 18:58 ..
+drwxr-xr-x  4 jd  staff  128 Apr 19 07:59 origin
+
+./.git/refs/remotes/origin:
+total 16
+drwxr-xr-x  4 jd  staff  128 Apr 19 07:59 .
+drwxr-xr-x  3 jd  staff   96 Apr 18 18:58 ..
+-rw-r--r--  1 jd  staff   32 Apr 19 07:59 HEAD
+-rw-r--r--  1 jd  staff   41 Apr 18 22:54 master
+
+./.git/refs/tags:
+total 0
+drwxr-xr-x  2 jd  staff   64 Apr 18 18:42 .
+drwxr-xr-x  5 jd  staff  160 Apr 18 18:58 ..
+
+./src:
+total 40
+drwxr-xr-x   3 jd  staff     96 Apr 18 18:42 .
+drwxr-xr-x  12 jd  staff    384 Apr 19 08:26 ..
+-rw-r--r--   1 jd  staff  17739 Apr 19 08:26 main.rs
+
+./target:
+total 16
+drwxr-xr-x@  5 jd  staff   160 Apr 18 18:42 .
+drwxr-xr-x  12 jd  staff   384 Apr 19 08:26 ..
+-rw-r--r--   1 jd  staff  1668 Apr 19 08:21 .rustc_info.json
+-rw-r--r--   1 jd  staff   177 Apr 18 18:42 CACHEDIR.TAG
+drwxr-xr-x  10 jd  staff   320 Apr 19 08:20 debug
+
+./target/debug:
+total 7696
+drwxr-xr-x   10 jd  staff      320 Apr 19 08:20 .
+drwxr-xr-x@   5 jd  staff      160 Apr 18 18:42 ..
+-rw-r--r--    1 jd  staff        0 Apr 18 18:42 .cargo-lock
+drwxr-xr-x   50 jd  staff     1600 Apr 18 22:52 .fingerprint
+drwxr-xr-x    8 jd  staff      256 Apr 18 22:51 build
+drwxr-xr-x  310 jd  staff     9920 Apr 19 08:26 deps
+drwxr-xr-x    2 jd  staff       64 Apr 18 18:42 examples
+drwxr-xr-x   13 jd  staff      416 Apr 18 22:52 incremental
+-rwxr-xr-x    1 jd  staff  3936088 Apr 19 08:20 rust_ls
+-rw-r--r--    1 jd  staff      116 Apr 18 18:57 rust_ls.d
+
+./target/debug/.fingerprint:
+total 0
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 .
+drwxr-xr-x  10 jd  staff   320 Apr 19 08:20 ..
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 atty-3d70cbe487f7e52b
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 atty-ac39f87fec8d178b
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 atty-b0990728a91f9e56
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 atty-b3f9933666195d11
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 autocfg-78e372619f261209
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 bitflags-2803c1c7b16f7108
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 bitflags-efb82dafe6ed53f6
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 clap-42ce178a400294ee
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 clap-5036b00b62db9c46
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 clap-524c63525957a1f7
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 clap-c3535a51ad241865
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 clap_lex-30f395687a8d985e
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 clap_lex-73819af445c1bd91
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 hashbrown-7c1ee9e4c6579cd2
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 hashbrown-a5aa1be9473effa3
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 indexmap-2425285886118ecb
+drwxr-xr-x   4 jd  staff   128 Apr 18 18:43 indexmap-bda339d9545f7e9f
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 indexmap-ce7788e66c6bb86e
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 indexmap-d3139211af06d2db
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 libc-39126bd70556e875
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 libc-3ffa0c5187659c9e
+drwxr-xr-x   4 jd  staff   128 Apr 18 18:43 libc-4c770896ac2de0ae
+drwxr-xr-x   4 jd  staff   128 Apr 18 22:51 libc-59570ab9b9b59c5c
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 libc-6341648aa34e6e7e
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 libc-65abc93ff8a8aa28
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 libc-9b180bf7b5b2e059
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 libc-c7231a5447b9cb3e
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 os_str_bytes-7330e7bc802bc593
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 os_str_bytes-f9166e514b002f37
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:41 rust_ls-229cf62a334e1b1d
+drwxr-xr-x   7 jd  staff   224 Apr 18 18:42 rust_ls-32cad442599031c6
+drwxr-xr-x   7 jd  staff   224 Apr 19 08:26 rust_ls-427d1ca5d22d6bce
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:41 rust_ls-461699d6d6b348a3
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:50 rust_ls-80a2f67afc5b41da
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:48 rust_ls-9d794ac47e1d657b
+drwxr-xr-x   7 jd  staff   224 Apr 19 08:26 rust_ls-b6e46340b94c1832
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:50 rust_ls-d45ac5a4291425a1
+drwxr-xr-x   7 jd  staff   224 Apr 18 22:41 rust_ls-d8a9e1ff85e1078b
+drwxr-xr-x   7 jd  staff   224 Apr 19 08:20 rust_ls-f178c5e07e6c712a
+drwxr-xr-x   7 jd  staff   224 Apr 18 18:42 rust_ls-faacb29819523a63
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 strsim-994749aea14a2f32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 strsim-befa1d6ae1d06d6a
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 term_size-45319c565ffd1bbf
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 term_size-6870b53670c0a9e2
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 termcolor-12cad62eccd69848
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 termcolor-c40a6fd076bafc14
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 textwrap-6b46d13112920d2b
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 textwrap-eb380363cbab3d9b
+
+./target/debug/.fingerprint/atty-3d70cbe487f7e52b:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:52 dep-lib-atty
+-rw-r--r--   1 jd  staff    48 Apr 18 22:52 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:52 lib-atty
+-rw-r--r--   1 jd  staff   408 Apr 18 22:52 lib-atty.json
+
+./target/debug/.fingerprint/atty-ac39f87fec8d178b:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-atty
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-atty
+-rw-r--r--   1 jd  staff   408 Apr 18 18:57 lib-atty.json
+
+./target/debug/.fingerprint/atty-b0990728a91f9e56:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-atty
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-atty
+-rw-r--r--   1 jd  staff   408 Apr 18 18:43 lib-atty.json
+
+./target/debug/.fingerprint/atty-b3f9933666195d11:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:51 dep-lib-atty
+-rw-r--r--   1 jd  staff    48 Apr 18 22:51 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 lib-atty
+-rw-r--r--   1 jd  staff   409 Apr 18 22:51 lib-atty.json
+
+./target/debug/.fingerprint/autocfg-78e372619f261209:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-autocfg
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-autocfg
+-rw-r--r--   1 jd  staff   361 Apr 18 18:43 lib-autocfg.json
+
+./target/debug/.fingerprint/bitflags-2803c1c7b16f7108:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-bitflags
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-bitflags
+-rw-r--r--   1 jd  staff   375 Apr 18 18:43 lib-bitflags.json
+
+./target/debug/.fingerprint/bitflags-efb82dafe6ed53f6:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-bitflags
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-bitflags
+-rw-r--r--   1 jd  staff   375 Apr 18 18:57 lib-bitflags.json
+
+./target/debug/.fingerprint/clap-42ce178a400294ee:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:52 dep-lib-clap
+-rw-r--r--   1 jd  staff    48 Apr 18 22:52 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:52 lib-clap
+-rw-r--r--   1 jd  staff   856 Apr 18 22:52 lib-clap.json
+
+./target/debug/.fingerprint/clap-5036b00b62db9c46:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-clap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-clap
+-rw-r--r--   1 jd  staff   854 Apr 18 18:57 lib-clap.json
+
+./target/debug/.fingerprint/clap-524c63525957a1f7:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:51 dep-lib-clap
+-rw-r--r--   1 jd  staff    48 Apr 18 22:51 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 lib-clap
+-rw-r--r--   1 jd  staff   855 Apr 18 22:51 lib-clap.json
+
+./target/debug/.fingerprint/clap-c3535a51ad241865:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-clap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-clap
+-rw-r--r--   1 jd  staff   854 Apr 18 18:43 lib-clap.json
+
+./target/debug/.fingerprint/clap_lex-30f395687a8d985e:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-clap_lex
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-clap_lex
+-rw-r--r--   1 jd  staff   427 Apr 18 18:43 lib-clap_lex.json
+
+./target/debug/.fingerprint/clap_lex-73819af445c1bd91:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-clap_lex
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-clap_lex
+-rw-r--r--   1 jd  staff   426 Apr 18 18:57 lib-clap_lex.json
+
+./target/debug/.fingerprint/hashbrown-7c1ee9e4c6579cd2:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-hashbrown
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-hashbrown
+-rw-r--r--   1 jd  staff   370 Apr 18 18:57 lib-hashbrown.json
+
+./target/debug/.fingerprint/hashbrown-a5aa1be9473effa3:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-hashbrown
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-hashbrown
+-rw-r--r--   1 jd  staff   370 Apr 18 18:43 lib-hashbrown.json
+
+./target/debug/.fingerprint/indexmap-2425285886118ecb:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-indexmap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-indexmap
+-rw-r--r--   1 jd  staff   498 Apr 18 18:43 lib-indexmap.json
+
+./target/debug/.fingerprint/indexmap-bda339d9545f7e9f:
+total 16
+drwxr-xr-x   4 jd  staff   128 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 run-build-script-build-script-build
+-rw-r--r--   1 jd  staff   341 Apr 18 18:43 run-build-script-build-script-build.json
+
+./target/debug/.fingerprint/indexmap-ce7788e66c6bb86e:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-indexmap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-indexmap
+-rw-r--r--   1 jd  staff   499 Apr 18 18:57 lib-indexmap.json
+
+./target/debug/.fingerprint/indexmap-d3139211af06d2db:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 build-script-build-script-build
+-rw-r--r--   1 jd  staff   447 Apr 18 18:43 build-script-build-script-build.json
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-build-script-build-script-build
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+
+./target/debug/.fingerprint/libc-39126bd70556e875:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:51 dep-lib-libc
+-rw-r--r--   1 jd  staff    48 Apr 18 22:51 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 lib-libc
+-rw-r--r--   1 jd  staff   444 Apr 18 22:51 lib-libc.json
+
+./target/debug/.fingerprint/libc-3ffa0c5187659c9e:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-libc
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-libc
+-rw-r--r--   1 jd  staff   425 Apr 18 18:43 lib-libc.json
+
+./target/debug/.fingerprint/libc-4c770896ac2de0ae:
+total 16
+drwxr-xr-x   4 jd  staff   128 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 run-build-script-build-script-build
+-rw-r--r--   1 jd  staff   339 Apr 18 18:43 run-build-script-build-script-build.json
+
+./target/debug/.fingerprint/libc-59570ab9b9b59c5c:
+total 16
+drwxr-xr-x   4 jd  staff   128 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 run-build-script-build-script-build
+-rw-r--r--   1 jd  staff   338 Apr 18 22:51 run-build-script-build-script-build.json
+
+./target/debug/.fingerprint/libc-6341648aa34e6e7e:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 build-script-build-script-build
+-rw-r--r--   1 jd  staff   396 Apr 18 22:51 build-script-build-script-build.json
+-rw-r--r--   1 jd  staff     8 Apr 18 22:51 dep-build-script-build-script-build
+-rw-r--r--   1 jd  staff    48 Apr 18 22:51 invoked.timestamp
+
+./target/debug/.fingerprint/libc-65abc93ff8a8aa28:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-libc
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-libc
+-rw-r--r--   1 jd  staff   425 Apr 18 18:57 lib-libc.json
+
+./target/debug/.fingerprint/libc-9b180bf7b5b2e059:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 build-script-build-script-build
+-rw-r--r--   1 jd  staff   376 Apr 18 18:43 build-script-build-script-build.json
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-build-script-build-script-build
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+
+./target/debug/.fingerprint/libc-c7231a5447b9cb3e:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:52 dep-lib-libc
+-rw-r--r--   1 jd  staff    48 Apr 18 22:52 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:52 lib-libc
+-rw-r--r--   1 jd  staff   444 Apr 18 22:52 lib-libc.json
+
+./target/debug/.fingerprint/os_str_bytes-7330e7bc802bc593:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-os_str_bytes
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-os_str_bytes
+-rw-r--r--   1 jd  staff   385 Apr 18 18:43 lib-os_str_bytes.json
+
+./target/debug/.fingerprint/os_str_bytes-f9166e514b002f37:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-os_str_bytes
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-os_str_bytes
+-rw-r--r--   1 jd  staff   385 Apr 18 18:57 lib-os_str_bytes.json
+
+./target/debug/.fingerprint/rust_ls-229cf62a334e1b1d:
+total 72
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:41 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     16 Apr 18 22:41 bin-rust_ls
+-rw-r--r--   1 jd  staff    416 Apr 18 22:41 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 18 22:41 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:41 invoked.timestamp
+-rw-r--r--   1 jd  staff  18144 Apr 18 22:41 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-32cad442599031c6:
+total 40
+drwxr-xr-x   7 jd  staff   224 Apr 18 18:42 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff    24 Apr 18 18:42 dep-test-bin-rust_ls
+-rw-r--r--   1 jd  staff    48 Apr 18 18:42 invoked.timestamp
+-rw-r--r--   1 jd  staff  5496 Apr 18 18:42 output-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     0 Apr 18 18:42 test-bin-rust_ls
+-rw-r--r--   1 jd  staff   365 Apr 18 18:42 test-bin-rust_ls.json
+
+./target/debug/.fingerprint/rust_ls-427d1ca5d22d6bce:
+total 96
+drwxr-xr-x   7 jd  staff    224 Apr 19 08:26 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     16 Apr 19 08:26 bin-rust_ls
+-rw-r--r--   1 jd  staff    534 Apr 19 08:26 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 19 08:26 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 19 08:26 invoked.timestamp
+-rw-r--r--   1 jd  staff  30147 Apr 19 08:26 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-461699d6d6b348a3:
+total 72
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:41 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     16 Apr 18 22:41 bin-rust_ls
+-rw-r--r--   1 jd  staff    415 Apr 18 22:41 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 18 22:41 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:41 invoked.timestamp
+-rw-r--r--   1 jd  staff  18144 Apr 18 22:41 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-80a2f67afc5b41da:
+total 64
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:50 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     24 Apr 18 22:48 dep-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:50 invoked.timestamp
+-rw-r--r--   1 jd  staff  17027 Apr 18 22:50 output-test-bin-rust_ls
+-rw-r--r--   1 jd  staff      0 Apr 18 22:50 test-bin-rust_ls
+-rw-r--r--   1 jd  staff    477 Apr 18 22:48 test-bin-rust_ls.json
+
+./target/debug/.fingerprint/rust_ls-9d794ac47e1d657b:
+total 72
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:48 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     16 Apr 18 22:48 bin-rust_ls
+-rw-r--r--   1 jd  staff    470 Apr 18 22:48 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 18 22:48 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:48 invoked.timestamp
+-rw-r--r--   1 jd  staff  18144 Apr 18 22:48 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-b6e46340b94c1832:
+total 96
+drwxr-xr-x   7 jd  staff    224 Apr 19 08:26 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     24 Apr 19 08:26 dep-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 19 08:26 invoked.timestamp
+-rw-r--r--   1 jd  staff  30147 Apr 19 08:26 output-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     16 Apr 19 08:26 test-bin-rust_ls
+-rw-r--r--   1 jd  staff    539 Apr 19 08:26 test-bin-rust_ls.json
+
+./target/debug/.fingerprint/rust_ls-d45ac5a4291425a1:
+total 64
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:50 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff      0 Apr 18 22:50 bin-rust_ls
+-rw-r--r--   1 jd  staff    472 Apr 18 22:48 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 18 22:48 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:50 invoked.timestamp
+-rw-r--r--   1 jd  staff  17027 Apr 18 22:50 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-d8a9e1ff85e1078b:
+total 72
+drwxr-xr-x   7 jd  staff    224 Apr 18 22:41 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     24 Apr 18 22:41 dep-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 18 22:41 invoked.timestamp
+-rw-r--r--   1 jd  staff  18144 Apr 18 22:41 output-test-bin-rust_ls
+-rw-r--r--   1 jd  staff     16 Apr 18 22:41 test-bin-rust_ls
+-rw-r--r--   1 jd  staff    421 Apr 18 22:41 test-bin-rust_ls.json
+
+./target/debug/.fingerprint/rust_ls-f178c5e07e6c712a:
+total 96
+drwxr-xr-x   7 jd  staff    224 Apr 19 08:20 .
+drwxr-xr-x  50 jd  staff   1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     16 Apr 19 08:20 bin-rust_ls
+-rw-r--r--   1 jd  staff    534 Apr 19 08:20 bin-rust_ls.json
+-rw-r--r--   1 jd  staff     24 Apr 19 08:20 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff     48 Apr 19 08:20 invoked.timestamp
+-rw-r--r--   1 jd  staff  30147 Apr 19 08:20 output-bin-rust_ls
+
+./target/debug/.fingerprint/rust_ls-faacb29819523a63:
+total 40
+drwxr-xr-x   7 jd  staff   224 Apr 18 18:42 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     0 Apr 18 18:42 bin-rust_ls
+-rw-r--r--   1 jd  staff   360 Apr 18 18:42 bin-rust_ls.json
+-rw-r--r--   1 jd  staff    24 Apr 18 18:42 dep-bin-rust_ls
+-rw-r--r--   1 jd  staff    48 Apr 18 18:42 invoked.timestamp
+-rw-r--r--   1 jd  staff  5496 Apr 18 18:42 output-bin-rust_ls
+
+./target/debug/.fingerprint/strsim-994749aea14a2f32:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-strsim
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-strsim
+-rw-r--r--   1 jd  staff   360 Apr 18 18:57 lib-strsim.json
+
+./target/debug/.fingerprint/strsim-befa1d6ae1d06d6a:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-strsim
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-strsim
+-rw-r--r--   1 jd  staff   360 Apr 18 18:43 lib-strsim.json
+
+./target/debug/.fingerprint/term_size-45319c565ffd1bbf:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:52 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:52 dep-lib-term_size
+-rw-r--r--   1 jd  staff    48 Apr 18 22:52 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:52 lib-term_size
+-rw-r--r--   1 jd  staff   429 Apr 18 22:52 lib-term_size.json
+
+./target/debug/.fingerprint/term_size-6870b53670c0a9e2:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 22:51 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 22:51 dep-lib-term_size
+-rw-r--r--   1 jd  staff    48 Apr 18 22:51 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 22:51 lib-term_size
+-rw-r--r--   1 jd  staff   430 Apr 18 22:51 lib-term_size.json
+
+./target/debug/.fingerprint/termcolor-12cad62eccd69848:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-termcolor
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-termcolor
+-rw-r--r--   1 jd  staff   363 Apr 18 18:43 lib-termcolor.json
+
+./target/debug/.fingerprint/termcolor-c40a6fd076bafc14:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-termcolor
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-termcolor
+-rw-r--r--   1 jd  staff   363 Apr 18 18:57 lib-termcolor.json
+
+./target/debug/.fingerprint/textwrap-6b46d13112920d2b:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:43 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:43 dep-lib-textwrap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:43 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:43 lib-textwrap
+-rw-r--r--   1 jd  staff   363 Apr 18 18:43 lib-textwrap.json
+
+./target/debug/.fingerprint/textwrap-eb380363cbab3d9b:
+total 32
+drwxr-xr-x   6 jd  staff   192 Apr 18 18:57 .
+drwxr-xr-x  50 jd  staff  1600 Apr 18 22:52 ..
+-rw-r--r--   1 jd  staff     8 Apr 18 18:57 dep-lib-textwrap
+-rw-r--r--   1 jd  staff    48 Apr 18 18:57 invoked.timestamp
+-rw-r--r--   1 jd  staff    16 Apr 18 18:57 lib-textwrap
+-rw-r--r--   1 jd  staff   363 Apr 18 18:57 lib-textwrap.json
+
+./target/debug/build:
+total 0
+drwxr-xr-x   8 jd  staff  256 Apr 18 22:51 .
+drwxr-xr-x  10 jd  staff  320 Apr 19 08:20 ..
+drwxr-xr-x   7 jd  staff  224 Apr 18 18:43 indexmap-bda339d9545f7e9f
+drwxr-xr-x   5 jd  staff  160 Apr 19 08:26 indexmap-d3139211af06d2db
+drwxr-xr-x   7 jd  staff  224 Apr 18 18:43 libc-4c770896ac2de0ae
+drwxr-xr-x   7 jd  staff  224 Apr 18 22:51 libc-59570ab9b9b59c5c
+drwxr-xr-x   5 jd  staff  160 Apr 19 08:26 libc-6341648aa34e6e7e
+drwxr-xr-x   5 jd  staff  160 Apr 18 22:50 libc-9b180bf7b5b2e059
+
+./target/debug/build/indexmap-bda339d9545f7e9f:
+total 24
+drwxr-xr-x  7 jd  staff  224 Apr 18 18:43 .
+drwxr-xr-x  8 jd  staff  256 Apr 18 22:51 ..
+-rw-r--r--  1 jd  staff   48 Apr 18 18:43 invoked.timestamp
+drwxr-xr-x  2 jd  staff   64 Apr 18 18:43 out
+-rw-r--r--  1 jd  staff   56 Apr 18 18:43 output
+-rw-r--r--  1 jd  staff   89 Apr 18 18:43 root-output
+-rw-r--r--  1 jd  staff    0 Apr 18 18:43 stderr
+
+./target/debug/build/indexmap-bda339d9545f7e9f/out:
+total 0
+drwxr-xr-x  2 jd  staff   64 Apr 18 18:43 .
+drwxr-xr-x  7 jd  staff  224 Apr 18 18:43 ..
+
+./target/debug/build/indexmap-d3139211af06d2db:
+total 2456
+drwxr-xr-x  5 jd  staff     160 Apr 19 08:26 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:51 ..
+-rwxr-xr-x  1 jd  staff  625280 Apr 18 18:43 build-script-build
+-rwxr-xr-x  1 jd  staff  625280 Apr 18 18:43 build_script_build-d3139211af06d2db
+-rw-r--r--  1 jd  staff     512 Apr 18 18:43 build_script_build-d3139211af06d2db.d
+
+./target/debug/build/libc-4c770896ac2de0ae:
+total 24
+drwxr-xr-x  7 jd  staff  224 Apr 18 18:43 .
+drwxr-xr-x  8 jd  staff  256 Apr 18 22:51 ..
+-rw-r--r--  1 jd  staff   48 Apr 18 18:43 invoked.timestamp
+drwxr-xr-x  2 jd  staff   64 Apr 18 18:43 out
+-rw-r--r--  1 jd  staff  491 Apr 18 18:43 output
+-rw-r--r--  1 jd  staff   85 Apr 18 18:43 root-output
+-rw-r--r--  1 jd  staff    0 Apr 18 18:43 stderr
+
+./target/debug/build/libc-4c770896ac2de0ae/out:
+total 0
+drwxr-xr-x  2 jd  staff   64 Apr 18 18:43 .
+drwxr-xr-x  7 jd  staff  224 Apr 18 18:43 ..
+
+./target/debug/build/libc-59570ab9b9b59c5c:
+total 24
+drwxr-xr-x  7 jd  staff  224 Apr 18 22:51 .
+drwxr-xr-x  8 jd  staff  256 Apr 18 22:51 ..
+-rw-r--r--  1 jd  staff   48 Apr 18 22:51 invoked.timestamp
+drwxr-xr-x  2 jd  staff   64 Apr 18 22:51 out
+-rw-r--r--  1 jd  staff  491 Apr 18 22:51 output
+-rw-r--r--  1 jd  staff   85 Apr 18 22:51 root-output
+-rw-r--r--  1 jd  staff    0 Apr 18 22:51 stderr
+
+./target/debug/build/libc-59570ab9b9b59c5c/out:
+total 0
+drwxr-xr-x  2 jd  staff   64 Apr 18 22:51 .
+drwxr-xr-x  7 jd  staff  224 Apr 18 22:51 ..
+
+./target/debug/build/libc-6341648aa34e6e7e:
+total 2136
+drwxr-xr-x  5 jd  staff     160 Apr 19 08:26 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:51 ..
+-rwxr-xr-x  1 jd  staff  542000 Apr 18 22:51 build-script-build
+-rwxr-xr-x  1 jd  staff  542000 Apr 18 22:51 build_script_build-6341648aa34e6e7e
+-rw-r--r--  1 jd  staff     498 Apr 18 22:51 build_script_build-6341648aa34e6e7e.d
+
+./target/debug/build/libc-9b180bf7b5b2e059:
+total 2136
+drwxr-xr-x  5 jd  staff     160 Apr 18 22:50 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:51 ..
+-rwxr-xr-x  1 jd  staff  542000 Apr 18 18:43 build-script-build
+-rwxr-xr-x  1 jd  staff  542000 Apr 18 18:43 build_script_build-9b180bf7b5b2e059
+-rw-r--r--  1 jd  staff     498 Apr 18 18:43 build_script_build-9b180bf7b5b2e059.d
+
+./target/debug/deps:
+total 207224
+drwxr-xr-x  310 jd  staff      9920 Apr 19 08:26 .
+drwxr-xr-x   10 jd  staff       320 Apr 19 08:20 ..
+-rw-r--r--    1 jd  staff      3176 Apr 18 22:52 atty-3d70cbe487f7e52b.atty.90ae36afed53f8bb-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff       613 Apr 18 22:52 atty-3d70cbe487f7e52b.d
+-rw-r--r--    1 jd  staff      3176 Apr 18 18:57 atty-ac39f87fec8d178b.atty.c3eb18b438752434-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff       613 Apr 18 18:57 atty-ac39f87fec8d178b.d
+-rw-r--r--    1 jd  staff       436 Apr 18 18:43 atty-b0990728a91f9e56.d
+-rw-r--r--    1 jd  staff       436 Apr 18 22:51 atty-b3f9933666195d11.d
+-rw-r--r--    1 jd  staff      1360 Apr 18 18:43 autocfg-78e372619f261209.d
+-rw-r--r--    1 jd  staff       453 Apr 18 18:43 bitflags-2803c1c7b16f7108.d
+-rw-r--r--    1 jd  staff       912 Apr 18 18:57 bitflags-efb82dafe6ed53f6.bitflags.f2f8af48eba290e5-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff       637 Apr 18 18:57 bitflags-efb82dafe6ed53f6.d
+-rw-r--r--    1 jd  staff   1456160 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.00.rcgu.o
+-rw-r--r--    1 jd  staff   1045584 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.01.rcgu.o
+-rw-r--r--    1 jd  staff    602624 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.02.rcgu.o
+-rw-r--r--    1 jd  staff    559992 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.03.rcgu.o
+-rw-r--r--    1 jd  staff   1190472 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.04.rcgu.o
+-rw-r--r--    1 jd  staff    687696 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.05.rcgu.o
+-rw-r--r--    1 jd  staff    647240 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.06.rcgu.o
+-rw-r--r--    1 jd  staff    643280 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.07.rcgu.o
+-rw-r--r--    1 jd  staff    817176 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.08.rcgu.o
+-rw-r--r--    1 jd  staff    868792 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.09.rcgu.o
+-rw-r--r--    1 jd  staff    759224 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.10.rcgu.o
+-rw-r--r--    1 jd  staff   1335328 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.11.rcgu.o
+-rw-r--r--    1 jd  staff    637208 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.12.rcgu.o
+-rw-r--r--    1 jd  staff    527056 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.13.rcgu.o
+-rw-r--r--    1 jd  staff    484112 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.14.rcgu.o
+-rw-r--r--    1 jd  staff    629736 Apr 18 22:52 clap-42ce178a400294ee.clap.65ac193e21e10eb6-cgu.15.rcgu.o
+-rw-r--r--    1 jd  staff     17925 Apr 18 22:52 clap-42ce178a400294ee.d
+-rw-r--r--    1 jd  staff   1456160 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.00.rcgu.o
+-rw-r--r--    1 jd  staff   1045584 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.01.rcgu.o
+-rw-r--r--    1 jd  staff    602632 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.02.rcgu.o
+-rw-r--r--    1 jd  staff    559992 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.03.rcgu.o
+-rw-r--r--    1 jd  staff   1190472 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.04.rcgu.o
+-rw-r--r--    1 jd  staff    687696 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.05.rcgu.o
+-rw-r--r--    1 jd  staff    644416 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.06.rcgu.o
+-rw-r--r--    1 jd  staff    643280 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.07.rcgu.o
+-rw-r--r--    1 jd  staff    819912 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.08.rcgu.o
+-rw-r--r--    1 jd  staff    868792 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.09.rcgu.o
+-rw-r--r--    1 jd  staff    749408 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.10.rcgu.o
+-rw-r--r--    1 jd  staff   1319656 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.11.rcgu.o
+-rw-r--r--    1 jd  staff    656064 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.12.rcgu.o
+-rw-r--r--    1 jd  staff    528416 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.13.rcgu.o
+-rw-r--r--    1 jd  staff    490376 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.14.rcgu.o
+-rw-r--r--    1 jd  staff    629736 Apr 18 18:57 clap-5036b00b62db9c46.clap.38ed6d143cdc0788-cgu.15.rcgu.o
+-rw-r--r--    1 jd  staff     17925 Apr 18 18:57 clap-5036b00b62db9c46.d
+-rw-r--r--    1 jd  staff     13431 Apr 18 22:51 clap-524c63525957a1f7.d
+-rw-r--r--    1 jd  staff     13431 Apr 18 18:43 clap-c3535a51ad241865.d
+-rw-r--r--    1 jd  staff       453 Apr 18 18:43 clap_lex-30f395687a8d985e.d
+-rw-r--r--    1 jd  staff    270672 Apr 18 18:57 clap_lex-73819af445c1bd91.clap_lex.b8e3ad05b887a4ab-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff    209168 Apr 18 18:57 clap_lex-73819af445c1bd91.clap_lex.b8e3ad05b887a4ab-cgu.1.rcgu.o
+-rw-r--r--    1 jd  staff       637 Apr 18 18:57 clap_lex-73819af445c1bd91.d
+-rw-r--r--    1 jd  staff      4161 Apr 18 18:57 hashbrown-7c1ee9e4c6579cd2.d
+-rw-r--r--    1 jd  staff     10448 Apr 18 18:57 hashbrown-7c1ee9e4c6579cd2.hashbrown.98d12ea9d8745fa7-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff      3098 Apr 18 18:43 hashbrown-a5aa1be9473effa3.d
+-rw-r--r--    1 jd  staff      2985 Apr 18 18:43 indexmap-2425285886118ecb.d
+-rw-r--r--    1 jd  staff      4010 Apr 18 18:57 indexmap-ce7788e66c6bb86e.d
+-rw-r--r--    1 jd  staff     40520 Apr 18 18:57 indexmap-ce7788e66c6bb86e.indexmap.94a3153d87c993ca-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff     10072 Apr 18 22:52 libatty-3d70cbe487f7e52b.rlib
+-rw-r--r--    1 jd  staff      6206 Apr 18 22:52 libatty-3d70cbe487f7e52b.rmeta
+-rw-r--r--    1 jd  staff     10072 Apr 18 18:57 libatty-ac39f87fec8d178b.rlib
+-rw-r--r--    1 jd  staff      6206 Apr 18 18:57 libatty-ac39f87fec8d178b.rmeta
+-rw-r--r--    1 jd  staff      5502 Apr 18 18:43 libatty-b0990728a91f9e56.rmeta
+-rw-r--r--    1 jd  staff      5506 Apr 18 22:51 libatty-b3f9933666195d11.rmeta
+-rw-r--r--    1 jd  staff    358768 Apr 18 18:43 libautocfg-78e372619f261209.rlib
+-rw-r--r--    1 jd  staff     65970 Apr 18 18:43 libautocfg-78e372619f261209.rmeta
+-rw-r--r--    1 jd  staff     43384 Apr 18 18:43 libbitflags-2803c1c7b16f7108.rmeta
+-rw-r--r--    1 jd  staff     44912 Apr 18 18:57 libbitflags-efb82dafe6ed53f6.rlib
+-rw-r--r--    1 jd  staff     43384 Apr 18 18:57 libbitflags-efb82dafe6ed53f6.rmeta
+-rw-r--r--    1 jd  staff      3506 Apr 18 22:51 libc-39126bd70556e875.d
+-rw-r--r--    1 jd  staff      3506 Apr 18 18:43 libc-3ffa0c5187659c9e.d
+-rw-r--r--    1 jd  staff      4703 Apr 18 18:57 libc-65abc93ff8a8aa28.d
+-rw-r--r--    1 jd  staff    140064 Apr 18 18:57 libc-65abc93ff8a8aa28.libc.35c540ef18dd2f9d-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff      4703 Apr 18 22:52 libc-c7231a5447b9cb3e.d
+-rw-r--r--    1 jd  staff    140064 Apr 18 22:52 libc-c7231a5447b9cb3e.libc.201edfe74a93cc25-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff  15839592 Apr 18 22:52 libclap-42ce178a400294ee.rlib
+-rw-r--r--    1 jd  staff   2261144 Apr 18 22:52 libclap-42ce178a400294ee.rmeta
+-rw-r--r--    1 jd  staff  15840640 Apr 18 18:57 libclap-5036b00b62db9c46.rlib
+-rw-r--r--    1 jd  staff   2261273 Apr 18 18:57 libclap-5036b00b62db9c46.rmeta
+-rw-r--r--    1 jd  staff   1750912 Apr 18 22:51 libclap-524c63525957a1f7.rmeta
+-rw-r--r--    1 jd  staff   1750995 Apr 18 18:43 libclap-c3535a51ad241865.rmeta
+-rw-r--r--    1 jd  staff     39045 Apr 18 18:43 libclap_lex-30f395687a8d985e.rmeta
+-rw-r--r--    1 jd  staff    555760 Apr 18 18:57 libclap_lex-73819af445c1bd91.rlib
+-rw-r--r--    1 jd  staff     51024 Apr 18 18:57 libclap_lex-73819af445c1bd91.rmeta
+-rw-r--r--    1 jd  staff    982784 Apr 18 18:57 libhashbrown-7c1ee9e4c6579cd2.rlib
+-rw-r--r--    1 jd  staff    971556 Apr 18 18:57 libhashbrown-7c1ee9e4c6579cd2.rmeta
+-rw-r--r--    1 jd  staff    701082 Apr 18 18:43 libhashbrown-a5aa1be9473effa3.rmeta
+-rw-r--r--    1 jd  staff    404335 Apr 18 18:43 libindexmap-2425285886118ecb.rmeta
+-rw-r--r--    1 jd  staff    607896 Apr 18 18:57 libindexmap-ce7788e66c6bb86e.rlib
+-rw-r--r--    1 jd  staff    564893 Apr 18 18:57 libindexmap-ce7788e66c6bb86e.rmeta
+-rw-r--r--    1 jd  staff   1666913 Apr 18 22:51 liblibc-39126bd70556e875.rmeta
+-rw-r--r--    1 jd  staff   1666079 Apr 18 18:43 liblibc-3ffa0c5187659c9e.rmeta
+-rw-r--r--    1 jd  staff   1872568 Apr 18 18:57 liblibc-65abc93ff8a8aa28.rlib
+-rw-r--r--    1 jd  staff   1711583 Apr 18 18:57 liblibc-65abc93ff8a8aa28.rmeta
+-rw-r--r--    1 jd  staff   1873424 Apr 18 22:52 liblibc-c7231a5447b9cb3e.rlib
+-rw-r--r--    1 jd  staff   1712438 Apr 18 22:52 liblibc-c7231a5447b9cb3e.rmeta
+-rw-r--r--    1 jd  staff    189575 Apr 18 18:43 libos_str_bytes-7330e7bc802bc593.rmeta
+-rw-r--r--    1 jd  staff    405056 Apr 18 18:57 libos_str_bytes-f9166e514b002f37.rlib
+-rw-r--r--    1 jd  staff    235922 Apr 18 18:57 libos_str_bytes-f9166e514b002f37.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 22:41 librust_ls-229cf62a334e1b1d.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 18:42 librust_ls-32cad442599031c6.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 19 08:26 librust_ls-427d1ca5d22d6bce.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 22:48 librust_ls-80a2f67afc5b41da.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 19 08:26 librust_ls-b6e46340b94c1832.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 22:48 librust_ls-d45ac5a4291425a1.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 22:41 librust_ls-d8a9e1ff85e1078b.rmeta
+-rw-r--r--    1 jd  staff         0 Apr 18 18:42 librust_ls-faacb29819523a63.rmeta
+-rw-r--r--    1 jd  staff   1094264 Apr 18 18:57 libstrsim-994749aea14a2f32.rlib
+-rw-r--r--    1 jd  staff     55212 Apr 18 18:57 libstrsim-994749aea14a2f32.rmeta
+-rw-r--r--    1 jd  staff     22735 Apr 18 18:43 libstrsim-befa1d6ae1d06d6a.rmeta
+-rw-r--r--    1 jd  staff     33512 Apr 18 22:52 libterm_size-45319c565ffd1bbf.rlib
+-rw-r--r--    1 jd  staff     12470 Apr 18 22:52 libterm_size-45319c565ffd1bbf.rmeta
+-rw-r--r--    1 jd  staff     12445 Apr 18 22:51 libterm_size-6870b53670c0a9e2.rmeta
+-rw-r--r--    1 jd  staff    154949 Apr 18 18:43 libtermcolor-12cad62eccd69848.rmeta
+-rw-r--r--    1 jd  staff    816704 Apr 18 18:57 libtermcolor-c40a6fd076bafc14.rlib
+-rw-r--r--    1 jd  staff    260565 Apr 18 18:57 libtermcolor-c40a6fd076bafc14.rmeta
+-rw-r--r--    1 jd  staff    139762 Apr 18 18:43 libtextwrap-6b46d13112920d2b.rmeta
+-rw-r--r--    1 jd  staff   1261272 Apr 18 18:57 libtextwrap-eb380363cbab3d9b.rlib
+-rw-r--r--    1 jd  staff    177728 Apr 18 18:57 libtextwrap-eb380363cbab3d9b.rmeta
+-rw-r--r--    1 jd  staff      1942 Apr 18 18:43 os_str_bytes-7330e7bc802bc593.d
+-rw-r--r--    1 jd  staff      2622 Apr 18 18:57 os_str_bytes-f9166e514b002f37.d
+-rw-r--r--    1 jd  staff    159240 Apr 18 18:57 os_str_bytes-f9166e514b002f37.os_str_bytes.28d39a2dd1464dd7-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff       220 Apr 18 22:41 rust_ls-229cf62a334e1b1d.d
+-rw-r--r--    1 jd  staff       220 Apr 18 18:42 rust_ls-32cad442599031c6.d
+-rw-r--r--    1 jd  staff       220 Apr 19 08:26 rust_ls-427d1ca5d22d6bce.d
+-rwxr-xr-x    1 jd  staff   3935208 Apr 18 22:41 rust_ls-461699d6d6b348a3
+-rw-r--r--    2 jd  staff      7888 Apr 18 19:00 rust_ls-461699d6d6b348a3.131i5x1qaukj5nqc.rcgu.o
+-rw-r--r--    2 jd  staff     14688 Apr 18 19:00 rust_ls-461699d6d6b348a3.18iuzvcgwqbpk2af.rcgu.o
+-rw-r--r--    2 jd  staff      7760 Apr 18 21:20 rust_ls-461699d6d6b348a3.1h2to7jlo5li86zi.rcgu.o
+-rw-r--r--    2 jd  staff      3176 Apr 18 20:00 rust_ls-461699d6d6b348a3.1laez75z0ew4p76p.rcgu.o
+-rw-r--r--    2 jd  staff     16552 Apr 18 22:37 rust_ls-461699d6d6b348a3.1ub62qag3c8wgfra.rcgu.o
+-rw-r--r--    2 jd  staff      6840 Apr 18 19:00 rust_ls-461699d6d6b348a3.1xnyc6elljmiwksm.rcgu.o
+-rw-r--r--    2 jd  staff      3528 Apr 18 19:00 rust_ls-461699d6d6b348a3.1y8igbgsc68m84ud.rcgu.o
+-rw-r--r--    2 jd  staff     83408 Apr 18 22:41 rust_ls-461699d6d6b348a3.24n36dov2z8ii593.rcgu.o
+-rw-r--r--    2 jd  staff      6928 Apr 18 19:00 rust_ls-461699d6d6b348a3.26xv7usv5m07glo3.rcgu.o
+-rw-r--r--    2 jd  staff     54720 Apr 18 19:00 rust_ls-461699d6d6b348a3.287n6sjk5t991sda.rcgu.o
+-rw-r--r--    2 jd  staff      4624 Apr 18 19:00 rust_ls-461699d6d6b348a3.2cnz5rwx5ru4zzj2.rcgu.o
+-rw-r--r--    2 jd  staff    132168 Apr 18 22:37 rust_ls-461699d6d6b348a3.2dx9jsygsle2oxi6.rcgu.o
+-rw-r--r--    2 jd  staff     29232 Apr 18 22:37 rust_ls-461699d6d6b348a3.2egc2io7epedtaal.rcgu.o
+-rw-r--r--    2 jd  staff     16856 Apr 18 20:00 rust_ls-461699d6d6b348a3.2eoz7f7pf1h052qc.rcgu.o
+-rw-r--r--    2 jd  staff      4040 Apr 18 21:20 rust_ls-461699d6d6b348a3.2nptrnpqdt281i1x.rcgu.o
+-rw-r--r--    2 jd  staff     45816 Apr 18 22:27 rust_ls-461699d6d6b348a3.2ud9af4pjaft5l5s.rcgu.o
+-rw-r--r--    2 jd  staff      3424 Apr 18 18:57 rust_ls-461699d6d6b348a3.2ztcb3c9wvgm7w0t.rcgu.o
+-rw-r--r--    2 jd  staff    120296 Apr 18 22:37 rust_ls-461699d6d6b348a3.34ps05k3wo4ggf0e.rcgu.o
+-rw-r--r--    2 jd  staff     17296 Apr 18 22:27 rust_ls-461699d6d6b348a3.34z4sqkzpjm9kf3x.rcgu.o
+-rw-r--r--    2 jd  staff      5960 Apr 18 18:57 rust_ls-461699d6d6b348a3.362q2ocxew7st76j.rcgu.o
+-rw-r--r--    2 jd  staff      3032 Apr 18 20:00 rust_ls-461699d6d6b348a3.393rw3rjjh7b4a43.rcgu.o
+-rw-r--r--    2 jd  staff     39184 Apr 18 18:57 rust_ls-461699d6d6b348a3.39qsmmi5ni5nmsmj.rcgu.o
+-rw-r--r--    2 jd  staff     31560 Apr 18 19:00 rust_ls-461699d6d6b348a3.3aaiumc6mqvc40in.rcgu.o
+-rw-r--r--    2 jd  staff     21784 Apr 18 19:00 rust_ls-461699d6d6b348a3.3i3yksd374cutwd1.rcgu.o
+-rw-r--r--    2 jd  staff     23240 Apr 18 22:41 rust_ls-461699d6d6b348a3.3qhwszlr8ywwwivw.rcgu.o
+-rw-r--r--    2 jd  staff     15928 Apr 18 22:37 rust_ls-461699d6d6b348a3.3v1400s8mbifkjyc.rcgu.o
+-rw-r--r--    2 jd  staff     18784 Apr 18 19:00 rust_ls-461699d6d6b348a3.3xjg2wusrvzemyx0.rcgu.o
+-rw-r--r--    2 jd  staff      6392 Apr 18 21:20 rust_ls-461699d6d6b348a3.4152riihll36m0ye.rcgu.o
+-rw-r--r--    2 jd  staff     14424 Apr 18 21:20 rust_ls-461699d6d6b348a3.44krpwvy6lrj2llb.rcgu.o
+-rw-r--r--    2 jd  staff      3104 Apr 18 21:20 rust_ls-461699d6d6b348a3.454isrpsdpe7sq6h.rcgu.o
+-rw-r--r--    2 jd  staff     14728 Apr 18 19:00 rust_ls-461699d6d6b348a3.46lbnl14lxce67t5.rcgu.o
+-rw-r--r--    2 jd  staff     40664 Apr 18 22:27 rust_ls-461699d6d6b348a3.4dos2qijec24wgs5.rcgu.o
+-rw-r--r--    2 jd  staff      8920 Apr 18 19:00 rust_ls-461699d6d6b348a3.4gek134c263t5z9f.rcgu.o
+-rw-r--r--    2 jd  staff      2856 Apr 18 18:57 rust_ls-461699d6d6b348a3.4i27sjs5llr0pr91.rcgu.o
+-rw-r--r--    2 jd  staff     16536 Apr 18 22:41 rust_ls-461699d6d6b348a3.4kdpegz0yzml0h54.rcgu.o
+-rw-r--r--    2 jd  staff     25776 Apr 18 21:20 rust_ls-461699d6d6b348a3.4njuutfak9lbude5.rcgu.o
+-rw-r--r--    2 jd  staff      6352 Apr 18 19:00 rust_ls-461699d6d6b348a3.4q3dvsjs1cloohsi.rcgu.o
+-rw-r--r--    2 jd  staff     36248 Apr 18 22:37 rust_ls-461699d6d6b348a3.4su9qg01dxiaamry.rcgu.o
+-rw-r--r--    2 jd  staff      5632 Apr 18 21:20 rust_ls-461699d6d6b348a3.4wjbhd2a711ytmbj.rcgu.o
+-rw-r--r--    2 jd  staff     62488 Apr 18 22:39 rust_ls-461699d6d6b348a3.51fcl3di30rvqfkw.rcgu.o
+-rw-r--r--    2 jd  staff     11024 Apr 18 19:00 rust_ls-461699d6d6b348a3.536av4sj69oh4qw.rcgu.o
+-rw-r--r--    2 jd  staff      5688 Apr 18 19:00 rust_ls-461699d6d6b348a3.5a3zefe34xxvp1wu.rcgu.o
+-rw-r--r--    2 jd  staff     19512 Apr 18 21:20 rust_ls-461699d6d6b348a3.5c1ohjft4zfe4dc9.rcgu.o
+-rw-r--r--    2 jd  staff      8264 Apr 18 19:00 rust_ls-461699d6d6b348a3.5d0ihwig49yjk9g.rcgu.o
+-rw-r--r--    2 jd  staff     29768 Apr 18 18:57 rust_ls-461699d6d6b348a3.5fts9rkaqbg3n2lz.rcgu.o
+-rw-r--r--    2 jd  staff      6792 Apr 18 19:00 rust_ls-461699d6d6b348a3.b3xzttzx9uhyk16.rcgu.o
+-rw-r--r--    2 jd  staff      8608 Apr 18 19:00 rust_ls-461699d6d6b348a3.c8puzzgrei6ufua.rcgu.o
+-rw-r--r--    1 jd  staff       211 Apr 18 22:41 rust_ls-461699d6d6b348a3.d
+-rw-r--r--    2 jd  staff      7264 Apr 18 19:00 rust_ls-461699d6d6b348a3.kappe67h8b3m7px.rcgu.o
+-rw-r--r--    2 jd  staff     49496 Apr 18 18:57 rust_ls-461699d6d6b348a3.ko7l7cthvlh3n55.rcgu.o
+-rw-r--r--    2 jd  staff      7216 Apr 18 22:27 rust_ls-461699d6d6b348a3.xfk3ibqrctrdf22.rcgu.o
+-rw-r--r--    1 jd  staff       220 Apr 18 22:50 rust_ls-80a2f67afc5b41da.d
+-rwxr-xr-x    1 jd  staff   3935224 Apr 18 22:48 rust_ls-9d794ac47e1d657b
+-rw-r--r--    2 jd  staff      8608 Apr 18 22:44 rust_ls-9d794ac47e1d657b.13dd1w5j4vsasa16.rcgu.o
+-rw-r--r--    2 jd  staff      5688 Apr 18 22:44 rust_ls-9d794ac47e1d657b.14t31qmg7jocg240.rcgu.o
+-rw-r--r--    2 jd  staff      4624 Apr 18 22:44 rust_ls-9d794ac47e1d657b.167bt9hssdq96jun.rcgu.o
+-rw-r--r--    2 jd  staff     15928 Apr 18 22:44 rust_ls-9d794ac47e1d657b.17uxkp8pe49g9uj9.rcgu.o
+-rw-r--r--    2 jd  staff      7216 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1ap2p1o9s96v6t83.rcgu.o
+-rw-r--r--    2 jd  staff     18784 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1gcfcb9ssoqaihkr.rcgu.o
+-rw-r--r--    2 jd  staff      6392 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1gybm57afuxil7ey.rcgu.o
+-rw-r--r--    2 jd  staff      3528 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1ni3xzr2fh8z346f.rcgu.o
+-rw-r--r--    2 jd  staff     16552 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1omv10lxixq5ey28.rcgu.o
+-rw-r--r--    2 jd  staff      8920 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1s9zew37y942f066.rcgu.o
+-rw-r--r--    2 jd  staff     14424 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1sj1gzvcos3ini2d.rcgu.o
+-rw-r--r--    2 jd  staff      6352 Apr 18 22:44 rust_ls-9d794ac47e1d657b.1zrisvc3dhnptq3b.rcgu.o
+-rw-r--r--    2 jd  staff     45816 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2027gpa09wm5ou87.rcgu.o
+-rw-r--r--    2 jd  staff      8264 Apr 18 22:44 rust_ls-9d794ac47e1d657b.21ynr1nr5yb6u38f.rcgu.o
+-rw-r--r--    2 jd  staff     14688 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2bvxoi2uooqe861t.rcgu.o
+-rw-r--r--    2 jd  staff    120296 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2ejky29kah5b3eio.rcgu.o
+-rw-r--r--    2 jd  staff      6928 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2fw1hcegyyueivys.rcgu.o
+-rw-r--r--    2 jd  staff     54720 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2g39qewo3ntpe6oh.rcgu.o
+-rw-r--r--    2 jd  staff      3176 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2i80eh2tw8odt7oo.rcgu.o
+-rw-r--r--    2 jd  staff     36248 Apr 18 22:44 rust_ls-9d794ac47e1d657b.2yxk29r22w44ixui.rcgu.o
+-rw-r--r--    2 jd  staff     31560 Apr 18 22:44 rust_ls-9d794ac47e1d657b.30xolussqoz50ufp.rcgu.o
+-rw-r--r--    2 jd  staff     62488 Apr 18 22:44 rust_ls-9d794ac47e1d657b.34umd40xrxwj339n.rcgu.o
+-rw-r--r--    2 jd  staff     23240 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3b5eyy1cmzy424xg.rcgu.o
+-rw-r--r--    2 jd  staff      3032 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3g87gx9tlet312xu.rcgu.o
+-rw-r--r--    2 jd  staff     84576 Apr 18 22:48 rust_ls-9d794ac47e1d657b.3in6jk0gbmde8fj3.rcgu.o
+-rw-r--r--    2 jd  staff     29240 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3nvhg34a4j6wfch7.rcgu.o
+-rw-r--r--    2 jd  staff     29768 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3pr8dtnvu5pgc6qp.rcgu.o
+-rw-r--r--    2 jd  staff     14728 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3uomt1qgj7mt4za6.rcgu.o
+-rw-r--r--    2 jd  staff      5960 Apr 18 22:44 rust_ls-9d794ac47e1d657b.3vw5fzlkq4evgveq.rcgu.o
+-rw-r--r--    2 jd  staff      4040 Apr 18 22:44 rust_ls-9d794ac47e1d657b.41coi0ro0dd7mpih.rcgu.o
+-rw-r--r--    2 jd  staff      7264 Apr 18 22:44 rust_ls-9d794ac47e1d657b.41luypmotc7volr5.rcgu.o
+-rw-r--r--    2 jd  staff      7760 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4koi2dn2zhqrhwza.rcgu.o
+-rw-r--r--    2 jd  staff      6840 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4mx6jtuogxw26c6b.rcgu.o
+-rw-r--r--    2 jd  staff     16856 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4oqy9d1j6f1fpquv.rcgu.o
+-rw-r--r--    2 jd  staff      3104 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4uvnnq3e9q7f5ujf.rcgu.o
+-rw-r--r--    2 jd  staff     11024 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4v6tztwp7rk87grd.rcgu.o
+-rw-r--r--    2 jd  staff      6792 Apr 18 22:44 rust_ls-9d794ac47e1d657b.4zajfancxzemqfmj.rcgu.o
+-rw-r--r--    2 jd  staff     25776 Apr 18 22:44 rust_ls-9d794ac47e1d657b.5476vnex2yw4k2da.rcgu.o
+-rw-r--r--    2 jd  staff     19512 Apr 18 22:44 rust_ls-9d794ac47e1d657b.57w8to70n8orhrkh.rcgu.o
+-rw-r--r--    2 jd  staff      3424 Apr 18 22:44 rust_ls-9d794ac47e1d657b.57yhmjkcvo6u6vk8.rcgu.o
+-rw-r--r--    2 jd  staff     17296 Apr 18 22:44 rust_ls-9d794ac47e1d657b.5dq2fz5cxwwtedva.rcgu.o
+-rw-r--r--    2 jd  staff     39184 Apr 18 22:44 rust_ls-9d794ac47e1d657b.5dwjp20z0xix6exp.rcgu.o
+-rw-r--r--    2 jd  staff      7888 Apr 18 22:44 rust_ls-9d794ac47e1d657b.awmchj5zxhfnozu.rcgu.o
+-rw-r--r--    2 jd  staff     49496 Apr 18 22:44 rust_ls-9d794ac47e1d657b.bncdjqb0zby5450.rcgu.o
+-rw-r--r--    1 jd  staff       211 Apr 18 22:48 rust_ls-9d794ac47e1d657b.d
+-rw-r--r--    2 jd  staff     40656 Apr 18 22:44 rust_ls-9d794ac47e1d657b.daqxzqck25eitgy.rcgu.o
+-rw-r--r--    2 jd  staff      2856 Apr 18 22:44 rust_ls-9d794ac47e1d657b.f1810n5dn932g0a.rcgu.o
+-rw-r--r--    2 jd  staff     16488 Apr 18 22:48 rust_ls-9d794ac47e1d657b.sdxjfd9qdbm859i.rcgu.o
+-rw-r--r--    2 jd  staff      5632 Apr 18 22:44 rust_ls-9d794ac47e1d657b.t8mfa9wk2yks31g.rcgu.o
+-rw-r--r--    2 jd  staff     21784 Apr 18 22:44 rust_ls-9d794ac47e1d657b.ue9l7fkal99sboz.rcgu.o
+-rw-r--r--    2 jd  staff    132168 Apr 18 22:44 rust_ls-9d794ac47e1d657b.y5bx07pckn8i01g.rcgu.o
+-rw-r--r--    1 jd  staff       220 Apr 19 08:26 rust_ls-b6e46340b94c1832.d
+-rw-r--r--    1 jd  staff       220 Apr 18 22:50 rust_ls-d45ac5a4291425a1.d
+-rw-r--r--    1 jd  staff       220 Apr 18 22:41 rust_ls-d8a9e1ff85e1078b.d
+-rwxr-xr-x    1 jd  staff   3936088 Apr 19 08:20 rust_ls-f178c5e07e6c712a
+-rw-r--r--    2 jd  staff     21784 Apr 18 22:52 rust_ls-f178c5e07e6c712a.10u714fnso8vrzbb.rcgu.o
+-rw-r--r--    1 jd  staff      3032 Apr 18 22:52 rust_ls-f178c5e07e6c712a.12l7bvk0wb3ljryc.rcgu.o
+-rw-r--r--    2 jd  staff      6352 Apr 18 22:52 rust_ls-f178c5e07e6c712a.13g8q93uywgjpwx9.rcgu.o
+-rw-r--r--    2 jd  staff     54720 Apr 18 22:52 rust_ls-f178c5e07e6c712a.13uri1n8piipdt21.rcgu.o
+-rw-r--r--    2 jd  staff      5688 Apr 18 22:56 rust_ls-f178c5e07e6c712a.17sx73jusrra1s1w.rcgu.o
+-rw-r--r--    2 jd  staff      6792 Apr 19 08:16 rust_ls-f178c5e07e6c712a.18rjyksxe02e2z6n.rcgu.o
+-rw-r--r--    2 jd  staff     16944 Apr 19 08:20 rust_ls-f178c5e07e6c712a.19jv4i93b8fpgi3v.rcgu.o
+-rw-r--r--    2 jd  staff     19504 Apr 18 22:52 rust_ls-f178c5e07e6c712a.1iyganvw8lg7qxv.rcgu.o
+-rw-r--r--    2 jd  staff     39184 Apr 18 22:52 rust_ls-f178c5e07e6c712a.1lv8j9bqgtsu4k72.rcgu.o
+-rw-r--r--    2 jd  staff      4040 Apr 18 22:52 rust_ls-f178c5e07e6c712a.1p815darflke320a.rcgu.o
+-rw-r--r--    2 jd  staff     40664 Apr 18 22:52 rust_ls-f178c5e07e6c712a.1wnph74lokkwt04r.rcgu.o
+-rw-r--r--    2 jd  staff     28736 Apr 18 22:52 rust_ls-f178c5e07e6c712a.1zzisx5crrbb0och.rcgu.o
+-rw-r--r--    2 jd  staff      7216 Apr 18 22:52 rust_ls-f178c5e07e6c712a.24keovrcbhiyxo47.rcgu.o
+-rw-r--r--    2 jd  staff     14728 Apr 18 22:56 rust_ls-f178c5e07e6c712a.25o2djy2o652vbew.rcgu.o
+-rw-r--r--    2 jd  staff      3424 Apr 18 22:52 rust_ls-f178c5e07e6c712a.2ed4qvp4j1lt9u3x.rcgu.o
+-rw-r--r--    2 jd  staff     16856 Apr 19 08:16 rust_ls-f178c5e07e6c712a.2f9sq3kvkgloic52.rcgu.o
+-rw-r--r--    2 jd  staff      8264 Apr 18 22:56 rust_ls-f178c5e07e6c712a.2i0x7u02809rglqi.rcgu.o
+-rw-r--r--    2 jd  staff      3528 Apr 18 22:52 rust_ls-f178c5e07e6c712a.2ldp16yfn2s70yct.rcgu.o
+-rw-r--r--    2 jd  staff     60368 Apr 18 22:53 rust_ls-f178c5e07e6c712a.2rae3d3oqz6k7b6r.rcgu.o
+-rw-r--r--    2 jd  staff      6928 Apr 18 22:52 rust_ls-f178c5e07e6c712a.2stny9ssf6b0qs0o.rcgu.o
+-rw-r--r--    2 jd  staff      5632 Apr 18 22:52 rust_ls-f178c5e07e6c712a.2tjgr8g3lj3bz8ga.rcgu.o
+-rw-r--r--    2 jd  staff     15872 Apr 19 08:16 rust_ls-f178c5e07e6c712a.2xlkyox3z82h8gz7.rcgu.o
+-rw-r--r--    2 jd  staff     45816 Apr 18 22:52 rust_ls-f178c5e07e6c712a.32ik2g2j7l38rqi.rcgu.o
+-rw-r--r--    2 jd  staff      4624 Apr 18 22:56 rust_ls-f178c5e07e6c712a.33r02ne89opxqoni.rcgu.o
+-rw-r--r--    2 jd  staff      6392 Apr 18 22:52 rust_ls-f178c5e07e6c712a.3hawoz5xrogaozff.rcgu.o
+-rw-r--r--    2 jd  staff     23240 Apr 18 22:52 rust_ls-f178c5e07e6c712a.3m51p1hfm98x4u95.rcgu.o
+-rw-r--r--    1 jd  staff      3176 Apr 18 22:52 rust_ls-f178c5e07e6c712a.3tdfsyjkzk7tf3dv.rcgu.o
+-rw-r--r--    2 jd  staff      8608 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4287grl7jv2tqbrf.rcgu.o
+-rw-r--r--    2 jd  staff      7264 Apr 18 22:56 rust_ls-f178c5e07e6c712a.43usldqwmwtlcfkc.rcgu.o
+-rw-r--r--    2 jd  staff     15920 Apr 18 22:52 rust_ls-f178c5e07e6c712a.45o4wdti4ii0epq.rcgu.o
+-rw-r--r--    2 jd  staff      7760 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4alqpapkposv1iq9.rcgu.o
+-rw-r--r--    2 jd  staff     91104 Apr 19 08:20 rust_ls-f178c5e07e6c712a.4ecq61wy6tepfrwl.rcgu.o
+-rw-r--r--    2 jd  staff      3104 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4pu9ca6z96ms6my8.rcgu.o
+-rw-r--r--    2 jd  staff     49496 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4ykf2byrije4582r.rcgu.o
+-rw-r--r--    2 jd  staff      5960 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4yrox2nr1xl18l01.rcgu.o
+-rw-r--r--    2 jd  staff     29768 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4z2h1t34q6wnun92.rcgu.o
+-rw-r--r--    2 jd  staff     18784 Apr 18 22:52 rust_ls-f178c5e07e6c712a.4zxfh7s7twd1te11.rcgu.o
+-rw-r--r--    2 jd  staff      2608 Apr 18 22:52 rust_ls-f178c5e07e6c712a.5368xdexa2ehyaw4.rcgu.o
+-rw-r--r--    2 jd  staff      2856 Apr 18 22:52 rust_ls-f178c5e07e6c712a.596z7ham7bjn5rh8.rcgu.o
+-rw-r--r--    2 jd  staff     17296 Apr 18 22:52 rust_ls-f178c5e07e6c712a.5aasib6udkkuweqe.rcgu.o
+-rw-r--r--    2 jd  staff     36240 Apr 19 08:11 rust_ls-f178c5e07e6c712a.5ge2frzznk4jtcek.rcgu.o
+-rw-r--r--    2 jd  staff     16552 Apr 18 22:52 rust_ls-f178c5e07e6c712a.5ov99jmjtqtof1v.rcgu.o
+-rw-r--r--    2 jd  staff     11024 Apr 18 22:52 rust_ls-f178c5e07e6c712a.at7mk2e543l50tq.rcgu.o
+-rw-r--r--    2 jd  staff     14424 Apr 18 22:52 rust_ls-f178c5e07e6c712a.cmgn47v9soj4pnw.rcgu.o
+-rw-r--r--    1 jd  staff       211 Apr 19 08:20 rust_ls-f178c5e07e6c712a.d
+-rw-r--r--    2 jd  staff      8920 Apr 18 22:52 rust_ls-f178c5e07e6c712a.frnzu78dvp9mqlo.rcgu.o
+-rw-r--r--    2 jd  staff    132168 Apr 18 22:52 rust_ls-f178c5e07e6c712a.n0lux65a5byclj.rcgu.o
+-rw-r--r--    2 jd  staff      6840 Apr 18 22:52 rust_ls-f178c5e07e6c712a.p98eltkp4gljqko.rcgu.o
+-rw-r--r--    2 jd  staff      7888 Apr 18 22:52 rust_ls-f178c5e07e6c712a.pss2u9u6j8f6wd8.rcgu.o
+-rw-r--r--    2 jd  staff     31560 Apr 18 22:52 rust_ls-f178c5e07e6c712a.ww4wabf9iu4x6p.rcgu.o
+-rw-r--r--    2 jd  staff    120296 Apr 18 22:56 rust_ls-f178c5e07e6c712a.xtb78c2o99swbur.rcgu.o
+-rw-r--r--    2 jd  staff     29240 Apr 18 22:52 rust_ls-f178c5e07e6c712a.yb05fhfne0ykty3.rcgu.o
+-rw-r--r--    1 jd  staff       220 Apr 18 18:42 rust_ls-faacb29819523a63.d
+-rw-r--r--    1 jd  staff       627 Apr 18 18:57 strsim-994749aea14a2f32.d
+-rw-r--r--    1 jd  staff    232824 Apr 18 18:57 strsim-994749aea14a2f32.strsim.436bb31538ab5aac-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff    188536 Apr 18 18:57 strsim-994749aea14a2f32.strsim.436bb31538ab5aac-cgu.1.rcgu.o
+-rw-r--r--    1 jd  staff    146056 Apr 18 18:57 strsim-994749aea14a2f32.strsim.436bb31538ab5aac-cgu.2.rcgu.o
+-rw-r--r--    1 jd  staff    175344 Apr 18 18:57 strsim-994749aea14a2f32.strsim.436bb31538ab5aac-cgu.3.rcgu.o
+-rw-r--r--    1 jd  staff    254072 Apr 18 18:57 strsim-994749aea14a2f32.strsim.436bb31538ab5aac-cgu.4.rcgu.o
+-rw-r--r--    1 jd  staff       446 Apr 18 18:43 strsim-befa1d6ae1d06d6a.d
+-rw-r--r--    1 jd  staff      1442 Apr 18 22:52 term_size-45319c565ffd1bbf.d
+-rw-r--r--    1 jd  staff     20136 Apr 18 22:52 term_size-45319c565ffd1bbf.term_size.6f104a267b38590a-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff      1057 Apr 18 22:51 term_size-6870b53670c0a9e2.d
+-rw-r--r--    1 jd  staff       458 Apr 18 18:43 termcolor-12cad62eccd69848.d
+-rw-r--r--    1 jd  staff       644 Apr 18 18:57 termcolor-c40a6fd076bafc14.d
+-rw-r--r--    1 jd  staff    199128 Apr 18 18:57 termcolor-c40a6fd076bafc14.termcolor.8a44076ccde15ff2-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff    211000 Apr 18 18:57 termcolor-c40a6fd076bafc14.termcolor.8a44076ccde15ff2-cgu.1.rcgu.o
+-rw-r--r--    1 jd  staff    122536 Apr 18 18:57 termcolor-c40a6fd076bafc14.termcolor.8a44076ccde15ff2-cgu.2.rcgu.o
+-rw-r--r--    1 jd  staff      3632 Apr 18 18:43 textwrap-6b46d13112920d2b.d
+-rw-r--r--    1 jd  staff      4872 Apr 18 18:57 textwrap-eb380363cbab3d9b.d
+-rw-r--r--    1 jd  staff    166464 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.0.rcgu.o
+-rw-r--r--    1 jd  staff    270512 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.1.rcgu.o
+-rw-r--r--    1 jd  staff    210072 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.2.rcgu.o
+-rw-r--r--    1 jd  staff    136968 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.3.rcgu.o
+-rw-r--r--    1 jd  staff    112144 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.4.rcgu.o
+-rw-r--r--    1 jd  staff    136024 Apr 18 18:57 textwrap-eb380363cbab3d9b.textwrap.6c8e6a7c34e43830-cgu.5.rcgu.o
+
+./target/debug/examples:
+total 0
+drwxr-xr-x   2 jd  staff   64 Apr 18 18:42 .
+drwxr-xr-x  10 jd  staff  320 Apr 19 08:20 ..
+
+./target/debug/incremental:
+total 0
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 .
+drwxr-xr-x  10 jd  staff  320 Apr 19 08:20 ..
+drwxr-xr-x   4 jd  staff  128 Apr 19 08:26 rust_ls-17uiaac0qpy6l
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 rust_ls-1nr87gd468x1r
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:41 rust_ls-2buus3qz2nexp
+drwxr-xr-x   4 jd  staff  128 Apr 19 08:20 rust_ls-2lnrqqrntbqt4
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 rust_ls-2srz7acq0n50y
+drwxr-xr-x   8 jd  staff  256 Apr 18 22:50 rust_ls-2tz1ojx3axk1x
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:48 rust_ls-31jup3q9y8rdt
+drwxr-xr-x   8 jd  staff  256 Apr 18 22:50 rust_ls-3bk20049x71q
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:41 rust_ls-3mg4f723vf0pd
+drwxr-xr-x   4 jd  staff  128 Apr 19 08:26 rust_ls-7ob27p539l9b
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:41 rust_ls-969zszso8l79
+
+./target/debug/incremental/rust_ls-17uiaac0qpy6l:
+total 0
+drwxr-xr-x   4 jd  staff  128 Apr 19 08:26 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 19 08:26 s-gve0ctwoxz-1xe4hs9-7ul5tbfph4cgl7aobyxudo0cw
+-rwx------   1 jd  staff    0 Apr 19 08:26 s-gve0ctwoxz-1xe4hs9.lock
+
+./target/debug/incremental/rust_ls-17uiaac0qpy6l/s-gve0ctwoxz-1xe4hs9-7ul5tbfph4cgl7aobyxudo0cw:
+total 1080
+drwxr-xr-x  5 jd  staff     160 Apr 19 08:26 .
+drwxr-xr-x  4 jd  staff     128 Apr 19 08:26 ..
+-rw-r--r--  1 jd  staff  481108 Apr 19 08:26 dep-graph.bin
+-rw-r--r--  1 jd  staff   64115 Apr 19 08:26 query-cache.bin
+-rw-r--r--  1 jd  staff      37 Apr 19 08:26 work-products.bin
+
+./target/debug/incremental/rust_ls-1nr87gd468x1r:
+total 0
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 18:42 s-gvddn2ykck-1qzhrsc-7op9u371gx4quhq3gndvea519
+-rwx------   1 jd  staff    0 Apr 18 18:42 s-gvddn2ykck-1qzhrsc.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 s-gvddnegw7o-1kuppvk-working
+-rwx------   1 jd  staff    0 Apr 18 18:42 s-gvddnegw7o-1kuppvk.lock
+
+./target/debug/incremental/rust_ls-1nr87gd468x1r/s-gvddn2ykck-1qzhrsc-7op9u371gx4quhq3gndvea519:
+total 64
+drwxr-xr-x  5 jd  staff    160 Apr 18 18:42 .
+drwxr-xr-x  6 jd  staff    192 Apr 18 18:42 ..
+-rw-r--r--  2 jd  staff  20694 Apr 18 18:42 dep-graph.bin
+-rw-r--r--  2 jd  staff   2325 Apr 18 18:42 query-cache.bin
+-rw-r--r--  2 jd  staff     37 Apr 18 18:42 work-products.bin
+
+./target/debug/incremental/rust_ls-1nr87gd468x1r/s-gvddnegw7o-1kuppvk-working:
+total 384
+drwxr-xr-x  6 jd  staff     192 Apr 18 18:42 .
+drwxr-xr-x  6 jd  staff     192 Apr 18 18:42 ..
+-rw-r--r--  2 jd  staff   20694 Apr 18 18:42 dep-graph.bin
+-rw-r--r--  1 jd  staff  162988 Apr 18 18:42 dep-graph.part.bin
+-rw-r--r--  2 jd  staff    2325 Apr 18 18:42 query-cache.bin
+-rw-r--r--  2 jd  staff      37 Apr 18 18:42 work-products.bin
+
+./target/debug/incremental/rust_ls-2buus3qz2nexp:
+total 0
+drwxr-xr-x   4 jd  staff   128 Apr 18 22:41 .
+drwxr-xr-x  13 jd  staff   416 Apr 18 22:52 ..
+drwxr-xr-x  55 jd  staff  1760 Apr 18 22:41 s-gvdk8ml4kc-1b3h9aa-7fbmngn8gh3hy5os1yvyururs
+-rwx------   1 jd  staff     0 Apr 18 22:41 s-gvdk8ml4kc-1b3h9aa.lock
+
+./target/debug/incremental/rust_ls-2buus3qz2nexp/s-gvdk8ml4kc-1b3h9aa-7fbmngn8gh3hy5os1yvyururs:
+total 6176
+drwxr-xr-x  55 jd  staff     1760 Apr 18 22:41 .
+drwxr-xr-x   4 jd  staff      128 Apr 18 22:41 ..
+-rw-r--r--   2 jd  staff     7888 Apr 18 19:00 131i5x1qaukj5nqc.o
+-rw-r--r--   2 jd  staff    14688 Apr 18 19:00 18iuzvcgwqbpk2af.o
+-rw-r--r--   2 jd  staff     7760 Apr 18 21:20 1h2to7jlo5li86zi.o
+-rw-r--r--   2 jd  staff     3176 Apr 18 20:00 1laez75z0ew4p76p.o
+-rw-r--r--   2 jd  staff    16552 Apr 18 22:37 1ub62qag3c8wgfra.o
+-rw-r--r--   2 jd  staff     6840 Apr 18 19:00 1xnyc6elljmiwksm.o
+-rw-r--r--   2 jd  staff     3528 Apr 18 19:00 1y8igbgsc68m84ud.o
+-rw-r--r--   2 jd  staff    83408 Apr 18 22:41 24n36dov2z8ii593.o
+-rw-r--r--   2 jd  staff     6928 Apr 18 19:00 26xv7usv5m07glo3.o
+-rw-r--r--   2 jd  staff    54720 Apr 18 19:00 287n6sjk5t991sda.o
+-rw-r--r--   2 jd  staff     4624 Apr 18 19:00 2cnz5rwx5ru4zzj2.o
+-rw-r--r--   2 jd  staff   132168 Apr 18 22:37 2dx9jsygsle2oxi6.o
+-rw-r--r--   2 jd  staff    29232 Apr 18 22:37 2egc2io7epedtaal.o
+-rw-r--r--   2 jd  staff    16856 Apr 18 20:00 2eoz7f7pf1h052qc.o
+-rw-r--r--   2 jd  staff     4040 Apr 18 21:20 2nptrnpqdt281i1x.o
+-rw-r--r--   2 jd  staff    45816 Apr 18 22:27 2ud9af4pjaft5l5s.o
+-rw-r--r--   2 jd  staff     3424 Apr 18 18:57 2ztcb3c9wvgm7w0t.o
+-rw-r--r--   2 jd  staff   120296 Apr 18 22:37 34ps05k3wo4ggf0e.o
+-rw-r--r--   2 jd  staff    17296 Apr 18 22:27 34z4sqkzpjm9kf3x.o
+-rw-r--r--   2 jd  staff     5960 Apr 18 18:57 362q2ocxew7st76j.o
+-rw-r--r--   2 jd  staff     3032 Apr 18 20:00 393rw3rjjh7b4a43.o
+-rw-r--r--   2 jd  staff    39184 Apr 18 18:57 39qsmmi5ni5nmsmj.o
+-rw-r--r--   2 jd  staff    31560 Apr 18 19:00 3aaiumc6mqvc40in.o
+-rw-r--r--   2 jd  staff    21784 Apr 18 19:00 3i3yksd374cutwd1.o
+-rw-r--r--   2 jd  staff    23240 Apr 18 22:41 3qhwszlr8ywwwivw.o
+-rw-r--r--   2 jd  staff    15928 Apr 18 22:37 3v1400s8mbifkjyc.o
+-rw-r--r--   2 jd  staff    18784 Apr 18 19:00 3xjg2wusrvzemyx0.o
+-rw-r--r--   2 jd  staff     6392 Apr 18 21:20 4152riihll36m0ye.o
+-rw-r--r--   2 jd  staff    14424 Apr 18 21:20 44krpwvy6lrj2llb.o
+-rw-r--r--   2 jd  staff     3104 Apr 18 21:20 454isrpsdpe7sq6h.o
+-rw-r--r--   2 jd  staff    14728 Apr 18 19:00 46lbnl14lxce67t5.o
+-rw-r--r--   2 jd  staff    40664 Apr 18 22:27 4dos2qijec24wgs5.o
+-rw-r--r--   2 jd  staff     8920 Apr 18 19:00 4gek134c263t5z9f.o
+-rw-r--r--   2 jd  staff     2856 Apr 18 18:57 4i27sjs5llr0pr91.o
+-rw-r--r--   2 jd  staff    16536 Apr 18 22:41 4kdpegz0yzml0h54.o
+-rw-r--r--   2 jd  staff    25776 Apr 18 21:20 4njuutfak9lbude5.o
+-rw-r--r--   2 jd  staff     6352 Apr 18 19:00 4q3dvsjs1cloohsi.o
+-rw-r--r--   2 jd  staff    36248 Apr 18 22:37 4su9qg01dxiaamry.o
+-rw-r--r--   2 jd  staff     5632 Apr 18 21:20 4wjbhd2a711ytmbj.o
+-rw-r--r--   2 jd  staff    62488 Apr 18 22:39 51fcl3di30rvqfkw.o
+-rw-r--r--   2 jd  staff    11024 Apr 18 19:00 536av4sj69oh4qw.o
+-rw-r--r--   2 jd  staff     5688 Apr 18 19:00 5a3zefe34xxvp1wu.o
+-rw-r--r--   2 jd  staff    19512 Apr 18 21:20 5c1ohjft4zfe4dc9.o
+-rw-r--r--   2 jd  staff     8264 Apr 18 19:00 5d0ihwig49yjk9g.o
+-rw-r--r--   2 jd  staff    29768 Apr 18 18:57 5fts9rkaqbg3n2lz.o
+-rw-r--r--   2 jd  staff     6792 Apr 18 19:00 b3xzttzx9uhyk16.o
+-rw-r--r--   2 jd  staff     8608 Apr 18 19:00 c8puzzgrei6ufua.o
+-rw-r--r--   1 jd  staff  1416265 Apr 18 22:41 dep-graph.bin
+-rw-r--r--   2 jd  staff     7264 Apr 18 19:00 kappe67h8b3m7px.o
+-rw-r--r--   2 jd  staff    49496 Apr 18 18:57 ko7l7cthvlh3n55.o
+-rw-r--r--   1 jd  staff   441493 Apr 18 22:41 query-cache.bin
+-rw-r--r--   1 jd  staff     2923 Apr 18 22:41 work-products.bin
+-rw-r--r--   2 jd  staff     7216 Apr 18 22:27 xfk3ibqrctrdf22.o
+
+./target/debug/incremental/rust_ls-2lnrqqrntbqt4:
+total 0
+drwxr-xr-x   4 jd  staff   128 Apr 19 08:20 .
+drwxr-xr-x  13 jd  staff   416 Apr 18 22:52 ..
+drwxr-xr-x  54 jd  staff  1728 Apr 19 08:20 s-gve06sri10-1divn58-cj3s87qx4hdpfkrsdb2jkw5xn
+-rwx------   1 jd  staff     0 Apr 19 08:20 s-gve06sri10-1divn58.lock
+
+./target/debug/incremental/rust_ls-2lnrqqrntbqt4/s-gve06sri10-1divn58-cj3s87qx4hdpfkrsdb2jkw5xn:
+total 6504
+drwxr-xr-x  54 jd  staff     1728 Apr 19 08:20 .
+drwxr-xr-x   4 jd  staff      128 Apr 19 08:20 ..
+-rw-r--r--   2 jd  staff    21784 Apr 18 22:52 10u714fnso8vrzbb.o
+-rw-r--r--   2 jd  staff     6352 Apr 18 22:52 13g8q93uywgjpwx9.o
+-rw-r--r--   2 jd  staff    54720 Apr 18 22:52 13uri1n8piipdt21.o
+-rw-r--r--   2 jd  staff     5688 Apr 18 22:56 17sx73jusrra1s1w.o
+-rw-r--r--   2 jd  staff     6792 Apr 19 08:16 18rjyksxe02e2z6n.o
+-rw-r--r--   2 jd  staff    16944 Apr 19 08:20 19jv4i93b8fpgi3v.o
+-rw-r--r--   2 jd  staff    19504 Apr 18 22:52 1iyganvw8lg7qxv.o
+-rw-r--r--   2 jd  staff    39184 Apr 18 22:52 1lv8j9bqgtsu4k72.o
+-rw-r--r--   2 jd  staff     4040 Apr 18 22:52 1p815darflke320a.o
+-rw-r--r--   2 jd  staff    40664 Apr 18 22:52 1wnph74lokkwt04r.o
+-rw-r--r--   2 jd  staff    28736 Apr 18 22:52 1zzisx5crrbb0och.o
+-rw-r--r--   2 jd  staff     7216 Apr 18 22:52 24keovrcbhiyxo47.o
+-rw-r--r--   2 jd  staff    14728 Apr 18 22:56 25o2djy2o652vbew.o
+-rw-r--r--   2 jd  staff     3424 Apr 18 22:52 2ed4qvp4j1lt9u3x.o
+-rw-r--r--   2 jd  staff    16856 Apr 19 08:16 2f9sq3kvkgloic52.o
+-rw-r--r--   2 jd  staff     8264 Apr 18 22:56 2i0x7u02809rglqi.o
+-rw-r--r--   2 jd  staff     3528 Apr 18 22:52 2ldp16yfn2s70yct.o
+-rw-r--r--   2 jd  staff    60368 Apr 18 22:53 2rae3d3oqz6k7b6r.o
+-rw-r--r--   2 jd  staff     6928 Apr 18 22:52 2stny9ssf6b0qs0o.o
+-rw-r--r--   2 jd  staff     5632 Apr 18 22:52 2tjgr8g3lj3bz8ga.o
+-rw-r--r--   2 jd  staff    15872 Apr 19 08:16 2xlkyox3z82h8gz7.o
+-rw-r--r--   2 jd  staff    45816 Apr 18 22:52 32ik2g2j7l38rqi.o
+-rw-r--r--   2 jd  staff     4624 Apr 18 22:56 33r02ne89opxqoni.o
+-rw-r--r--   2 jd  staff     6392 Apr 18 22:52 3hawoz5xrogaozff.o
+-rw-r--r--   2 jd  staff    23240 Apr 18 22:52 3m51p1hfm98x4u95.o
+-rw-r--r--   2 jd  staff     8608 Apr 18 22:52 4287grl7jv2tqbrf.o
+-rw-r--r--   2 jd  staff     7264 Apr 18 22:56 43usldqwmwtlcfkc.o
+-rw-r--r--   2 jd  staff    15920 Apr 18 22:52 45o4wdti4ii0epq.o
+-rw-r--r--   2 jd  staff     7760 Apr 18 22:52 4alqpapkposv1iq9.o
+-rw-r--r--   2 jd  staff    91104 Apr 19 08:20 4ecq61wy6tepfrwl.o
+-rw-r--r--   2 jd  staff     3104 Apr 18 22:52 4pu9ca6z96ms6my8.o
+-rw-r--r--   2 jd  staff    49496 Apr 18 22:52 4ykf2byrije4582r.o
+-rw-r--r--   2 jd  staff     5960 Apr 18 22:52 4yrox2nr1xl18l01.o
+-rw-r--r--   2 jd  staff    29768 Apr 18 22:52 4z2h1t34q6wnun92.o
+-rw-r--r--   2 jd  staff    18784 Apr 18 22:52 4zxfh7s7twd1te11.o
+-rw-r--r--   2 jd  staff     2608 Apr 18 22:52 5368xdexa2ehyaw4.o
+-rw-r--r--   2 jd  staff     2856 Apr 18 22:52 596z7ham7bjn5rh8.o
+-rw-r--r--   2 jd  staff    17296 Apr 18 22:52 5aasib6udkkuweqe.o
+-rw-r--r--   2 jd  staff    36240 Apr 19 08:11 5ge2frzznk4jtcek.o
+-rw-r--r--   2 jd  staff    16552 Apr 18 22:52 5ov99jmjtqtof1v.o
+-rw-r--r--   2 jd  staff    11024 Apr 18 22:52 at7mk2e543l50tq.o
+-rw-r--r--   2 jd  staff    14424 Apr 18 22:52 cmgn47v9soj4pnw.o
+-rw-r--r--   1 jd  staff  1478997 Apr 19 08:20 dep-graph.bin
+-rw-r--r--   2 jd  staff     8920 Apr 18 22:52 frnzu78dvp9mqlo.o
+-rw-r--r--   2 jd  staff   132168 Apr 18 22:52 n0lux65a5byclj.o
+-rw-r--r--   2 jd  staff     6840 Apr 18 22:52 p98eltkp4gljqko.o
+-rw-r--r--   2 jd  staff     7888 Apr 18 22:52 pss2u9u6j8f6wd8.o
+-rw-r--r--   1 jd  staff   479194 Apr 19 08:20 query-cache.bin
+-rw-r--r--   1 jd  staff     2849 Apr 19 08:20 work-products.bin
+-rw-r--r--   2 jd  staff    31560 Apr 18 22:52 ww4wabf9iu4x6p.o
+-rw-r--r--   2 jd  staff   120296 Apr 18 22:56 xtb78c2o99swbur.o
+-rw-r--r--   2 jd  staff    29240 Apr 18 22:52 yb05fhfne0ykty3.o
+
+./target/debug/incremental/rust_ls-2srz7acq0n50y:
+total 0
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 18:42 s-gvddn2ykgy-1cjdia2-afowtctn8jehthxeuv0zuuhdh
+-rwx------   1 jd  staff    0 Apr 18 18:42 s-gvddn2ykgy-1cjdia2.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 18:42 s-gvddnegw7z-khro7l-working
+-rwx------   1 jd  staff    0 Apr 18 18:42 s-gvddnegw7z-khro7l.lock
+
+./target/debug/incremental/rust_ls-2srz7acq0n50y/s-gvddn2ykgy-1cjdia2-afowtctn8jehthxeuv0zuuhdh:
+total 72
+drwxr-xr-x  5 jd  staff    160 Apr 18 18:42 .
+drwxr-xr-x  6 jd  staff    192 Apr 18 18:42 ..
+-rw-r--r--  2 jd  staff  26185 Apr 18 18:42 dep-graph.bin
+-rw-r--r--  2 jd  staff   3151 Apr 18 18:42 query-cache.bin
+-rw-r--r--  2 jd  staff     37 Apr 18 18:42 work-products.bin
+
+./target/debug/incremental/rust_ls-2srz7acq0n50y/s-gvddnegw7z-khro7l-working:
+total 408
+drwxr-xr-x  6 jd  staff     192 Apr 18 18:42 .
+drwxr-xr-x  6 jd  staff     192 Apr 18 18:42 ..
+-rw-r--r--  2 jd  staff   26185 Apr 18 18:42 dep-graph.bin
+-rw-r--r--  1 jd  staff  169847 Apr 18 18:42 dep-graph.part.bin
+-rw-r--r--  2 jd  staff    3151 Apr 18 18:42 query-cache.bin
+-rw-r--r--  2 jd  staff      37 Apr 18 18:42 work-products.bin
+
+./target/debug/incremental/rust_ls-2tz1ojx3axk1x:
+total 0
+drwxr-xr-x   8 jd  staff  256 Apr 18 22:50 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 22:48 s-gvdkfh27ae-9o5tj7-11ncxwnwixchvm4sj18mm378b
+-rwx------   1 jd  staff    0 Apr 18 22:48 s-gvdkfh27ae-9o5tj7.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 22:50 s-gvdkhmuidg-13e68dv-working
+-rwx------   1 jd  staff    0 Apr 18 22:50 s-gvdkhmuidg-13e68dv.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 22:50 s-gvdkhpjmly-ada2xi-working
+-rwx------   1 jd  staff    0 Apr 18 22:50 s-gvdkhpjmly-ada2xi.lock
+
+./target/debug/incremental/rust_ls-2tz1ojx3axk1x/s-gvdkfh27ae-9o5tj7-11ncxwnwixchvm4sj18mm378b:
+total 840
+drwxr-xr-x  5 jd  staff     160 Apr 18 22:48 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  370047 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  3 jd  staff   52120 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-2tz1ojx3axk1x/s-gvdkhmuidg-13e68dv-working:
+total 1472
+drwxr-xr-x  6 jd  staff     192 Apr 18 22:50 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  370047 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  1 jd  staff  322720 Apr 18 22:50 dep-graph.part.bin
+-rw-r--r--  3 jd  staff   52120 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-2tz1ojx3axk1x/s-gvdkhpjmly-ada2xi-working:
+total 1472
+drwxr-xr-x  6 jd  staff     192 Apr 18 22:50 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  370047 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  1 jd  staff  322968 Apr 18 22:50 dep-graph.part.bin
+-rw-r--r--  3 jd  staff   52120 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-31jup3q9y8rdt:
+total 0
+drwxr-xr-x   4 jd  staff   128 Apr 18 22:48 .
+drwxr-xr-x  13 jd  staff   416 Apr 18 22:52 ..
+drwxr-xr-x  55 jd  staff  1760 Apr 18 22:48 s-gvdkfiy30y-10gh0st-9tkv5fli93peuaga9wo56arwg
+-rwx------   1 jd  staff     0 Apr 18 22:48 s-gvdkfiy30y-10gh0st.lock
+
+./target/debug/incremental/rust_ls-31jup3q9y8rdt/s-gvdkfiy30y-10gh0st-9tkv5fli93peuaga9wo56arwg:
+total 6048
+drwxr-xr-x  55 jd  staff     1760 Apr 18 22:48 .
+drwxr-xr-x   4 jd  staff      128 Apr 18 22:48 ..
+-rw-r--r--   2 jd  staff     8608 Apr 18 22:44 13dd1w5j4vsasa16.o
+-rw-r--r--   2 jd  staff     5688 Apr 18 22:44 14t31qmg7jocg240.o
+-rw-r--r--   2 jd  staff     4624 Apr 18 22:44 167bt9hssdq96jun.o
+-rw-r--r--   2 jd  staff    15928 Apr 18 22:44 17uxkp8pe49g9uj9.o
+-rw-r--r--   2 jd  staff     7216 Apr 18 22:44 1ap2p1o9s96v6t83.o
+-rw-r--r--   2 jd  staff    18784 Apr 18 22:44 1gcfcb9ssoqaihkr.o
+-rw-r--r--   2 jd  staff     6392 Apr 18 22:44 1gybm57afuxil7ey.o
+-rw-r--r--   2 jd  staff     3528 Apr 18 22:44 1ni3xzr2fh8z346f.o
+-rw-r--r--   2 jd  staff    16552 Apr 18 22:44 1omv10lxixq5ey28.o
+-rw-r--r--   2 jd  staff     8920 Apr 18 22:44 1s9zew37y942f066.o
+-rw-r--r--   2 jd  staff    14424 Apr 18 22:44 1sj1gzvcos3ini2d.o
+-rw-r--r--   2 jd  staff     6352 Apr 18 22:44 1zrisvc3dhnptq3b.o
+-rw-r--r--   2 jd  staff    45816 Apr 18 22:44 2027gpa09wm5ou87.o
+-rw-r--r--   2 jd  staff     8264 Apr 18 22:44 21ynr1nr5yb6u38f.o
+-rw-r--r--   2 jd  staff    14688 Apr 18 22:44 2bvxoi2uooqe861t.o
+-rw-r--r--   2 jd  staff   120296 Apr 18 22:44 2ejky29kah5b3eio.o
+-rw-r--r--   2 jd  staff     6928 Apr 18 22:44 2fw1hcegyyueivys.o
+-rw-r--r--   2 jd  staff    54720 Apr 18 22:44 2g39qewo3ntpe6oh.o
+-rw-r--r--   2 jd  staff     3176 Apr 18 22:44 2i80eh2tw8odt7oo.o
+-rw-r--r--   2 jd  staff    36248 Apr 18 22:44 2yxk29r22w44ixui.o
+-rw-r--r--   2 jd  staff    31560 Apr 18 22:44 30xolussqoz50ufp.o
+-rw-r--r--   2 jd  staff    62488 Apr 18 22:44 34umd40xrxwj339n.o
+-rw-r--r--   2 jd  staff    23240 Apr 18 22:44 3b5eyy1cmzy424xg.o
+-rw-r--r--   2 jd  staff     3032 Apr 18 22:44 3g87gx9tlet312xu.o
+-rw-r--r--   2 jd  staff    84576 Apr 18 22:48 3in6jk0gbmde8fj3.o
+-rw-r--r--   2 jd  staff    29240 Apr 18 22:44 3nvhg34a4j6wfch7.o
+-rw-r--r--   2 jd  staff    29768 Apr 18 22:44 3pr8dtnvu5pgc6qp.o
+-rw-r--r--   2 jd  staff    14728 Apr 18 22:44 3uomt1qgj7mt4za6.o
+-rw-r--r--   2 jd  staff     5960 Apr 18 22:44 3vw5fzlkq4evgveq.o
+-rw-r--r--   2 jd  staff     4040 Apr 18 22:44 41coi0ro0dd7mpih.o
+-rw-r--r--   2 jd  staff     7264 Apr 18 22:44 41luypmotc7volr5.o
+-rw-r--r--   2 jd  staff     7760 Apr 18 22:44 4koi2dn2zhqrhwza.o
+-rw-r--r--   2 jd  staff     6840 Apr 18 22:44 4mx6jtuogxw26c6b.o
+-rw-r--r--   2 jd  staff    16856 Apr 18 22:44 4oqy9d1j6f1fpquv.o
+-rw-r--r--   2 jd  staff     3104 Apr 18 22:44 4uvnnq3e9q7f5ujf.o
+-rw-r--r--   2 jd  staff    11024 Apr 18 22:44 4v6tztwp7rk87grd.o
+-rw-r--r--   2 jd  staff     6792 Apr 18 22:44 4zajfancxzemqfmj.o
+-rw-r--r--   2 jd  staff    25776 Apr 18 22:44 5476vnex2yw4k2da.o
+-rw-r--r--   2 jd  staff    19512 Apr 18 22:44 57w8to70n8orhrkh.o
+-rw-r--r--   2 jd  staff     3424 Apr 18 22:44 57yhmjkcvo6u6vk8.o
+-rw-r--r--   2 jd  staff    17296 Apr 18 22:44 5dq2fz5cxwwtedva.o
+-rw-r--r--   2 jd  staff    39184 Apr 18 22:44 5dwjp20z0xix6exp.o
+-rw-r--r--   2 jd  staff     7888 Apr 18 22:44 awmchj5zxhfnozu.o
+-rw-r--r--   2 jd  staff    49496 Apr 18 22:44 bncdjqb0zby5450.o
+-rw-r--r--   2 jd  staff    40656 Apr 18 22:44 daqxzqck25eitgy.o
+-rw-r--r--   1 jd  staff  1403827 Apr 18 22:48 dep-graph.bin
+-rw-r--r--   2 jd  staff     2856 Apr 18 22:44 f1810n5dn932g0a.o
+-rw-r--r--   1 jd  staff   447704 Apr 18 22:48 query-cache.bin
+-rw-r--r--   2 jd  staff    16488 Apr 18 22:48 sdxjfd9qdbm859i.o
+-rw-r--r--   2 jd  staff     5632 Apr 18 22:44 t8mfa9wk2yks31g.o
+-rw-r--r--   2 jd  staff    21784 Apr 18 22:44 ue9l7fkal99sboz.o
+-rw-r--r--   1 jd  staff     2921 Apr 18 22:48 work-products.bin
+-rw-r--r--   2 jd  staff   132168 Apr 18 22:44 y5bx07pckn8i01g.o
+
+./target/debug/incremental/rust_ls-3bk20049x71q:
+total 0
+drwxr-xr-x   8 jd  staff  256 Apr 18 22:50 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 22:48 s-gvdkfh27ae-g19zqq-4un4dkubros5pno8u630kkrif
+-rwx------   1 jd  staff    0 Apr 18 22:48 s-gvdkfh27ae-g19zqq.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 22:50 s-gvdkhmuidg-15erhe-working
+-rwx------   1 jd  staff    0 Apr 18 22:50 s-gvdkhmuidg-15erhe.lock
+drwxr-xr-x   6 jd  staff  192 Apr 18 22:50 s-gvdkhpjmm9-cwcvgg-working
+-rwx------   1 jd  staff    0 Apr 18 22:50 s-gvdkhpjmm9-cwcvgg.lock
+
+./target/debug/incremental/rust_ls-3bk20049x71q/s-gvdkfh27ae-g19zqq-4un4dkubros5pno8u630kkrif:
+total 856
+drwxr-xr-x  5 jd  staff     160 Apr 18 22:48 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  379954 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  3 jd  staff   52961 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-3bk20049x71q/s-gvdkhmuidg-15erhe-working:
+total 1512
+drwxr-xr-x  6 jd  staff     192 Apr 18 22:50 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  379954 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  1 jd  staff  332005 Apr 18 22:50 dep-graph.part.bin
+-rw-r--r--  3 jd  staff   52961 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-3bk20049x71q/s-gvdkhpjmm9-cwcvgg-working:
+total 1512
+drwxr-xr-x  6 jd  staff     192 Apr 18 22:50 .
+drwxr-xr-x  8 jd  staff     256 Apr 18 22:50 ..
+-rw-r--r--  3 jd  staff  379954 Apr 18 22:48 dep-graph.bin
+-rw-r--r--  1 jd  staff  332253 Apr 18 22:50 dep-graph.part.bin
+-rw-r--r--  3 jd  staff   52961 Apr 18 22:48 query-cache.bin
+-rw-r--r--  3 jd  staff      37 Apr 18 22:48 work-products.bin
+
+./target/debug/incremental/rust_ls-3mg4f723vf0pd:
+total 0
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:41 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 22:41 s-gvdk8kp9on-1i0h6ts-2d8caog9djhxfvjqdd3ixd8ax
+-rwx------   1 jd  staff    0 Apr 18 22:41 s-gvdk8kp9on-1i0h6ts.lock
+
+./target/debug/incremental/rust_ls-3mg4f723vf0pd/s-gvdk8kp9on-1i0h6ts-2d8caog9djhxfvjqdd3ixd8ax:
+total 856
+drwxr-xr-x  5 jd  staff     160 Apr 18 22:41 .
+drwxr-xr-x  4 jd  staff     128 Apr 18 22:41 ..
+-rw-r--r--  1 jd  staff  380283 Apr 18 22:41 dep-graph.bin
+-rw-r--r--  1 jd  staff   51375 Apr 18 22:41 query-cache.bin
+-rw-r--r--  1 jd  staff      37 Apr 18 22:41 work-products.bin
+
+./target/debug/incremental/rust_ls-7ob27p539l9b:
+total 0
+drwxr-xr-x   4 jd  staff  128 Apr 19 08:26 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 19 08:26 s-gve0ctwoxz-1kg40zi-8thumsccwotziiz6e96hspk33
+-rwx------   1 jd  staff    0 Apr 19 08:26 s-gve0ctwoxz-1kg40zi.lock
+
+./target/debug/incremental/rust_ls-7ob27p539l9b/s-gve0ctwoxz-1kg40zi-8thumsccwotziiz6e96hspk33:
+total 1056
+drwxr-xr-x  5 jd  staff     160 Apr 19 08:26 .
+drwxr-xr-x  4 jd  staff     128 Apr 19 08:26 ..
+-rw-r--r--  1 jd  staff  468927 Apr 19 08:26 dep-graph.bin
+-rw-r--r--  1 jd  staff   63258 Apr 19 08:26 query-cache.bin
+-rw-r--r--  1 jd  staff      37 Apr 19 08:26 work-products.bin
+
+./target/debug/incremental/rust_ls-969zszso8l79:
+total 0
+drwxr-xr-x   4 jd  staff  128 Apr 18 22:41 .
+drwxr-xr-x  13 jd  staff  416 Apr 18 22:52 ..
+drwxr-xr-x   5 jd  staff  160 Apr 18 22:41 s-gvdk8kp9on-v4imlu-40wsjaz3h5fs3u44aj5lac7f9
+-rwx------   1 jd  staff    0 Apr 18 22:41 s-gvdk8kp9on-v4imlu.lock
+
+./target/debug/incremental/rust_ls-969zszso8l79/s-gvdk8kp9on-v4imlu-40wsjaz3h5fs3u44aj5lac7f9:
+total 840
+drwxr-xr-x  5 jd  staff     160 Apr 18 22:41 .
+drwxr-xr-x  4 jd  staff     128 Apr 18 22:41 ..
+-rw-r--r--  1 jd  staff  370249 Apr 18 22:41 dep-graph.bin
+-rw-r--r--  1 jd  staff   50532 Apr 18 22:41 query-cache.bin
+-rw-r--r--  1 jd  staff      37 Apr 18 22:41 work-products.bin
