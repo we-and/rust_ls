@@ -11,6 +11,27 @@ An implementation of the unix command ls using Rust.
 | ls -R   | 100%  |
 | ls -l   | 100%  |
 | ls -h   | 80% (need to exclude if -H and and -L)  |
+| ls -H   | TODO  |
+| ls -L   | TODO  |
+| ls -S   | TODO  |
+| ls -c   | TODO  |
+| ls -d   | TODO  |
+| ls -f   | TODO  |
+| ls -g   | TODO  |
+| ls -i   | TODO  |
+| ls -k   | TODO  |
+| ls -l   | TODO  |
+| ls -m   | TODO  |
+| ls -n   | TODO  |
+| ls -o   | TODO  |
+| ls -p   | TODO  |
+| ls -q   | TODO  |
+| ls -r   | TODO  |
+| ls -s   | TODO  |
+| ls -t   | TODO  |
+| ls -u   | TODO  |
+| ls -x   | TODO  |
+| ls -1   | TODO  |
 
 ```
 ls -l                                             
