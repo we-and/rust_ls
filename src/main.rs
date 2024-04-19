@@ -3,24 +3,7 @@
 // Author: Jean Dumont
 // jd@weand.co.uk
 
-use std::fs;
-use std::fs::DirEntry;
-use std::io::Write;
-use std::ffi::OsString;
-use std::ffi::OsStr;
-use std::os::unix::fs::FileTypeExt;
-use std::os::unix::fs::MetadataExt;
-use std::os::unix::fs::PermissionsExt;
-use std::path::Path;
-use std::process::CommandArgs;
-//use std::ptr::metadata;
-use chrono::{DateTime, Local};
-use std::path::PathBuf;
-use std::time::Duration;
 extern crate xattr;
-use std::io;
-
-use std::fs::File;
 use textwrap::{fill, fill_inplace,Options};
 
 use users::{get_group_by_gid, get_user_by_uid};
@@ -42,12 +25,16 @@ use display::{display_entries};
 
 mod utils;
 use utils::{sanitize_filename,is_printable};
+
 mod check_type;
 use check_type::{is_executable,is_directory,is_fifo,is_symlink};
+
 mod symlink;
 use symlink::{*};
+
 mod sort;
 use sort::sort_entries;
+
 mod named_direntry_vec;
 use named_direntry_vec::NamedDirEntriesVec;
 
@@ -57,7 +44,6 @@ use permissions::{*};
 mod entries;
 use entries::{*};
 
-
 fn main() {
     run();
 }
@@ -66,11 +52,11 @@ fn run() {
     let matches = get_argument_matches();
     let path = &matches.value_of("path").unwrap();
 
-    //generate settings
+    //generate settings from argument list
     let mut command_settings=get_command_settings_from_matches(&matches);
     override_settings(&mut command_settings);
 
-    //run
+    //list entries in path 
     list_directory(path, &command_settings);
 }
 

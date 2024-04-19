@@ -286,6 +286,7 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
         // println!("Check {} {}",name,show);
         return true;
     } else if commandsettings.is_A_all_excluding_current_parent {
+        return true;
         let show = !entry
             .file_name()
             .to_str()
