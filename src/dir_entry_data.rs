@@ -1,0 +1,25 @@
+
+struct DirEntryData {
+    name: String,
+    path: String,
+    is_dir: bool,
+    is_symlink: Option<bool>,
+
+    size: u64,
+    modified_time: Option<SystemTime>,
+    created_time: Option<SystemTime>,
+    modified_time_str: Option<String>,
+    symlink_target_name: Option<String>,
+    size_in_blocks: Option<u64>,
+    permissions: Option<String>,
+    nlinks: Option<u64>,
+    uid: Option<u32>,
+    gid: Option<u32>,
+    inode_and_name:Option<String>,
+    inode: Option<u64>,
+    user_name: Option<String>,
+    blocks: Option<u64>,
+    has_extended_attributes: Option<bool>,
+    group_name: Option<String>,
+    file_type: Option<String>,
+}

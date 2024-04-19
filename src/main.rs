@@ -38,7 +38,7 @@ struct DirEntryData {
     is_symlink: Option<bool>,
 
     size: u64,
-    modified_time: Duration,
+    modified_time: Option<SystemTime>,
     created_time: Option<SystemTime>,
     modified_time_str: Option<String>,
     symlink_target_name: Option<String>,
@@ -502,6 +502,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             file_type: Some(file_type.to_string()),
             name: name,
             inode_and_name:Some(inode_and_name ),
+            modified_time : Some(metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH)),
             created_time: Some(metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             has_extended_attributes: Some(has_extended_attributes),
             uid: Some(uid),
@@ -518,7 +519,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             path: path.display().to_string(),
             is_dir: is_dir,
             is_symlink: Some(is_symlink),
-            modified_time,
+            
             size: size,
         };
     } else {
@@ -532,6 +533,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             size_in_blocks: None,
             inode: None,
             user_name: None,
+            modified_time:None,
             inode_and_name:None,
             group_name: None,
             has_extended_attributes: None,
@@ -543,7 +545,6 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             path: path.display().to_string(),
             is_dir: is_dir,
             is_symlink: None,
-            modified_time: Duration::new(0, 0),
             size: 0,
         };
     }
@@ -643,6 +644,8 @@ fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSet
         //no sorting, use system order
     } else if commandsettings.is_c_use_time_of_last_modification {
         sort_entries_by_created_time(dirs,commandsettings);
+    }  else if commandsettings.is_t_sort_by_time_modified {
+        sort_entries_by_modified_time(dirs,commandsettings);
     } else if commandsettings.is_S_sort_by_filesize {        
         sort_entries_by_size(dirs,commandsettings);    
     } else {
@@ -661,11 +664,21 @@ fn sort_entries_by_created_time(dirs: &mut Vec<NamedDirEntriesVec>, commandsetti
 
         // Sort entries alphabetically and case-insensitively within each directory list
         for dir in dirs {
-            //dir.entries.sort_by_key(|entry| entry.name.to_lowercase());
-
             dir.entries.sort_unstable_by_key(|entry| entry.created_time);
             dir.entries.reverse();
         }
+
+}
+
+fn sort_entries_by_modified_time(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
+    // Sort entries alphabetically and case-insensitively within each directory list
+    dirs.sort_by_key(|dir| dir.name.to_lowercase());
+
+    // Sort entries alphabetically and case-insensitively within each directory list
+    for dir in dirs {
+        dir.entries.sort_unstable_by_key(|entry| entry.modified_time);
+        dir.entries.reverse();
+    }
 
 }
 fn sort_entries_by_name(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
