@@ -15,7 +15,7 @@ An implementation of the unix command ls using Rust.
 | ls -L   | TODO  |
 | ls -S   | 100%  |
 | ls -c   | Differs on macOS  |
-| ls -d   | TODO  |
+| ls -d   | 100%  |
 | ls -f   | TODO  |
 | ls -g   | TODO  |
 | ls -i   | TODO  |
