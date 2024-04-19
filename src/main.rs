@@ -7,6 +7,7 @@ use std::os::unix::fs::FileTypeExt;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
+use std::time::SystemTime;
 use chrono::{DateTime, Local};
 use std::path::PathBuf;
 use std::time::Duration;
@@ -31,6 +32,7 @@ struct DirEntryData {
 
     size: u64,
     modified_time: Duration,
+    created_time:Option<SystemTime>,
     modified_time_str: Option<String>,
     symlink_target_name: Option<String>,
 
@@ -46,14 +48,17 @@ struct DirEntryData {
 }
 
 struct CommandSettings {
-    is_sorting:bool,
+
+    is_sorted_by_status_change_time:bool,
+    is_sorted_by_size:bool,
     is_all: bool,
+    is_d: bool,
     is_all_excluding_dot: bool,
     is_long: bool,
     is_recursive: bool,
     do_not_follow_symbolic_links: bool,
 }
-struct DirWithList {
+struct NamedDirEntriesVec {
     name: String,
     entries: Vec<DirEntryData>,
 }
@@ -193,13 +198,17 @@ fn main() {
     let is_long = matches.is_present("l");
     let is_recursive = matches.is_present("R");
     let do_not_follow_symbolic_links = matches.is_present("F");
+    let is_d=matches.is_present("d");
     let is_sorting=matches.is_present("S");
+    let is_sorted_by_status_change_time=matches.is_present("c");
     //COMMAND_SETTINGS
     let command_settings = CommandSettings {
         is_all_excluding_dot: is_all_excluding_dot,
         is_long: is_long,
+        is_sorted_by_status_change_time:is_sorted_by_status_change_time,
         is_recursive: is_recursive,
-        is_sorting:is_sorting,
+        is_sorted_by_size:is_sorting,
+        is_d:is_d,
         is_all: is_all,
         do_not_follow_symbolic_links: do_not_follow_symbolic_links,
     };
@@ -207,19 +216,33 @@ fn main() {
     list_directory(path, &command_settings);
 }
 
-fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<DirWithList> {
-    let mut entries: Vec<DirWithList> = Vec::new();
+fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
+    let mut direntries: Vec<NamedDirEntriesVec> = Vec::new();
 
-    add_entries(&mut entries, path, &command_settings);
 
-    //add . and .. if is_all
-    if command_settings.is_all {
-        add_current_and_parent(&mut entries, command_settings);
+    if command_settings.is_d{
+        let mut entries: Vec<DirEntryData> = Vec::new();
+
+        let current_dir_entry = gen_current_direntrydata(command_settings);
+        entries.push(current_dir_entry);
+        let d=NamedDirEntriesVec{
+            name:".".to_string(),
+            entries:entries,
+        };
+        direntries.push(d);
+    }else{
+
+        add_entries(&mut direntries, path, &command_settings);
+
+        //add . and .. if is_all
+        if command_settings.is_all {
+            add_current_and_parent(&mut direntries, command_settings);
+        }
     }
-    return entries;
+    return direntries;
 }
 
-fn add_current_and_parent(entries: &mut Vec<DirWithList>, command_settings: &CommandSettings) {
+fn add_current_and_parent(entries: &mut Vec<NamedDirEntriesVec>, command_settings: &CommandSettings) {
     let current_dir_entry = gen_current_direntrydata(command_settings);
     let parent_dir_entry = gen_parent_direntrydata(command_settings);
 
@@ -298,8 +321,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
     let mut size=0;
     if is_symlink {
         size=get_symlink_size(&path).unwrap();
-        println!("SIZE {}",size);
-
+        
         match find_symlink_target(&path) {
             Ok(Some(target)) => { symlink_target_name= target.display().to_string();  },
             Ok(None) => println!("Not a symlink"),
@@ -357,11 +379,13 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
         let modified = DateTime::<Local>::from(metadata.modified().unwrap());
         let formatted_time = modified.format("%b %d %H:%M").to_string();
 
+        
         let has_extended_attributes=has_extended_attributes(&path);
         let blocks=metadata.blocks();
         return DirEntryData {
             file_type: Some(file_type.to_string()),
             name: name,
+created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             has_extended_attributes:Some(has_extended_attributes),
             uid: Some(uid),
             blocks:Some(blocks),
@@ -384,6 +408,7 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             permissions: None,
             nlinks: None,
             gid: None,
+            created_time:None,
             symlink_target_name:None,
             user_name:None,
             group_name:None,
@@ -433,7 +458,7 @@ fn is_executable<P: AsRef<Path>>(path: &P) -> bool {
     (permissions.mode() & 0o111) != 0 // Check if any execute bits are set (owner, group, or others)
 }
 
-fn add_entries(entries_vec: &mut Vec<DirWithList>, path: &str, command_settings: &CommandSettings) {
+fn add_entries(entries_vec: &mut Vec<NamedDirEntriesVec>, path: &str, command_settings: &CommandSettings) {
     let mut direntries_data_vec: Vec<DirEntryData> = Vec::new();
     if let Ok(entries) = fs::read_dir(path) {
         let collected: Vec<_> = entries.filter_map(Result::ok).collect();
@@ -449,7 +474,7 @@ fn add_entries(entries_vec: &mut Vec<DirWithList>, path: &str, command_settings:
                 if command_settings.is_recursive && p.is_dir() {
                     // Avoiding infinite loop by not re-listing '.' or '..'
                     if name != "." && name != ".." {
-                        let mut dirs: Vec<DirWithList> = Vec::new();
+                        let mut dirs: Vec<NamedDirEntriesVec> = Vec::new();
                         add_entries(&mut dirs, pstr, command_settings);
                         for dir in dirs {
                             entries_vec.push(dir);
@@ -458,7 +483,7 @@ fn add_entries(entries_vec: &mut Vec<DirWithList>, path: &str, command_settings:
                 }
             }
         }
-        let d: DirWithList = DirWithList {
+        let d: NamedDirEntriesVec = NamedDirEntriesVec {
             name: path.to_string(),
             entries: direntries_data_vec,
         };
@@ -470,7 +495,7 @@ fn add_entries(entries_vec: &mut Vec<DirWithList>, path: &str, command_settings:
 }
 
 fn list_directory(path: &str, command_settings: &CommandSettings) {
-    let mut dirs: Vec<DirWithList> = get_entries(path, command_settings);
+    let mut dirs: Vec<NamedDirEntriesVec> = get_entries(path, command_settings);
     
     sort_entries(&mut dirs,command_settings);
 
@@ -488,8 +513,24 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
         }
     }
 }
-fn sort_entries(dirs : &mut Vec<DirWithList>,commandsettings: &CommandSettings ){
-    if !commandsettings.is_sorting{
+fn sort_entries(dirs : &mut Vec<NamedDirEntriesVec>,commandsettings: &CommandSettings ){
+   if commandsettings.is_sorted_by_status_change_time{
+
+  // Sort entries alphabetically and case-insensitively within each directory list
+  dirs.sort_by_key(|dir| dir.name.to_lowercase());
+
+  // Sort entries alphabetically and case-insensitively within each directory list
+  for dir in  dirs {
+      //dir.entries.sort_by_key(|entry| entry.name.to_lowercase());
+  
+      dir.entries.sort_unstable_by_key(|entry| {
+        entry.created_time
+    });
+    dir.entries.reverse(); 
+  }
+
+
+   }else       if !commandsettings.is_sorted_by_size{  //sort by name
         // Sort entries alphabetically and case-insensitively within each directory list
         dirs.sort_by_key(|dir| dir.name.to_lowercase());
 
@@ -498,7 +539,7 @@ fn sort_entries(dirs : &mut Vec<DirWithList>,commandsettings: &CommandSettings )
             dir.entries.sort_by_key(|entry| entry.name.to_lowercase());
         }
     
-    }else{
+    }else{ //sort by size
          // Sort entries alphabetically and case-insensitively within each directory list
          dirs.sort_by_key(|dir| dir.name.to_lowercase());
 
@@ -547,13 +588,15 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
 
 fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if commandsettings.is_long {
-        let mut total:u64=0;
+     if !commandsettings.is_d
+     {   let mut total:u64=0;
         for e in entries {
             let b = e.blocks.unwrap();
             total = total + b;
         
         }
         println!("total {}",total);
+    }
         let max_user_length = entries.iter().map(|e| e.user_name.as_ref().unwrap().len()).max().unwrap_or(0);
         let max_group_length = entries.iter().map(|e| e.group_name.as_ref().unwrap().len()).max().unwrap_or(0);
 
