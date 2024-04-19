@@ -4,7 +4,8 @@ use std::path::Path;
 use std::time::Duration;
 
 use std::fs::{self, DirEntry};
-
+use std::os::unix::fs::PermissionsExt;
+use std::os::unix::fs::FileTypeExt; 
 extern crate atty;
 extern crate term_size;
 use term_size::dimensions;
@@ -14,6 +15,8 @@ use atty::{is, Stream};
 struct DirEntryData{
     name:String,
     path:String,
+    is_dir:bool,
+    is_symlink:bool,
     size:u64,
     modified_data:Duration,
 }
@@ -32,13 +35,17 @@ struct DirWithList {
 
 fn gen_current_direntrydata() -> DirEntryData{
     return DirEntryData{    name:".".to_string(),
-        path:Path::new(".").display().to_string(),
-        size:0,
+    is_symlink:false,
+    path:Path::new(".").display().to_string(),
+        size:0,is_dir:true,
         modified_data:Duration::new(0,0)
     }
     }
     fn gen_parent_direntrydata() -> DirEntryData{
-        return DirEntryData{    name:"..".to_string(),
+        return DirEntryData{   
+            is_symlink:false,
+            is_dir:true,
+            name:"..".to_string(),
             path:Path::new("..").display().to_string(),
             size:0,
             modified_data:Duration::new(0,0)
@@ -209,17 +216,52 @@ fn add_current_and_parent(entries :&mut Vec<DirWithList>){
     entries[0].entries.push(parent_dir_entry);
 }
 
-fn get_direntrydata(entry:DirEntry) -> DirEntryData{
-    let name=entry.file_name().to_str().unwrap().to_string();
-    let path =entry.path().display().to_string(); 
+fn is_directory<P: AsRef<Path>>(path: P) -> bool {
+    match fs::metadata(path) {
+        Ok(metadata) => metadata.is_dir(),
+        Err(e) => {
+            eprintln!("Failed to read metadata: {}", e);
+            false
+        }
+    }
+}
 
-    if let Ok(metadata) = entry.metadata() {
+fn get_direntrydata(entry:DirEntry,command_settings:&CommandSettings) -> DirEntryData{
+    let mut name=entry.file_name().to_str().unwrap().to_string();
+    let path =entry.path().display().to_string(); 
+    let is_dir=is_directory(entry.path());
+    let is_exe=is_executable(entry.path());
+    let is_fifo=is_fifo(entry.path());
+    let metadata = if command_settings.do_not_follow_symbolic_links {
+        fs::symlink_metadata(&path) // Do not follow symbolic links
+    } else {
+        entry.metadata() // Follow symbolic links
+    };
+
+    if let Ok(metadata) = metadata {
+        let file_type = metadata.file_type();
+        let is_symlink = file_type.is_symlink();
+
         let size = metadata.len();
         let modified_time = metadata.modified().unwrap();
         let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
+        
+        if command_settings.do_not_follow_symbolic_links{
+        if is_symlink {
+            name=format!("{}@",name)
+        }else if is_dir{
+            name=format!("{}/",name)
+        }else if is_exe{
+            name=format!("{}*",name)
+        }else if is_fifo{
+            name=format!("{}|",name)
+        }
+    }
         return DirEntryData{
             name:name,
             path:path,
+            is_dir:is_dir,
+            is_symlink:is_symlink,
             modified_data:modified_time,
             size:size
         };
@@ -229,10 +271,33 @@ fn get_direntrydata(entry:DirEntry) -> DirEntryData{
         return DirEntryData{
             name:name,
             path:path,
+            is_dir:is_dir,
+            is_symlink:false,
             modified_data:Duration::new(0,0),
             size:0
         };
     }
+}
+fn is_fifo<P: AsRef<Path>>(path: P) -> bool {
+    match fs::metadata(path) {
+        Ok(metadata) => metadata.file_type().is_fifo(),
+        Err(e) => {
+            eprintln!("Failed to read metadata: {}", e);
+            false
+        }
+    }
+}
+fn is_executable<P: AsRef<Path>>(path: P) -> bool {
+    let metadata = match fs::metadata(path) {
+        Ok(metadata) => metadata,
+        Err(e) => {
+            eprintln!("Failed to read metadata: {}", e);
+            return false;
+        }
+    };
+
+    let permissions = metadata.permissions();
+    (permissions.mode() & 0o111) != 0 // Check if any execute bits are set (owner, group, or others)
 }
 
 fn add_entries(entries_vec: &mut Vec<DirWithList>,path: &str, command_settings:&CommandSettings) {
@@ -246,7 +311,7 @@ fn add_entries(entries_vec: &mut Vec<DirWithList>,path: &str, command_settings:&
                     let pstr=p.to_str().unwrap();
                     // println!("Add {}",pstr);
 
-                    let data=get_direntrydata(entry);
+                    let data=get_direntrydata(entry,command_settings);
                     direntries_data_vec.push(data);
                     if command_settings.is_recursive && p.is_dir() {
                         // Avoiding infinite loop by not re-listing '.' or '..'
@@ -383,69 +448,3 @@ fn display_entries(entries: &[DirEntryData], commandsettings:&CommandSettings) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-
-fn display_entry(entry: &DirEntry, long: bool,recursive:bool) {
-    let file_name2=entry.file_name();
-    let file_name = file_name2.to_string_lossy();  // Convert OsStr to String and keep it alive
-    let display_name = if file_name.starts_with('.') {
-        // Optionally strip the dot for display purposes if you want to handle hidden files specially
-        &file_name[1..]
-    } else {
-        &file_name[..]
-    };
-
-
-    if long {
-        if let Ok(metadata) = entry.metadata() {
-            let size = metadata.len();
-            let modified_time = metadata.modified().unwrap();
-            let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
-            println!("{:<10} {:<20} {}", size, format!("{:?}", modified_time), entry.path().display());
-        } else {
-            println!("Could not read metadata for {}", entry.path().display());
-        }
-    } else {
-    
-        if recursive {
-            if atty::is(Stream::Stdout) {
-                print!("{}\t\t", file_name);
-                }else{
-                    print!("{}\n", file_name);
-                    
-               }
-    
-        }else{
-            if atty::is(Stream::Stdout) {
-            print!("{}\t", file_name);
-            }else{
-                print!("{}\n", file_name);
-                
-         }
-
-        }
-      //  println!("{}", file_name);
-    }
-}*/
