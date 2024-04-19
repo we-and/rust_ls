@@ -62,7 +62,7 @@ struct CommandSettings {
     is_S_sort_by_filesize: bool,
     is_all: bool,
     is_d: bool,
-    is_f: bool,
+    is_f_sort_by_system_order: bool,
     is_k_set_blocksize: bool,
     is_i_show_inode: bool,
     is_m_stream_output: bool,
@@ -256,7 +256,7 @@ fn run() {
         is_S_sort_by_filesize: is_sorting,
         is_d: is_d,
         is_s_show_system_blocks: is_s,
-        is_f: is_f,
+        is_f_sort_by_system_order: is_f,
         is_n_numeric_gid_uid: is_n,
         is_k_set_blocksize: is_k,
         is_m_stream_output: is_m,
@@ -278,7 +278,7 @@ fn run() {
     list_directory(path, &command_settings);
 }
 fn override_settings(command_settings: &mut CommandSettings) {
-    if command_settings.is_f {
+    if command_settings.is_f_sort_by_system_order {
         (command_settings).is_all = true;
         (command_settings).is_R_recursive = false;
         (command_settings).is_S_sort_by_filesize = false;
@@ -639,9 +639,23 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
     }
 }
 fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
-    if commandsettings.is_f {
+    if commandsettings.is_f_sort_by_system_order {
         //no sorting, use system order
-    } else if commandsettings.is_C_multicolumn_sorted_down {
+    } else if commandsettings.is_c_use_time_of_last_modification {
+        sort_entries_by_created_time(dirs,commandsettings);
+    } else if commandsettings.is_S_sort_by_filesize {        
+        sort_entries_by_size(dirs,commandsettings);    
+    } else {
+        sort_entries_by_name(dirs, commandsettings);
+    }
+    ///reverse if r
+    if commandsettings.is_r_reverse_sort_order{
+        for dir in dirs {
+            dir.entries.reverse();
+        }
+    }
+}
+fn sort_entries_by_created_time(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
         // Sort entries alphabetically and case-insensitively within each directory list
         dirs.sort_by_key(|dir| dir.name.to_lowercase());
 
@@ -652,9 +666,10 @@ fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSet
             dir.entries.sort_unstable_by_key(|entry| entry.created_time);
             dir.entries.reverse();
         }
-    } else if !commandsettings.is_S_sort_by_filesize {
-        //sort by name
 
+}
+fn sort_entries_by_name(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
+//sort by name
         // Sort entries alphabetically and case-insensitively within each directory list
         dirs.sort_by_key(|dir| dir.name.to_string());
 
@@ -662,7 +677,10 @@ fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSet
         for dir in dirs {
             dir.entries.sort_by_key(|entry| entry.name.to_string());
         }
-    } else {
+}
+
+
+fn sort_entries_by_size(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSettings) {
         //sort by size
         // Sort entries alphabetically and case-insensitively within each directory list
         dirs.sort_by_key(|dir| dir.name.to_lowercase());
@@ -679,7 +697,8 @@ fn sort_entries(dirs: &mut Vec<NamedDirEntriesVec>, commandsettings: &CommandSet
                 })
             });
         }
-    }
+        
+
 }
 fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
     //    let entryname=entry.file_name();
