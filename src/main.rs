@@ -1,58 +1,65 @@
 use clap::{App, Arg};
 
+use std::fs;
+use std::fs::DirEntry;
+use std::io::Write;
+use std::os::unix::fs::FileTypeExt;
+use std::os::unix::fs::MetadataExt;
+use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
+use chrono::{DateTime, Local};
+use std::path::PathBuf;
 use std::time::Duration;
 
-use std::fs::{self, DirEntry};
-use std::os::unix::fs::PermissionsExt;
-use std::os::unix::fs::FileTypeExt; 
+use users::{get_user_by_uid, get_group_by_gid};
 extern crate atty;
 extern crate term_size;
 use term_size::dimensions;
 
 use atty::{is, Stream};
 
-struct DirEntryData{
-    name:String,
-    path:String,
-    is_dir:bool,
-    is_symlink:bool,
-    size:u64,
-    modified_data:Duration,
+struct DirEntryData {
+    name: String,
+    path: String,
+    is_dir: bool,
+    is_symlink: bool,
+
+    size: u64,
+    modified_time: Duration,
+    modified_time_str: Option<String>,
+
+    permissions: Option<String>,
+    nlinks: Option<u64>,
+    uid: Option<u32>,
+    gid: Option<u32>,
+    user_name:Option<String>,
+    blocks:Option<u64>,
+    group_name:Option<String>,
+    file_type: Option<String>,
 }
 
 struct CommandSettings {
-    is_all:bool,
-    is_all_excluding_dot:bool,
-    is_long:bool,
-    is_recursive:bool,
-    do_not_follow_symbolic_links:bool
+    is_all: bool,
+    is_all_excluding_dot: bool,
+    is_long: bool,
+    is_recursive: bool,
+    do_not_follow_symbolic_links: bool,
 }
 struct DirWithList {
-    name:String,
-    entries:Vec<DirEntryData>
+    name: String,
+    entries: Vec<DirEntryData>,
 }
 
-fn gen_current_direntrydata() -> DirEntryData{
-    return DirEntryData{    name:".".to_string(),
-    is_symlink:false,
-    path:Path::new(".").display().to_string(),
-        size:0,is_dir:true,
-        modified_data:Duration::new(0,0)
-    }
-    }
-    fn gen_parent_direntrydata() -> DirEntryData{
-        return DirEntryData{   
-            is_symlink:false,
-            is_dir:true,
-            name:"..".to_string(),
-            path:Path::new("..").display().to_string(),
-            size:0,
-            modified_data:Duration::new(0,0)
-        }
-        }
-            
-
+fn gen_current_direntrydata(command_settings: &CommandSettings) -> DirEntryData {
+    let mut d = get_data_by_path(".".to_string(), &command_settings);
+    d.name = ".".to_string();
+    return d;
+}
+fn gen_parent_direntrydata(command_settings: &CommandSettings) -> DirEntryData {
+    let mut d = get_data_by_path("..".to_string(), &command_settings);
+    d.name = "..".to_string();
+    return d;
+}
 
 fn main() {
     let matches = App::new("Rust ar")
@@ -170,10 +177,7 @@ fn main() {
              .help("Force output to be one entry per line. This option does not disable long format output. (Long format output is enabled by [XSI] [Option Start] -g, [Option End] -l (ell), -n, and [XSI] [Option Start] -o; [Option End] and disabled by -C, -m, and -x.)
             "))
         .get_matches();
-    
-
-
-
+ 
     //FLAGS
     let path = matches.value_of("path").unwrap();
     let is_all = matches.is_present("a");
@@ -183,35 +187,33 @@ fn main() {
     let do_not_follow_symbolic_links = matches.is_present("F");
 
     //COMMAND_SETTINGS
-    let command_settings=CommandSettings{
-        is_all_excluding_dot:is_all_excluding_dot,
-        is_long:is_long,
-        is_recursive:is_recursive,
-        is_all:is_all,
-        do_not_follow_symbolic_links:do_not_follow_symbolic_links
+    let command_settings = CommandSettings {
+        is_all_excluding_dot: is_all_excluding_dot,
+        is_long: is_long,
+        is_recursive: is_recursive,
+        is_all: is_all,
+        do_not_follow_symbolic_links: do_not_follow_symbolic_links,
     };
 
-    list_directory(path,&command_settings );
+    list_directory(path, &command_settings);
 }
 
+fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<DirWithList> {
+    let mut entries: Vec<DirWithList> = Vec::new();
 
+    add_entries(&mut entries, path, &command_settings);
 
-fn get_entries(path: &str, commandsettings:&CommandSettings) -> Vec<DirWithList>  {
-    let mut entries :Vec<DirWithList>=Vec::new(); 
-
-    add_entries(&mut entries, path,&commandsettings);
-   
     //add . and .. if is_all
-    if commandsettings.is_all {
-        add_current_and_parent(&mut entries);
+    if command_settings.is_all {
+        add_current_and_parent(&mut entries, command_settings);
     }
-        return entries;
+    return entries;
 }
 
-fn add_current_and_parent(entries :&mut Vec<DirWithList>){
-    let current_dir_entry=gen_current_direntrydata();
-    let parent_dir_entry=gen_parent_direntrydata();
-    
+fn add_current_and_parent(entries: &mut Vec<DirWithList>, command_settings: &CommandSettings) {
+    let current_dir_entry = gen_current_direntrydata(command_settings);
+    let parent_dir_entry = gen_parent_direntrydata(command_settings);
+
     entries[0].entries.push(current_dir_entry);
     entries[0].entries.push(parent_dir_entry);
 }
@@ -225,13 +227,146 @@ fn is_directory<P: AsRef<Path>>(path: P) -> bool {
         }
     }
 }
+fn format_mode(mode: u32) -> String {
+    let user = mode_permissions((mode >> 6) & 7);
+    let group = mode_permissions((mode >> 3) & 7);
+    let other = mode_permissions(mode & 7);
+    format!("{}{}{}", user, group, other)
+}
+fn mode_permissions(perm: u32) -> String {
+    let mut perms = String::new();
+    perms.push(if perm & 4 != 0 { 'r' } else { '-' });
+    perms.push(if perm & 2 != 0 { 'w' } else { '-' });
+    perms.push(if perm & 1 != 0 { 'x' } else { '-' });
+    perms
+}
+fn mode_permissions2(perm: u32) -> String {
+    let mut perms = String::from("-");
+    if perm & 4 != 0 {
+        perms.push('r');
+    } else {
+        perms.push('-');
+    }
+    if perm & 2 != 0 {
+        perms.push('w');
+    } else {
+        perms.push('-');
+    }
+    if perm & 1 != 0 {
+        perms.push('x');
+    } else {
+        perms.push('-');
+    }
+    perms
+}
+fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntryData {
+    let path = PathBuf::from(path);
 
-fn get_direntrydata(entry:DirEntry,command_settings:&CommandSettings) -> DirEntryData{
-    let mut name=entry.file_name().to_str().unwrap().to_string();
-    let path =entry.path().display().to_string(); 
-    let is_dir=is_directory(entry.path());
-    let is_exe=is_executable(entry.path());
-    let is_fifo=is_fifo(entry.path());
+    let mut name = "".to_string();
+    if let Some(file_name) = path.file_name() {
+        if let Some(file_name_str) = file_name.to_str() {
+            name = file_name_str.to_string()
+        }
+    }
+
+    let is_dir = is_directory(&path);
+    let is_exe = is_executable(&path);
+    let is_fifo = is_fifo(&path);
+    let metadata = if command_settings.do_not_follow_symbolic_links {
+        fs::symlink_metadata(&path) // Do not follow symbolic links
+    } else {
+        fs::metadata(&path) // Follow symbolic links
+    };
+
+    if let Ok(metadata) = metadata {
+        let file_type = metadata.file_type();
+        let is_symlink = file_type.is_symlink();
+
+        let size = metadata.len();
+        let modified_time = metadata.modified().unwrap();
+        let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
+
+        if command_settings.do_not_follow_symbolic_links {
+            if is_symlink {
+                name = format!("{}@", name)
+            } else if is_dir {
+                name = format!("{}/", name)
+            } else if is_exe {
+                name = format!("{}*", name)
+            } else if is_fifo {
+                name = format!("{}|", name)
+            }
+        }
+
+        let file_type = if metadata.file_type().is_dir() {
+            "d"
+        } else if metadata.file_type().is_file() {
+            "-"
+        } else if metadata.file_type().is_symlink() {
+            "l"
+        } else {
+            "?"
+        };
+        let permissions = metadata.permissions();
+
+        let permissions = format_mode(permissions.mode());
+        let nlinks = metadata.nlink();
+        let uid = metadata.uid();
+        let gid = metadata.gid();
+
+        let user_name = get_user_by_uid(uid).map(|u| u.name().to_string_lossy().into_owned());
+        let group_name = get_group_by_gid(gid).map(|g| g.name().to_string_lossy().into_owned());
+
+        // let size = metadata.size();
+        let modified = DateTime::<Local>::from(metadata.modified().unwrap());
+        let formatted_time = modified.format("%b %d %H:%M").to_string();
+
+        let blocks=metadata.blocks();
+        return DirEntryData {
+            file_type: Some(file_type.to_string()),
+            name: name,
+            uid: Some(uid),
+            blocks:Some(blocks),
+            modified_time_str:Some(formatted_time),
+            gid: Some(gid),
+            user_name:user_name,
+            group_name:group_name,
+            nlinks: Some(nlinks),
+            permissions: Some(permissions),
+            path: path.display().to_string(),
+            is_dir: is_dir,
+            is_symlink: is_symlink,
+            modified_time,
+            size: size,
+        };
+    } else {
+        println!("Could not read metadata for {}", path.display());
+        return DirEntryData {
+            permissions: None,
+            nlinks: None,
+            gid: None,
+            user_name:None,
+            group_name:None,
+            blocks:None,
+            file_type: None,
+            uid: None,
+            modified_time_str:None,
+            name: name,
+            path: path.display().to_string(),
+            is_dir: is_dir,
+            is_symlink: false,
+            modified_time: Duration::new(0, 0),
+            size: 0,
+        };
+    }
+}
+fn get_direntrydata(entry: DirEntry, command_settings: &CommandSettings) -> DirEntryData {
+    let mut name = entry.file_name().to_str().unwrap().to_string();
+    let path = entry.path().display().to_string();
+    
+    let is_dir = is_directory(&entry.path());
+    let is_exe = is_executable(&entry.path());
+    let is_fifo = is_fifo(entry.path());
     let metadata = if command_settings.do_not_follow_symbolic_links {
         fs::symlink_metadata(&path) // Do not follow symbolic links
     } else {
@@ -245,36 +380,77 @@ fn get_direntrydata(entry:DirEntry,command_settings:&CommandSettings) -> DirEntr
         let size = metadata.len();
         let modified_time = metadata.modified().unwrap();
         let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
-        
-        if command_settings.do_not_follow_symbolic_links{
-        if is_symlink {
-            name=format!("{}@",name)
-        }else if is_dir{
-            name=format!("{}/",name)
-        }else if is_exe{
-            name=format!("{}*",name)
-        }else if is_fifo{
-            name=format!("{}|",name)
+
+        if command_settings.do_not_follow_symbolic_links {
+            if is_symlink {
+                name = format!("{}@", name)
+            } else if is_dir {
+                name = format!("{}/", name)
+            } else if is_exe {
+                name = format!("{}*", name)
+            } else if is_fifo {
+                name = format!("{}|", name)
+            }
         }
-    }
-        return DirEntryData{
-            name:name,
-            path:path,
-            is_dir:is_dir,
-            is_symlink:is_symlink,
-            modified_data:modified_time,
-            size:size
+
+        let file_type = if metadata.file_type().is_dir() {
+            "d"
+        } else if metadata.file_type().is_file() {
+            "-"
+        } else if metadata.file_type().is_symlink() {
+            "l"
+        } else {
+            "?"
         };
-    
+        let permissions = metadata.permissions();
+
+        let permissions = format_mode(permissions.mode());
+        let nlinks = metadata.nlink();
+        let uid = metadata.uid();
+        let gid = metadata.gid();
+        // let size = metadata.size();
+        let modified = DateTime::<Local>::from(metadata.modified().unwrap());
+        let formatted_time = modified.format("%b %d %H:%M").to_string();
+
+        let user_name = get_user_by_uid(uid).map(|u| u.name().to_string_lossy().into_owned());
+        let group_name = get_group_by_gid(gid).map(|g| g.name().to_string_lossy().into_owned());
+
+        let blocks=metadata.blocks();
+
+        return DirEntryData {
+            file_type: Some(file_type.to_string()),
+            name: name,
+            modified_time_str:Some(formatted_time),
+            uid: Some(uid),
+            gid: Some(gid),
+            nlinks: Some(nlinks),
+            user_name:user_name,
+            blocks:Some(blocks),
+            group_name:group_name,
+            permissions: Some(permissions),
+            path: path,
+            is_dir: is_dir,
+            is_symlink: is_symlink,
+            modified_time,
+            size: size,
+        };
     } else {
         println!("Could not read metadata for {}", entry.path().display());
-        return DirEntryData{
-            name:name,
-            path:path,
-            is_dir:is_dir,
-            is_symlink:false,
-            modified_data:Duration::new(0,0),
-            size:0
+        return DirEntryData {
+            permissions: None,
+            nlinks: None,
+            gid: None,
+            modified_time_str:None,
+            file_type: None,
+            uid: None,
+            blocks:None,
+            name: name,   user_name:None,
+            group_name:None,
+            path: path,
+            is_dir: is_dir,
+            is_symlink: false,
+            modified_time: Duration::new(0, 0),
+            size: 0,
         };
     }
 }
@@ -287,7 +463,7 @@ fn is_fifo<P: AsRef<Path>>(path: P) -> bool {
         }
     }
 }
-fn is_executable<P: AsRef<Path>>(path: P) -> bool {
+fn is_executable<P: AsRef<Path>>(path: &P) -> bool {
     let metadata = match fs::metadata(path) {
         Ok(metadata) => metadata,
         Err(e) => {
@@ -300,98 +476,105 @@ fn is_executable<P: AsRef<Path>>(path: P) -> bool {
     (permissions.mode() & 0o111) != 0 // Check if any execute bits are set (owner, group, or others)
 }
 
-fn add_entries(entries_vec: &mut Vec<DirWithList>,path: &str, command_settings:&CommandSettings) {
-    let mut direntries_data_vec:Vec<DirEntryData>=Vec::new();
+fn add_entries(entries_vec: &mut Vec<DirWithList>, path: &str, command_settings: &CommandSettings) {
+    let mut direntries_data_vec: Vec<DirEntryData> = Vec::new();
     if let Ok(entries) = fs::read_dir(path) {
         let collected: Vec<_> = entries.filter_map(Result::ok).collect();
-        for entry in collected {        
-                if should_display(&entry, command_settings) {
-                    let p=entry.path();
-                    let name = entry.file_name();
-                    let pstr=p.to_str().unwrap();
-                    // println!("Add {}",pstr);
+        for entry in collected {
+            if should_display(&entry, command_settings) {
+                let p = entry.path();
+                let name = entry.file_name();
+                let pstr = p.to_str().unwrap();
+                // println!("Add {}",pstr);
 
-                    let data=get_direntrydata(entry,command_settings);
-                    direntries_data_vec.push(data);
-                    if command_settings.is_recursive && p.is_dir() {
-                        // Avoiding infinite loop by not re-listing '.' or '..'
-                        if ( name != "." && name != "..") {
-                            let mut dirs :Vec<DirWithList>=Vec::new(); 
-                            add_entries(&mut dirs, pstr, command_settings);
-                            for dir in dirs{
-                                entries_vec.push(dir);
-                            }
+                let data = get_direntrydata(entry, command_settings);
+                direntries_data_vec.push(data);
+                if command_settings.is_recursive && p.is_dir() {
+                    // Avoiding infinite loop by not re-listing '.' or '..'
+                    if (name != "." && name != "..") {
+                        let mut dirs: Vec<DirWithList> = Vec::new();
+                        add_entries(&mut dirs, pstr, command_settings);
+                        for dir in dirs {
+                            entries_vec.push(dir);
                         }
                     }
                 }
+            }
         }
-        let d :DirWithList=DirWithList{
-            name:path.to_string(),
-            entries:direntries_data_vec,
+        let d: DirWithList = DirWithList {
+            name: path.to_string(),
+            entries: direntries_data_vec,
         };
-     
+
         entries_vec.push(d);
     } else {
         eprintln!("Failed to read directory: {}", path);
     }
-    
-
 }
 
+fn list_directory(path: &str, commandsettings: &CommandSettings) {
+    let mut dirs: Vec<DirWithList> = get_entries(path, commandsettings);
 
-
-fn list_directory(path: &str,commandsettings:&CommandSettings) {
-    let mut dirs :Vec<DirWithList>=get_entries(path, commandsettings); 
- 
     // Sort entries alphabetically and case-insensitively within each directory list
     for dir in &mut dirs {
         dir.entries.sort_by_key(|entry| entry.name.to_lowercase());
     }
 
-      // Sort entries alphabetically and case-insensitively within each directory list
+    // Sort entries alphabetically and case-insensitively within each directory list
     dirs.sort_by_key(|dir| dir.name.to_lowercase());
-    
-
 
     if !commandsettings.is_recursive {
         // Access the only element immutably
         let de = &dirs[0];
         display_entries(&de.entries, commandsettings);
-   
     } else {
         // Access all elements immutably
         for dir in dirs {
-            if dir.name!="." {
+            if dir.name != "." {
                 println!("\n{}:", dir.name);
             }
             display_entries(&dir.entries, commandsettings);
         }
     }
-
-
 }
 
-fn should_display(entry: &DirEntry, commandsettings:&CommandSettings) -> bool {
-//    let entryname=entry.file_name();
-  //  let name=entryname.to_str().unwrap();
+fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
+    //    let entryname=entry.file_name();
+    //  let name=entryname.to_str().unwrap();
     if commandsettings.is_all {
-      //  let show=true;
+        //  let show=true;
         // println!("Check {} {}",name,show);
         return true;
-    }else if commandsettings.is_all_excluding_dot {
-        let show=!entry.file_name().to_str().map_or(false, |s| s.starts_with('.'));
+    } else if commandsettings.is_all_excluding_dot {
+        let show = !entry
+            .file_name()
+            .to_str()
+            .map_or(false, |s| s.starts_with('.'));
         // println!("Check {} {}",name,show);
-        return  show;
+        return show;
     }
-    return  !entry.file_name().to_str().map_or(false, |s| s.starts_with('.'))
+    return !entry
+        .file_name()
+        .to_str()
+        .map_or(false, |s| s.starts_with('.'));
 }
 
-fn display_entries(entries: &[DirEntryData], commandsettings:&CommandSettings) {
+fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if commandsettings.is_long {
-        for entry in entries{
-            println!("{:<10} {:<20} {}", entry.size, format!("{:?}", entry.modified_data), entry.path);
-            return; 
-        }  
+        let mut total:u64=0;
+        for e in entries {
+            let b = e.blocks.unwrap();
+            total = total + b;
+        }
+        println!("total {}",total);
+        for e in entries {
+            println!(
+                "{}{} {:<3} {:<5} {:<5} {:>8} {} {}",
+                e.file_type.as_ref().unwrap(), e.permissions.as_ref().unwrap(), e.nlinks.unwrap(), e.user_name.as_ref().unwrap(),e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), e.name
+            );
+            //            println!("{:<10} {:<20} {}", entry.size, format!("{:?}", entry.modified_time), entry.path);
+           
+        }
     }
     if atty::is(Stream::Stdout) {
         if let Some((width, _)) = dimensions() {
@@ -404,37 +587,16 @@ fn display_entries(entries: &[DirEntryData], commandsettings:&CommandSettings) {
             }
             let columns = width / (max_len + 8); // +8 for padding and tab space
             let rows = (entries.len() + columns - 1) / columns; // Calculate required rows
-    
+
             for row in 0..rows {
                 for col in 0..columns {
-                    if let Some(entry) = entries.get(col * rows + row) { // Calculate correct index for column-first ordering
+                    if let Some(entry) = entries.get(col * rows + row) {
+                        // Calculate correct index for column-first ordering
                         print!("{:<width$}\t", entry.name, width = max_len);
                     }
                 }
                 println!(); // End the line after each row
             }
-            /* 
-        if let Some((width, _)) = dimensions() {
-            let mut max_len = 0;
-            for entry in entries {
-                let len = entry.name.len();
-                if len > max_len {
-                    max_len = len;
-                }
-            }
-            let columns = width / (max_len + 8); // +8 for padding and tab space
-            let mut col = 0;
-            for entry in entries {
-                print!("{:<width$}\t", entry.name, width = max_len);
-                col += 1;
-                if col >= columns {
-                    println!();
-                    col = 0;
-                }
-            }
-            if col > 0 {
-                println!();
-            }*/
         } else {
             // Fallback if terminal dimensions can't be fetched
             for entry in entries {
