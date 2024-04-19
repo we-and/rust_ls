@@ -37,7 +37,7 @@ struct DirEntryData {
     created_time:Option<SystemTime>,
     modified_time_str: Option<String>,
     symlink_target_name: Option<String>,
-
+    size_in_blocks:Option<u64>,
     permissions: Option<String>,
     nlinks: Option<u64>,
     uid: Option<u32>,
@@ -58,6 +58,7 @@ struct CommandSettings {
     is_d: bool,
     is_f: bool,
     is_s:bool,
+    is_k:bool,
     is_i: bool,
     
     is_g: bool,
@@ -210,6 +211,7 @@ fn main() {
     let is_f=matches.is_present("f");
     let is_s=matches.is_present("s");
     let is_i=matches.is_present("i");
+    let is_k=matches.is_present("k");
     let is_g=matches.is_present("g");
     let is_sorting=matches.is_present("S");
     let is_sorted_by_status_change_time=matches.is_present("c");
@@ -225,6 +227,8 @@ fn main() {
         is_d:is_d,
         is_s:is_s,
         is_f: is_f,
+        is_k: is_k,
+        
         is_i: is_i,
         is_g:is_g,
         is_all: is_all,
@@ -408,19 +412,20 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
         let modified = DateTime::<Local>::from(metadata.modified().unwrap());
         let formatted_time = modified.format("%b %d %H:%M").to_string();
 
-        
+         let size_in_blocks = (metadata.len() as f64 / 1024.0).ceil() as u64;
         let has_extended_attributes=has_extended_attributes(&path);
         let blocks=metadata.blocks();
         return DirEntryData {
             file_type: Some(file_type.to_string()),
             name: name,
-created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
+            created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             has_extended_attributes:Some(has_extended_attributes),
             uid: Some(uid),
             blocks:Some(blocks),
             modified_time_str:Some(formatted_time),
             gid: Some(gid),
             inode:Some(metadata.ino()),
+            size_in_blocks:Some(size_in_blocks),
             user_name:user_name,
             symlink_target_name:Some(symlink_target_name),
             group_name:group_name,
@@ -440,6 +445,7 @@ created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             gid: None,
             created_time:None,
             symlink_target_name:None,
+            size_in_blocks:None,
             inode:None,
             user_name:None,
             group_name:None,
@@ -681,8 +687,14 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
                 let mut field="".to_string();
                 if commandsettings.is_i{
                     field=format!("{:<8} {}",entry.inode.unwrap(), entry.name);
-                }else  if commandsettings.is_s{
-                    field=format!("{:<8} {}",entry.blocks.unwrap(), entry.name);
+                }else if commandsettings.is_s{
+                    if commandsettings.is_k{
+                        field=format!("{:<8} {}",entry.size_in_blocks.unwrap(), entry.name);
+
+                    }else{
+                        field=format!("{:<8} {}",entry.blocks.unwrap(), entry.name);
+
+                    }
                 }else{
                     field=format!("{}", entry.name);
                 
@@ -702,9 +714,13 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
                         // Calculate correct index for column-first ordering
                         if commandsettings.is_i{
                             print!("{:<8} {:<width$}\t",entry.inode.unwrap(), entry.name, width = max_len);
-                        }else                        if commandsettings.is_s{
-                            print!("{:<8} {:<width$}\t",entry.blocks.unwrap(), entry.name, width = max_len);
-                        }else{
+                        }else if commandsettings.is_s{
+                            if commandsettings.is_k{
+                                print!("{:<8} {:<width$}\t",entry.size_in_blocks.unwrap(), entry.name, width = max_len);
+                            }else{
+                                    print!("{:<8} {:<width$}\t",entry.blocks.unwrap(), entry.name, width = max_len);
+                      
+                                 }    }else{
                             print!("{:<width$}\t", entry.name, width = max_len);
 
                         }
