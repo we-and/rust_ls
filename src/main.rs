@@ -8,6 +8,7 @@ use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 use std::process::CommandArgs;
+//use std::ptr::metadata;
 use std::time::SystemTime;
 use chrono::{DateTime, Local};
 use std::path::PathBuf;
@@ -41,6 +42,7 @@ struct DirEntryData {
     nlinks: Option<u64>,
     uid: Option<u32>,
     gid: Option<u32>,
+    inode:Option<u64>,
     user_name:Option<String>,
     blocks:Option<u64>,
     has_extended_attributes:Option<bool>,
@@ -55,6 +57,9 @@ struct CommandSettings {
     is_all: bool,
     is_d: bool,
     is_f: bool,
+    is_s:bool,
+    is_i: bool,
+    
     is_g: bool,
     is_all_excluding_dot: bool,
     is_long: bool,
@@ -203,6 +208,8 @@ fn main() {
     let do_not_follow_symbolic_links = matches.is_present("F");
     let is_d=matches.is_present("d");
     let is_f=matches.is_present("f");
+    let is_s=matches.is_present("s");
+    let is_i=matches.is_present("i");
     let is_g=matches.is_present("g");
     let is_sorting=matches.is_present("S");
     let is_sorted_by_status_change_time=matches.is_present("c");
@@ -216,7 +223,9 @@ fn main() {
         is_recursive: is_recursive,
         is_sorted_by_size:is_sorting,
         is_d:is_d,
+        is_s:is_s,
         is_f: is_f,
+        is_i: is_i,
         is_g:is_g,
         is_all: is_all,
         do_not_follow_symbolic_links: do_not_follow_symbolic_links,
@@ -411,6 +420,7 @@ created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             blocks:Some(blocks),
             modified_time_str:Some(formatted_time),
             gid: Some(gid),
+            inode:Some(metadata.ino()),
             user_name:user_name,
             symlink_target_name:Some(symlink_target_name),
             group_name:group_name,
@@ -430,6 +440,7 @@ created_time:Some( metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
             gid: None,
             created_time:None,
             symlink_target_name:None,
+            inode:None,
             user_name:None,
             group_name:None,
             has_extended_attributes:None,
@@ -608,9 +619,9 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
         .map_or(false, |s| s.starts_with('.'));
 }
 
-fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
-    if commandsettings.is_long || commandsettings.is_g {
-     if !commandsettings.is_d     {   let mut total:u64=0;
+fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSettings) {
+
+    if !commandsettings.is_d     {   let mut total:u64=0;
         for e in entries {
             let b = e.blocks.unwrap();
             total = total + b;
@@ -657,12 +668,27 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
             }
            
         }
-    }else{
+}
+
+
+
+
+fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if atty::is(Stream::Stdout) {
         if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
             for entry in entries {
-                let len = entry.name.len();
+                let mut field="".to_string();
+                if commandsettings.is_i{
+                    field=format!("{:<8} {}",entry.inode.unwrap(), entry.name);
+                }else  if commandsettings.is_s{
+                    field=format!("{:<8} {}",entry.blocks.unwrap(), entry.name);
+                }else{
+                    field=format!("{}", entry.name);
+                
+                }
+                    
+                let len = field.len();
                 if len > max_len {
                     max_len = len;
                 }
@@ -674,7 +700,14 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
                 for col in 0..columns {
                     if let Some(entry) = entries.get(col * rows + row) {
                         // Calculate correct index for column-first ordering
-                        print!("{:<width$}\t", entry.name, width = max_len);
+                        if commandsettings.is_i{
+                            print!("{:<8} {:<width$}\t",entry.inode.unwrap(), entry.name, width = max_len);
+                        }else                        if commandsettings.is_s{
+                            print!("{:<8} {:<width$}\t",entry.blocks.unwrap(), entry.name, width = max_len);
+                        }else{
+                            print!("{:<width$}\t", entry.name, width = max_len);
+
+                        }
                     }
                 }
                 println!(); // End the line after each row
@@ -686,10 +719,25 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
             }
         }
     } else {
+        if commandsettings.is_i{
+            for entry in entries {
+                println!("{:<8} {}",entry.inode.unwrap(), entry.name);
+
+            }
+        }else{
         // Non-TTY output
         for entry in entries {
             println!("{}", entry.name);
         }
     }
+    }
 }
+
+fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
+    //LONG
+    if commandsettings.is_long || commandsettings.is_g {
+        display_entries_long(entries, commandsettings);
+    }else{
+        display_entries_normal(entries, commandsettings);
+    }
 }
