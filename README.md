@@ -13,8 +13,8 @@ An implementation of the unix command ls using Rust.
 | ls -h   | 80% (need to exclude if -H and and -L)  |
 | ls -H   | TODO  |
 | ls -L   | TODO  |
-| ls -S   | TODO  |
-| ls -c   | TODO  |
+| ls -S   | 100%  |
+| ls -c   | Differs on macOS  |
 | ls -d   | TODO  |
 | ls -f   | TODO  |
 | ls -g   | TODO  |
