@@ -7,6 +7,7 @@ use std::os::unix::fs::FileTypeExt;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
+use std::process::CommandArgs;
 use std::time::SystemTime;
 use chrono::{DateTime, Local};
 use std::path::PathBuf;
@@ -53,6 +54,8 @@ struct CommandSettings {
     is_sorted_by_size:bool,
     is_all: bool,
     is_d: bool,
+    is_f: bool,
+    is_g: bool,
     is_all_excluding_dot: bool,
     is_long: bool,
     is_recursive: bool,
@@ -199,23 +202,40 @@ fn main() {
     let is_recursive = matches.is_present("R");
     let do_not_follow_symbolic_links = matches.is_present("F");
     let is_d=matches.is_present("d");
+    let is_f=matches.is_present("f");
+    let is_g=matches.is_present("g");
     let is_sorting=matches.is_present("S");
     let is_sorted_by_status_change_time=matches.is_present("c");
+    
+    
     //COMMAND_SETTINGS
-    let command_settings = CommandSettings {
+    let mut command_settings = CommandSettings {
         is_all_excluding_dot: is_all_excluding_dot,
         is_long: is_long,
         is_sorted_by_status_change_time:is_sorted_by_status_change_time,
         is_recursive: is_recursive,
         is_sorted_by_size:is_sorting,
         is_d:is_d,
+        is_f: is_f,
+        is_g:is_g,
         is_all: is_all,
         do_not_follow_symbolic_links: do_not_follow_symbolic_links,
     };
-
+ 
+    override_settings(&mut command_settings);
     list_directory(path, &command_settings);
 }
-
+fn override_settings(command_settings: &mut CommandSettings){
+ if command_settings.is_f{
+    (command_settings).is_all=true;
+    (command_settings).is_recursive=false;
+    (command_settings).is_sorted_by_size=false;
+//    (command_settings).is_t=false;
+  //  (command_settings).is_g=false;
+   // (command_settings).is_l=false;
+    //(command_settings).is_n=false;
+ }
+}
 fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
     let mut direntries: Vec<NamedDirEntriesVec> = Vec::new();
 
@@ -514,7 +534,9 @@ fn list_directory(path: &str, command_settings: &CommandSettings) {
     }
 }
 fn sort_entries(dirs : &mut Vec<NamedDirEntriesVec>,commandsettings: &CommandSettings ){
-   if commandsettings.is_sorted_by_status_change_time{
+    if commandsettings.is_f{
+    //no sorting
+    }else     if commandsettings.is_sorted_by_status_change_time{
 
   // Sort entries alphabetically and case-insensitively within each directory list
   dirs.sort_by_key(|dir| dir.name.to_lowercase());
@@ -587,9 +609,8 @@ fn should_display(entry: &DirEntry, commandsettings: &CommandSettings) -> bool {
 }
 
 fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
-    if commandsettings.is_long {
-     if !commandsettings.is_d
-     {   let mut total:u64=0;
+    if commandsettings.is_long || commandsettings.is_g {
+     if !commandsettings.is_d     {   let mut total:u64=0;
         for e in entries {
             let b = e.blocks.unwrap();
             total = total + b;
@@ -607,17 +628,33 @@ fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) 
             //EXTRA_ATTRIBUTES
             let mut extr_attr=" ";
             let has_attr=e.has_extended_attributes.unwrap();
-            if(has_attr){
+            if has_attr {
                 extr_attr="@";
             }
 
             let mut name=e.name.to_string();
 
-            println!(
-                "{}{}{} {} {:width$}  {:width2$}{:>7} {} {}",
-                e.file_type.as_ref().unwrap(),        e.permissions.as_ref().unwrap(),extr_attr , e.nlinks.unwrap(), e.user_name.as_ref().unwrap(),e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), name, width = max_user_length,
-                width2 = max_group_length
-            );
+            if commandsettings.is_g{
+                println!(
+                    "{}{}{} {}   {:width2$}{:>7} {} {}",
+                    e.file_type.as_ref().unwrap(),      
+                    e.permissions.as_ref().unwrap(),
+                    extr_attr , 
+                    
+                    e.nlinks.unwrap(),
+                    
+                     e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), name, 
+                    width2 = max_group_length
+                );
+    
+            }else{
+                println!(
+                    "{}{}{} {} {:width$}  {:width2$}{:>7} {} {}",
+                    e.file_type.as_ref().unwrap(),        e.permissions.as_ref().unwrap(),extr_attr , e.nlinks.unwrap(), e.user_name.as_ref().unwrap(),e. group_name.as_ref().unwrap(), e.size, e.modified_time_str.as_ref().unwrap(), name, width = max_user_length,
+                    width2 = max_group_length
+                );
+    
+            }
            
         }
     }else{
