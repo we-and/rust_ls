@@ -16,6 +16,7 @@ use std::time::Duration;
 extern crate xattr;
 use std::io;
 
+use textwrap::{fill, Options};
 use std::fs::File;
 
 use xattr::{FileExt, XAttrs};
@@ -60,6 +61,7 @@ struct CommandSettings {
     is_s:bool,
     is_k:bool,
     is_i: bool,
+    is_m: bool,
     
     is_g: bool,
     is_all_excluding_dot: bool,
@@ -212,6 +214,7 @@ fn main() {
     let is_s=matches.is_present("s");
     let is_i=matches.is_present("i");
     let is_k=matches.is_present("k");
+    let is_m=matches.is_present("m");
     let is_g=matches.is_present("g");
     let is_sorting=matches.is_present("S");
     let is_sorted_by_status_change_time=matches.is_present("c");
@@ -228,6 +231,7 @@ fn main() {
         is_s:is_s,
         is_f: is_f,
         is_k: is_k,
+        is_m:is_m,
         
         is_i: is_i,
         is_g:is_g,
@@ -248,6 +252,9 @@ fn override_settings(command_settings: &mut CommandSettings){
    // (command_settings).is_l=false;
     //(command_settings).is_n=false;
  }
+
+ if command_settings.is_m{
+    command_settings.is_long=false; }
 }
 fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
     let mut direntries: Vec<NamedDirEntriesVec> = Vec::new();
@@ -681,7 +688,16 @@ fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSetti
 
 fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if atty::is(Stream::Stdout) {
-        if let Some((width, _)) = dimensions() {
+        if commandsettings.is_m{
+            let mut file_names = Vec::new();
+             for entry in entries{
+                    file_names.push(entry.name.as_ref());
+            }
+        
+            // Create a single string with names separated by ", "
+            let output = file_names.join(", ");
+            println!("{}",output);
+        }else if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
             for entry in entries {
                 let mut field="".to_string();
@@ -735,7 +751,19 @@ fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSet
             }
         }
     } else {
-        if commandsettings.is_i{
+        if commandsettings.is_m{
+            let width=80;
+            let mut file_names = Vec::new();
+             for entry in entries{
+                    file_names.push(entry.name.as_ref());
+            }
+            let output = file_names.join(", ");
+            let wrapped_output = fill(&output, Options::new(width));
+
+    // Print the result
+    println!("{}", wrapped_output);
+
+         } else       if commandsettings.is_i{
             for entry in entries {
                 println!("{:<8} {}",entry.inode.unwrap(), entry.name);
 
