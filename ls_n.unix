@@ -1,0 +1,18 @@
+total 432
+-rw-r--r--  1 501  20  12968 Apr 19 16:13 Cargo.lock
+-rw-r--r--  1 501  20    296 Apr 19 16:13 Cargo.toml
+-rw-r--r--  1 501  20   1938 Apr 19 18:15 README.md
+-rw-r--r--  1 501  20    897 Apr 19 20:04 ls_n.rust
+-rw-r--r--  1 501  20      0 Apr 19 20:04 ls_n.unix
+-rw-r--r--  1 501  20  32797 Apr 19 09:26 lsaR.unix
+-rw-r--r--  1 501  20  86815 Apr 19 09:26 lsaRl.unix
+-rw-r--r--  1 501  20    237 Apr 19 15:28 lsi.rust
+-rw-r--r--  1 501  20    237 Apr 19 15:24 lsi.unix
+-rw-r--r--  1 501  20    148 Apr 19 16:19 lsm.rust
+-rw-r--r--  1 501  20    139 Apr 19 16:10 lsm.unix
+-rw-r--r--  1 501  20  22248 Apr 18 23:54 rust.out
+lrwxr-xr-x  1 501  20      8 Apr 19 10:12 rust.out.symlink -> rust.out
+drwxr-xr-x  4 501  20    128 Apr 19 19:01 src
+drwxr-xr-x@ 6 501  20    192 Apr 19 16:47 target
+drwxr-xr-x  3 501  20     96 Apr 19 16:47 tests
+-rw-r--r--  1 501  20  22248 Apr 18 23:54 unix.out

@@ -7,6 +7,8 @@ use clap::{App, Arg};
 use std::fs;
 use std::fs::DirEntry;
 use std::io::Write;
+use std::ffi::OsString;
+use std::ffi::OsStr;
 use std::os::unix::fs::FileTypeExt;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
@@ -295,6 +297,9 @@ fn override_settings(command_settings: &mut CommandSettings) {
     if command_settings.is_m_stream_output {
         command_settings.is_l_long = false;
     }
+    if command_settings.is_n_numeric_gid_uid{
+        command_settings.is_l_long=true;
+    }
 }
 fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
     let mut direntries: Vec<NamedDirEntriesVec> = Vec::new();
@@ -319,8 +324,13 @@ fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEn
     }
     return direntries;
 }
-
-fn add_current_and_parent(
+fn is_printable(c:char)->bool{
+   return  c.is_ascii_graphic() || c==' ';
+}
+fn sanitize_filename(name:OsString) -> String{
+    return     name.to_string_lossy().chars().map(|c| if is_printable(c){c} else {'?'}).collect();
+    }
+        fn add_current_and_parent(
     entries: &mut Vec<NamedDirEntriesVec>,
     command_settings: &CommandSettings,
 ) {
@@ -380,6 +390,10 @@ fn get_symlink_blocks(path: &Path) -> io::Result<u64> {
     let metadata = fs::symlink_metadata(path)?;
     Ok(metadata.blocks()) // `len()` returns the size of the symlink
 }
+fn get_symlink_inode(path: &Path) -> io::Result<u64> {
+    let metadata = fs::symlink_metadata(path)?;
+    Ok(metadata.ino()) // `len()` returns the size of the symlink
+}
 fn get_symlink_modified(path: &Path) -> io::Result<String> {
     let metadata = fs::symlink_metadata(path)?;
     let modified = DateTime::<Local>::from(metadata.modified().unwrap());
@@ -406,6 +420,11 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             name = file_name_str.to_string()
         }
     }
+    if command_settings.is_q_force_nonprintable_as_questionmarks{
+        let os_string = OsString::from(name);
+        name=sanitize_filename(os_string);
+    }
+
 
     let is_dir = is_directory(&path);
     let is_exe = is_executable(&path);
@@ -496,8 +515,18 @@ fn get_data_by_path(path: String, command_settings: &CommandSettings) -> DirEntr
             blocks = get_symlink_blocks(&path).unwrap();
         }
 
-        let inode=metadata.ino();
+        let mut inode=metadata.ino();
+        if is_symlink{
+            inode=get_symlink_inode(&path).unwrap();            
+        }
         let inode_and_name=format!("{:<8} {}", inode, name.clone().to_string());
+
+        if command_settings.is_p_add_slash{
+            if is_dir{
+                name=format!("{}/",name)
+                
+            }
+        }
         return DirEntryData {
             file_type: Some(file_type.to_string()),
             name: name,
@@ -806,22 +835,52 @@ fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSetti
                 row = format!("{}  {:width2$}",row,e.group_name.as_ref().unwrap(),      width2 = max_group_length);
             }
         }
-        row = format!("{} {}",row,footer);
+        row = format!("{}{}",row,footer);
         println!("{}",row);        
     }
 }
+fn display_entries_stream(entries: &[DirEntryData], commandsettings: &CommandSettings) {
+    let mut file_names:Vec<String> = Vec::new();
+    for entry in entries {
+        file_names.push(entry.name.to_string());
+    }
 
+    if let Some((width, _)) = term_size::dimensions() {
+        let mut line = String::new();
+        for name in &file_names {
+            let new_segment = if line.is_empty() { name.to_string() } else { format!(", {}", name) };
+            // Check if adding the new segment would exceed the line width
+            if line.len() + new_segment.len() > width {
+                line.push_str(", ");
+
+                println!("{}", line);
+                line = name.to_string(); // Start a new line
+            } else {
+                if !line.is_empty() {
+                    line.push_str(", ");
+                }
+                let st=&name.to_string();
+                let str=st.as_str();
+                line.push_str(str);
+            }
+        }
+        if !line.is_empty() {
+            println!("{}", line); // Print the last line if it's not empty
+        }
+    } else {
+        // Fallback if terminal size cannot be determined
+        println!("{}", file_names.join(", "));
+    }
+
+    //}
+    // Create a single string with names separated by ", "
+//    let output = file_names.join(", ");
+  //  println!("{}", output);
+}
 fn display_entries_normal(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     if atty::is(Stream::Stdout) {
         if commandsettings.is_m_stream_output {
-            let mut file_names = Vec::new();
-            for entry in entries {
-                file_names.push(entry.name.as_ref());
-            }
-
-            // Create a single string with names separated by ", "
-            let output = file_names.join(", ");
-            println!("{}", output);
+            display_entries_stream(entries, commandsettings);
         } else if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
             for entry in entries {
