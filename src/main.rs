@@ -23,6 +23,7 @@ struct CommandSettings {
     is_all_excluding_dot:bool,
     is_long:bool,
     is_recursive:bool,
+    do_not_follow_symbolic_links:bool
 }
 struct DirWithList {
     name:String,
@@ -166,82 +167,24 @@ fn main() {
 
 
 
-
-
-/* 
-
-    // Parsing logic for each option
-    if matches.is_present("A") {
-        
-    }else if matches.is_present("C") {
-    
-    }else if matches.is_present("F") {
-        
-    }else if matches.is_present("H") {
-    
-    }else if matches.is_present("L") {
-    
-    }else if matches.is_present("R") {
-    
-    }else if matches.is_present("S") {
-    
-    }else if matches.is_present("a") {
-    
-    }else if matches.is_present("c") {
-    
-    }else if matches.is_present("d") {
-    
-    }else if matches.is_present("g") {
-    
-    }else if matches.is_present("f") {
-    
-    } else if matches.is_present("i") {
-    
-    } else if matches.is_present("i") {
-    
-    } else if matches.is_present("i") {
-    
-    } else if matches.is_present("k") {
-    
-    } else if matches.is_present("l") {
-    
-    } else if matches.is_present("m") {
-    
-    } else if matches.is_present("n") {
-    
-    } else if matches.is_present("o") {
-    
-    } else if matches.is_present("p") {
-    
-    } else if matches.is_present("q") {
-    
-    } else if matches.is_present("r") {
-    } else if matches.is_present("s") {
-    
-    } else if matches.is_present("t") {
-    
-    } else if matches.is_present("u") {
-    
-    } else if matches.is_present("x") {
-    
-    } else if matches.is_present("1") {
-    
-    } */
-  //  let is_r = matches.is_present("r");
+    //FLAGS
     let path = matches.value_of("path").unwrap();
     let is_all = matches.is_present("a");
     let is_all_excluding_dot = matches.is_present("A");
     let is_long = matches.is_present("l");
     let is_recursive = matches.is_present("R");
+    let do_not_follow_symbolic_links = matches.is_present("F");
 
-    let commandsettings=CommandSettings{
+    //COMMAND_SETTINGS
+    let command_settings=CommandSettings{
         is_all_excluding_dot:is_all_excluding_dot,
         is_long:is_long,
         is_recursive:is_recursive,
-        is_all:is_all
+        is_all:is_all,
+        do_not_follow_symbolic_links:do_not_follow_symbolic_links
     };
 
-    list_directory(path,&commandsettings );
+    list_directory(path,&command_settings );
 }
 
 
@@ -382,9 +325,9 @@ fn display_entries(entries: &[DirEntryData], commandsettings:&CommandSettings) {
     if commandsettings.is_long {
         for entry in entries{
             println!("{:<10} {:<20} {}", entry.size, format!("{:?}", entry.modified_data), entry.path);
-        return; 
-    }  
-}
+            return; 
+        }  
+    }
     if atty::is(Stream::Stdout) {
         if let Some((width, _)) = dimensions() {
             let mut max_len = 0;
