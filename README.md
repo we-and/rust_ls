@@ -9,6 +9,7 @@ An implementation of the unix command ls using Rust.
 | ls -a   | 100%  |
 | ls -A   | 100%  |
 | ls -R   | 100%  |
+| ls -l   | 100%  |
 | ls -h   | 80% (need to exclude if -H and and -L)  |
 
 ```
