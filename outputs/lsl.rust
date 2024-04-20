@@ -1,10 +1,15 @@
-issym test.symlink -> rust.out true per=rwxr-xr-x
-total 48
+total 88
 -rw-r--r--   1 jd  staff  12968 Apr 19 16:13 Cargo.lock
 -rw-r--r--   1 jd  staff    296 Apr 19 16:13 Cargo.toml
--rw-r--r--   1 jd  staff   1938 Apr 19 18:15 README.md
--rw-r--r--   1 jd  staff      0 Apr 19 22:33 lsl.rust
-drwxr-xr-x  14 jd  staff    448 Apr 19 22:00 src
+-rw-r--r--   1 jd  staff   1968 Apr 20 14:06 README.md
+-rw-r--r--   1 jd  staff    712 Apr 20 14:43 lsg.rust
+-rw-r--r--   1 jd  staff    712 Apr 20 14:43 lsg.unix
+-rw-r--r--   1 jd  staff    231 Apr 20 14:39 lsi.rust
+-rw-r--r--   1 jd  staff    212 Apr 20 14:39 lsi.unix
+-rw-r--r--   1 jd  staff      0 Apr 20 14:43 lsl.rust
+-rw-r--r--   1 jd  staff    768 Apr 20 14:43 lsl.unix
+drwxr-xr-x  14 jd  staff    448 Apr 20 14:35 outputs
+drwxr-xr-x  17 jd  staff    544 Apr 20 14:19 src
 drwxr-xr-x@  6 jd  staff    192 Apr 19 16:47 target
-lrwxr-xr-x   1 jd  staff      8 Apr 19 10:12 test.symlink -> rust.out
+drwxr-xr-x   5 jd  staff    160 Apr 19 22:45 test_environments
 drwxr-xr-x   3 jd  staff     96 Apr 19 16:47 tests

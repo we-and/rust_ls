@@ -117,20 +117,26 @@ pub fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandS
         let mut row=header.to_string();
  
         if commandsettings.is_g_hide_user {
+//            row = format!("{} ",row);
         }else{
+          
+
             if commandsettings.is_n_numeric_gid_uid {
                 row = format!("{} {:width2$}",row,e.uid.as_ref().unwrap_or(&0),      width2 = max_userid_length);
             }else{
                 row = format!("{} {:width2$}",row,e.user_name.as_ref().unwrap_or(&"".to_string()),      width2 = max_user_length);
             }
         }
+        if !commandsettings.is_g_hide_user {
+        row = format!("{} ",row);
+        }
         if commandsettings.is_o_hide_group {
             
         }else{
             if commandsettings.is_n_numeric_gid_uid {
-                row = format!("{}  {:width2$}",row,e.gid.as_ref().unwrap_or(&0),      width2 = max_groupid_length);
+                row = format!("{} {:width2$}",row,e.gid.as_ref().unwrap_or(&0),      width2 = max_groupid_length);
             }else{
-                row = format!("{}  {:width2$}",row,e.group_name.as_ref().unwrap_or(&"".to_string()),      width2 = max_group_length);
+                row = format!("{} {:width2$}",row,e.group_name.as_ref().unwrap_or(&"".to_string()),      width2 = max_group_length);
             }
         }
         row = format!("{}{}",row,footer);
@@ -261,11 +267,11 @@ pub fn display_entries_grid_row_first(entries: &[DirEntryData], commandsettings:
         }
         println!();  // Newline after each row
     }
-//}else{
-        // Fallback if terminal dimensions can't be fetched
-  //      display_entries_single_line(entries, commandsettings);
+        //}else{
+                // Fallback if terminal dimensions can't be fetched
+        //      display_entries_single_line(entries, commandsettings);
 
-//}
+        //}
 }
 
 /// Helper function to print a single entry based on command settings
