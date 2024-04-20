@@ -44,9 +44,18 @@ use permissions::{*};
 mod entries;
 use entries::{*};
 
+mod constants;
+mod env;
 fn main() {
     run();
 }
+
+//performs the ls command:
+//1. Read arguments passed from command-line
+//2. Turn into a CommandSettings struct
+//3. Override certain flags according to documentation
+//4. List entries within the path directory
+//5. Display them according to flags 
 fn run() {
     //read arguments
     let matches = get_argument_matches();

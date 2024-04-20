@@ -30,6 +30,45 @@ fn test_l() {
 }
 
 #[test]
+fn test_C() {
+    let args = ["-C"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -C and rust_ls -C do not match");
+}
+#[test]
+fn test_x() {
+    let args = ["-x"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -x and rust_ls -x do not match");
+}
+
+#[test]
+fn test_xi() {
+    let args = ["-xi"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -xi and rust_ls -xi do not match");
+}
+
+#[test]
+fn test_Ci() {
+    let args = ["-Ci"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -Ci and rust_ls -Ci do not match");
+}
+
+#[test]
+fn test_1() {
+    let args = ["-1"]; // Long listing f ormat argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -1 and rust_ls -1 do not match");
+}
+
+#[test]
 fn test_i() {
     let args = ["-i"]; // Long listing format argument
     let ls_output = run_command("ls", &args);
@@ -93,6 +132,14 @@ fn test_n() {
     let ls_output = run_command("ls", &args);
     let rust_ls_output = run_command("./target/debug/rust_ls", &args);
     assert_eq!(ls_output, rust_ls_output, "Outputs of ls -n and rust_ls -n do not match");
+}
+
+#[test]
+fn test_F() {
+    let args = ["-F"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -F and rust_ls -F do not match");
 }
 
 #[test]

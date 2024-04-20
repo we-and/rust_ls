@@ -2,12 +2,12 @@
 An implementation of the unix command ls using Rust.
 
 ## Roadmap
-| Command  | Coverage |
+| Command  | Coverage |  Test  |
 | ------------- | ------------- |
-| ls  | 100%  |
+| ls  | 100%  | Yes | 
 | ls path  | 100%  |
-| ls -a   | 100%  |
-| ls -A   | 100%  |
+| ls -a   | 100%  | Yes | 
+| ls -A   | 100%  | Yes | 
 | ls -R   | 100%  |
 | ls -l   | 100%  |
 | ls -h   | 80% (need to exclude if -H and and -L)  |
@@ -25,7 +25,7 @@ An implementation of the unix command ls using Rust.
 | ls -n   | TODO  |
 | ls -o   | TODO  |
 | ls -p   | TODO  |
-| ls -q   | TODO  |
+| ls -q   | 100%  |
 | ls -r   | TODO  |
 | ls -s   | 100%  |
 | ls -t   | TODO  |

@@ -38,6 +38,23 @@
             },
             "args": ["-m"],
             "cwd": "${workspaceFolder}"
+        },    {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug -x",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust_ls",
+                    "--package=rust_ls"
+                ],
+                "filter": {
+                    "name": "rust_ls",
+                    "kind": "bin"
+                }
+            },
+            "args": ["-x"],
+            "cwd": "${workspaceFolder}"
         }, {
             "type": "lldb",
             "request": "launch",

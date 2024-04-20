@@ -128,6 +128,8 @@ pub fn get_command_settings_from_matches(matches : &ArgMatches) -> CommandSettin
     let is_A = matches.is_present("A");
     let is_l = matches.is_present("l");
     let is_R = matches.is_present("R");
+    let is_L = matches.is_present("L");
+    let is_H = matches.is_present("H");
     let is_F = matches.is_present("F");
     let is_d = matches.is_present("d");
     let is_f = matches.is_present("f");
@@ -153,13 +155,17 @@ pub fn get_command_settings_from_matches(matches : &ArgMatches) -> CommandSettin
     //COMMAND_SETTINGS
     return  CommandSettings {
         is_A_all_excluding_current_parent: is_A,
-        is_l_long: is_l,
         is_C_multicolumn_sorted_down:is_C,
-        is_c_use_time_of_last_modification:is_c,
         is_R_recursive: is_R,
         is_S_sort_by_filesize: is_S,
-        is_d: is_d,
+        is_F_do_not_follow_symbolic_links: is_F,
+        is_H_evaluate_symlink_fileinfo_for_target:is_H,
+        is_L_evaluate_all_symlink_fileinfo_for_target:is_L,
+
+        is_l_long: is_l,
+        is_c_use_time_of_last_modification:is_c,
         is_s_show_system_blocks: is_s,
+        is_d: is_d,
         is_f_sort_by_system_order: is_f,
         is_n_numeric_gid_uid: is_n,
         is_k_set_blocksize: is_k,
@@ -175,6 +181,5 @@ pub fn get_command_settings_from_matches(matches : &ArgMatches) -> CommandSettin
         is_i_show_inode: is_i,
         is_g_hide_user: is_g,
         is_a_all_including_current_parent: is_a,
-        is_F_do_not_follow_symbolic_links: is_F,
     };
 }
