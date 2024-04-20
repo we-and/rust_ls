@@ -27,7 +27,7 @@ mod utils;
 use utils::{sanitize_filename,is_printable};
 
 mod check_type;
-use check_type::{is_executable,is_directory,is_fifo,is_symlink};
+use check_type::{is_entry_executable,is_entry_directory,is_entry_fifo,is_symlink};
 
 mod symlink;
 use symlink::{*};

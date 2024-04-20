@@ -38,6 +38,22 @@ fn test_f() {
 }
 
 #[test]
+fn test_lL() {
+    let args = ["-lL"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -lL and rust_ls -lL do not match");
+}
+
+#[test]
+fn test_lH() {
+    let args = ["-lH"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -lH and rust_ls -lH do not match");
+}
+
+#[test]
 fn test_C() {
     let args = ["-C"]; // Long listing format argument
     let ls_output = run_command("ls", &args);

@@ -1,3 +1,4 @@
+use std::fs::Metadata;
 use std::path::Path;
 use std::fs;
 use std::io;
@@ -12,6 +13,21 @@ pub fn get_target_size(path: &Path) -> io::Result<u64> {
     let metadata = fs::metadata(path)?; // Follows the symlink
     Ok(metadata.len())
 }
+
+
+pub fn get_symlink_target_name(path:&PathBuf) -> String{
+    //set target_name
+    match find_symlink_target(&path) {
+        Ok(Some(target)) => {
+            return target.display().to_string();
+        }
+        Ok(None) =>{"".to_string();}
+        Err(e) => {"".to_string();}
+    }
+    return "?".to_string();
+
+}
+
 pub 
 fn find_symlink_target(path: &Path) -> io::Result<Option<PathBuf>> {
     // Check if the path is a symlink
@@ -28,8 +44,7 @@ pub fn get_symlink_size(path: &Path) -> io::Result<u64> {
     let metadata = fs::symlink_metadata(path)?;
     Ok(metadata.len()) // `len()` returns the size of the symlink
 }
-pub fn get_entry_size(path: &Path, is_symlink:bool,follow_if_symlink:bool) -> io::Result<u64> {
-    let metadata = fs::symlink_metadata(path)?;
+pub fn get_entry_size(path: &Path,metadata: &Metadata) -> io::Result<u64> {
     Ok(metadata.len()) // `len()` returns the size of the symlink
 }
 pub fn get_symlink_blocks(path: &Path) -> io::Result<u64> {
