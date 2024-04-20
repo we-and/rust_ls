@@ -9,7 +9,7 @@ use crate::utils::{is_tty_output};
 
 pub fn display_entries(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     //LONG
-    if commandsettings.is_l_long || commandsettings.is_g_hide_user {
+    if commandsettings.is_l_long || commandsettings.is_g_hide_user || commandsettings.is_o_hide_group {
         display_entries_long(entries, commandsettings);
     } else {
         display_entries_normal(entries, commandsettings);
@@ -127,7 +127,7 @@ pub fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandS
                 row = format!("{} {:width2$}",row,e.user_name.as_ref().unwrap_or(&"".to_string()),      width2 = max_user_length);
             }
         }
-        if !commandsettings.is_g_hide_user {
+        if !commandsettings.is_g_hide_user && !commandsettings.is_o_hide_group {
         row = format!("{} ",row);
         }
         if commandsettings.is_o_hide_group {

@@ -60,6 +60,14 @@ fn test_g() {
 }
 
 #[test]
+fn test_o() {
+    let args = ["-o"]; // Long listing format argument
+    let ls_output = run_command("ls", &args);
+    let rust_ls_output = run_command("./target/debug/rust_ls", &args);
+    assert_eq!(ls_output, rust_ls_output, "Outputs of ls -o and rust_ls -o do not match");
+}
+
+#[test]
 fn test_Ci() {
     let args = ["-Ci"]; // Long listing format argument
     let ls_output = run_command("ls", &args);
