@@ -63,7 +63,7 @@ pub fn display_entries_normal(entries: &[DirEntryData], commandsettings: &Comman
 
 pub fn display_entries_long(entries: &[DirEntryData], commandsettings: &CommandSettings) {
     //print total if not d
-    if !commandsettings.is_d { 
+    if !commandsettings.is_d_treat_currentdir { 
         print_total_blocks(entries);
     }
 

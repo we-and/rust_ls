@@ -8,6 +8,10 @@ use std::os::unix::fs::PermissionsExt;
 use crate::permissions::{*};
 use std::path::PathBuf;
 
+pub fn get_target_size(path: &Path) -> io::Result<u64> {
+    let metadata = fs::metadata(path)?; // Follows the symlink
+    Ok(metadata.len())
+}
 pub 
 fn find_symlink_target(path: &Path) -> io::Result<Option<PathBuf>> {
     // Check if the path is a symlink
@@ -21,6 +25,10 @@ fn find_symlink_target(path: &Path) -> io::Result<Option<PathBuf>> {
     }
 }
 pub fn get_symlink_size(path: &Path) -> io::Result<u64> {
+    let metadata = fs::symlink_metadata(path)?;
+    Ok(metadata.len()) // `len()` returns the size of the symlink
+}
+pub fn get_entry_size(path: &Path, is_symlink:bool,follow_if_symlink:bool) -> io::Result<u64> {
     let metadata = fs::symlink_metadata(path)?;
     Ok(metadata.len()) // `len()` returns the size of the symlink
 }

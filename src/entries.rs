@@ -1,28 +1,27 @@
-use std::fs;
-use std::ffi::OsString;
-use std::fs::Metadata;
-use std::path::PathBuf;
 use chrono::{DateTime, Local};
-use std::path::Path;
+use std::ffi::OsString;
+use std::fs;
+use std::fs::Metadata;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
+use std::path::Path;
+use std::path::PathBuf;
 
-use users::{get_group_by_gid, get_user_by_uid};
+use crate::check_type::*;
 use crate::command_settings::CommandSettings;
 use crate::named_direntry_vec::NamedDirEntriesVec;
+use crate::permissions::*;
+use crate::symlink::*;
+use crate::utils::*;
 use crate::DirEntryData;
-use crate::utils::{*};
-use crate::symlink::{*};
-use crate::check_type::{*};
-use crate::permissions::{*};
 use std::time::SystemTime;
+use users::{get_group_by_gid, get_user_by_uid};
 
 use std::fs::DirEntry;
-pub 
-fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
+pub fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEntriesVec> {
     let mut direntries: Vec<NamedDirEntriesVec> = Vec::new();
 
-    if command_settings.is_d {
+    if command_settings.is_d_treat_currentdir {
         let mut entries: Vec<DirEntryData> = Vec::new();
 
         let current_dir_entry = gen_current_direntrydata(command_settings);
@@ -42,109 +41,119 @@ fn get_entries(path: &str, command_settings: &CommandSettings) -> Vec<NamedDirEn
     }
     return direntries;
 }
-        fn add_current_and_parent(
+
+fn add_current_and_parent(
     entries: &mut Vec<NamedDirEntriesVec>,
     command_settings: &CommandSettings,
 ) {
     let current_dir_entry = gen_current_direntrydata(command_settings);
     let parent_dir_entry = gen_parent_direntrydata(command_settings);
 
-    entries[0].entries.push(current_dir_entry);
-    entries[0].entries.push(parent_dir_entry);
+    entries[0].entries.insert(0, parent_dir_entry);
+    entries[0].entries.insert(0, current_dir_entry);
 }
 
-
-
-
-pub 
-fn get_direntrydata_by_path(path: String, command_settings: &CommandSettings) -> DirEntryData {
+pub fn get_direntrydata_by_path(path: String, command_settings: &CommandSettings) -> DirEntryData {
     let path = PathBuf::from(path);
-    let mut name = "".to_string();
-    if let Some(file_name) = path.file_name() {
-        if let Some(file_name_str) = file_name.to_str() {
-            name = file_name_str.to_string()
-        }
-    }
+    let mut name =get_name(&path, command_settings);
+
     let is_symlink = is_symlink(&path);
     let is_symlink2 = is_symlink2(&path);
-  
-   
-    let metadata = if command_settings.is_F_do_not_follow_symbolic_links {
+
+    ///GET METADATA
+    let metadata = 
+    if command_settings.is_F_show_filetype_do_not_follow_symbolic_links {
         fs::symlink_metadata(&path) // Do not follow symbolic links
-    } else {
-        if is_symlink{
+    } else if command_settings.is_L_evaluate_all_symlink_fileinfo_for_target{
+       //println!("ISL");
+       fs::symlink_metadata(&path)
+       // fs::metadata(&path) // Follow symbolic links
+    }else{
+        if is_symlink {
             fs::symlink_metadata(&path) // Do not follow symbolic links
-            
-        }else{
-        fs::metadata(&path) // Follow symbolic links
+        } else {
+            fs::metadata(&path) // Follow symbolic links
         }
     };
-    
-    if let Ok(metadata) = metadata {
-         return        getDataFromMetadata(path, command_settings, metadata);
-    } else {
-       
 
+    if let Ok(metadata) = metadata {
+        return gen_entrydata_from_metadata(path, command_settings, metadata);
+    } else {
+        return get_entrydata_fallback_after_failed_metadata(path,command_settings);
+    }
+}
+
+pub fn get_entrydata_fallback_after_failed_metadata( path: PathBuf,
+command_settings: &CommandSettings,
+) -> DirEntryData {
+    let mut name =get_name(&path, command_settings);
     let is_dir = is_directory(&path);
     let is_exe = is_executable(&path);
     let is_fifo = is_fifo(&path);
-  
 
-     //   println!("Could not read metadata for {}", path.display());
-        return DirEntryData {
-            permissions: None,
-            nlinks: None,
-            gid: None,
-            created_time: None,
-            symlink_target_name: None,
-            size_in_blocks: None,
-            inode: None,
-            user_name: None,
-            modified_time:None,
-            inode_and_name:None,
-            blocks_and_name:None,
-            group_name: None,
-            has_extended_attributes: None,
-            blocks: None,
-            file_type: None,
-            uid: None,
-            modified_time_str: None,
-            name: name,
-            path: path.display().to_string(),
-            is_dir: is_dir,
-            is_symlink: None,
-            size: 0,
-        };
-    }
+    //   println!("Could not read metadata for {}", path.display());
+    return DirEntryData {
+        permissions: None,
+        nlinks: None,
+        gid: None,
+        created_time: None,
+        symlink_target_name: None,
+        size_in_blocks: None,
+        inode: None,
+        user_name: None,
+        modified_time: None,
+        inode_and_name: None,
+        blocks_and_name: None,
+        group_name: None,
+        has_extended_attributes: None,
+        blocks: None,
+        file_type: None,
+        uid: None,
+        modified_time_str: None,
+        name: name,
+        path: path.display().to_string(),
+        is_dir: is_dir,
+        is_symlink: None,
+        size: 0,
+    };
 }
-pub fn getDataFromMetadata(path:PathBuf, command_settings: &CommandSettings,metadata:Metadata) ->DirEntryData{
+pub fn get_name( path: &PathBuf,
+    command_settings: &CommandSettings) -> String{
     let mut name = "".to_string();
     if let Some(file_name) = path.file_name() {
         if let Some(file_name_str) = file_name.to_str() {
             name = file_name_str.to_string()
         }
     }
-    if command_settings.is_q_force_nonprintable_as_questionmarks{
+    if command_settings.is_q_force_nonprintable_as_questionmarks {
         let os_string = OsString::from(name);
-        name=sanitize_filename(os_string);
+        name = sanitize_filename(os_string);
     }
-
+return name;
+}
+pub fn gen_entrydata_from_metadata(
+    path: PathBuf,
+    command_settings: &CommandSettings,
+    metadata: Metadata,
+) -> DirEntryData {
+    let mut name =get_name(&path, command_settings);
 
     let is_dir = is_directory(&path);
     let is_exe = is_executable(&path);
     let is_fifo = is_fifo(&path);
     let is_symlink = is_symlink(&path);
     let is_symlink2 = is_symlink2(&path);
-  
-    
 
     let mut symlink_target_name = "".to_string();
 
-   
     let mut size = 0;
     if is_symlink {
         size = get_symlink_size(&path).unwrap();
+        let msize = metadata.len();
+        let tsize=get_target_size(&path).unwrap();
+        println!("SYM {} SIZE {} {} {}",name,size,msize,tsize);
 
+        //set target_name
         match find_symlink_target(&path) {
             Ok(Some(target)) => {
                 symlink_target_name = target.display().to_string();
@@ -152,17 +161,19 @@ pub fn getDataFromMetadata(path:PathBuf, command_settings: &CommandSettings,meta
             Ok(None) => println!("Not a symlink"),
             Err(e) => println!("Error: {}", e),
         }
-    }
+    }else{
 
-    if !is_symlink {
+    
         size = metadata.len();
+    //    println!("SYM {} SIZE1 {}",name,size);
+
     }
     let modified_time = metadata.modified().unwrap();
     let modified_time = modified_time.duration_since(std::time::UNIX_EPOCH).unwrap();
 
-    if command_settings.is_F_do_not_follow_symbolic_links {
+    if command_settings.is_F_show_filetype_do_not_follow_symbolic_links {
         if is_symlink {
-        //    println!("SYM {}", is_symlink);
+            //    println!("SYM {}", is_symlink);
             name = format!("{}@", name)
         } else if is_dir {
             name = format!("{}/", name)
@@ -218,25 +229,24 @@ pub fn getDataFromMetadata(path:PathBuf, command_settings: &CommandSettings,meta
         blocks = get_symlink_blocks(&path).unwrap();
     }
 
-    let mut inode=metadata.ino();
-    if is_symlink{
-        inode=get_symlink_inode(&path).unwrap();            
+    let mut inode = metadata.ino();
+    if is_symlink {
+        inode = get_symlink_inode(&path).unwrap();
     }
-    let inode_and_name=format!("{:<8} {}", inode, name.clone().to_string());
-    let blocks_and_name=format!("{:<8} {}", blocks, name.clone().to_string());
+    let inode_and_name = format!("{:<8} {}", inode, name.clone().to_string());
+    let blocks_and_name = format!("{:<8} {}", blocks, name.clone().to_string());
 
-    if command_settings.is_p_add_slash{
-        if is_dir{
-            name=format!("{}/",name)
-            
+    if command_settings.is_p_add_slash {
+        if is_dir {
+            name = format!("{}/", name)
         }
     }
     return DirEntryData {
         file_type: Some(file_type.to_string()),
         name: name,
-        inode_and_name:Some(inode_and_name ),
-        blocks_and_name:Some(blocks_and_name ),
-        modified_time : Some(metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH)),
+        inode_and_name: Some(inode_and_name),
+        blocks_and_name: Some(blocks_and_name),
+        modified_time: Some(metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH)),
         created_time: Some(metadata.created().unwrap_or(SystemTime::UNIX_EPOCH)),
         has_extended_attributes: Some(has_extended_attributes),
         uid: Some(uid),
@@ -256,18 +266,14 @@ pub fn getDataFromMetadata(path:PathBuf, command_settings: &CommandSettings,meta
         size: size,
     };
 }
-pub 
-fn add_entries(
+pub fn add_entries(
     entries_vec: &mut Vec<NamedDirEntriesVec>,
     path: &str,
     command_settings: &CommandSettings,
 ) {
     let mut direntries_data_vec: Vec<DirEntryData> = Vec::new();
-           
 
     if let Ok(entries) = fs::read_dir(path) {
-
-    
         let collected: Vec<_> = entries.filter_map(Result::ok).collect();
         for entry in collected {
             if should_display(&entry, command_settings) {
@@ -297,11 +303,9 @@ fn add_entries(
 
         entries_vec.push(d);
     } else {
-     //   eprintln!("Failed to read directory: {}", path);
+        //   eprintln!("Failed to read directory: {}", path);
     }
 }
-
-
 
 fn gen_current_direntrydata(command_settings: &CommandSettings) -> DirEntryData {
     let mut d = get_direntrydata_by_path(".".to_string(), &command_settings);
