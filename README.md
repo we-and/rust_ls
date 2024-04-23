@@ -1,4 +1,5 @@
 # rust_ls 
+This implementation of ls inherits all the arguments from the unix doc, implements and tests most of them. Output is compared to unix ls, and reveals identical in most cases or very close to a small spacing. More testing is necessary in terms of platforms and test folders.
 
 
 ## Roadmap
